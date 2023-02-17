@@ -1,0 +1,3 @@
+// Get URL Parameters
+    const urlParameters = new URLSearchParams(window.location.search);
+    const user_id = urlParameters.get('user_id');

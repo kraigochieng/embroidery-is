@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="index.css"></link>
+        <title>Home Page</title>
+    </head>
+    <body>
+        <article id="tabs">
+            <p id="in-progress-job-tab">In Progress</p>
+            <p id="done-job-tab">Done</p>
+        </article>
+        <input type="text" class="job-search" id="in-progress-job-search" placeholder="In Progress Job Number">
+        <input type="text" class="hidden job-search" id="done-job-search" placeholder="Done Job Number">
+        <article id="jobs-container">
+            <article id="in-progress-jobs-container"></article>
+            <article id="done-jobs-container" class="hidden"></article>
+        </article>
+        <script src="index.js"></script>
+    </body>
+</html>
