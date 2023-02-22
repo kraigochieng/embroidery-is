@@ -1,0 +1,85 @@
+// DOM elements
+const possible_formats_container = document.querySelector('#possible-formats-container');
+const name_container = document.querySelector("#name-container");
+let format_count = 0;
+fetch('format.php')
+    .then(response=>response.json())
+    .then(formats => {
+        // Fill in possible formats container
+        for(let i = 0; i < formats.length; i++) {
+            possible_formats_container.innerHTML += `<p id=${formats[i].id} class="possible-formats">${formats[i].name}</p>`;
+        }
+
+        // Take list of possible formats
+        const possible_formats = document.querySelectorAll('.possible-formats');
+        // Add event listener to list of possible formats
+        for(let i = 0; i < possible_formats.length; i++) {
+            possible_formats[i].addEventListener('click', addSelectedFormat);
+        }        
+
+        function addSelectedFormat() {
+            const selected_formats_list = document.querySelector('#selected-formats-list');
+            selected_formats_list.innerHTML += `<section id=${this.id} class="selected-format-list-element">
+                                                    <p>${this.textContent}</p>
+                                                    <button type="button" class="delete-format-button">X</button>
+                                                </section>`;
+            console.log(selected_formats_list);                                   
+            
+            // Delete button functionality
+            const delete_format_buttons = document.querySelectorAll('.delete-format-button');
+            for(let i = 0; i < delete_format_buttons.length; i++) {
+                delete_format_buttons[i].addEventListener('click', deleteFormat);
+
+                function deleteFormat() {
+                    delete_format_buttons[i].parentNode.remove();
+                    name_container.innerHTML = "";
+                }
+            }
+
+            
+            
+            name_container.innerHTML = ""; // Clear
+            for(let i = 0; i < selected_formats_list.childElementCount; i++) {
+                name_container.innerHTML +=  `<section>
+                                                <input type="text" placeholder="Enter Letters">
+                                            </section>`;
+
+                console.log(name_container);
+            }
+        }
+    })
+
+
+
+    // const name_container = document.querySelector("#name-container");
+
+    // for(let i = 0; i < selected_formats_list.length; i++) {
+    //     name_container.innerHTML +=  `<section>
+    //                                     <input type="text" placeholder="Enter Letters">
+    //                                 </section>`;
+
+    //     console.log(name_container);
+    // }
+
+
+
+// selected_formats_container.innerHTML += `<section>
+// <p id=${this.id} class="format-name">${this.textContent}</p>
+// <input type="text" class="selected-format-list-letters" placeholder="Enter Letters">
+// <p class='letters'></p>
+// <section id="instructions-container">
+// </section>
+// <section>`;
+// const selected_format_list_letters = document.querySelectorAll('.selected-format-list-letters');
+
+// for(let i = 0; i < selected_format_list_letters.length; i++) {
+//     selected_format_list_letters[i].addEventListener('input', transferLetters);
+// }
+
+// const letters = document.querySelectorAll('.letters');
+    
+// function transferLetters() {
+//     for(let i = 0; i < selected_format_list_letters.length; i++) {
+//         letters[i].textContent = selected_format_list_letters[i].value;
+//     }
+// }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Job</title>
+</head>
+<body>
+    <form>
+        <section id="job-number-section">
+            <p>Enter Job Number</p>
+            <input type="text" name="job-number" id="job-number" placeholder="Enter Job Number">
+            <button type="button">Go To Format</button>
+        </section>
+        <hr>
+        <section id="format-and-name-section">
+            <p>Choose Format(s)</p>
+                <section id="possible-formats-container"></section>
+            <br>
+            <p>Formats Selected</p>
+                <section id="selected-formats-container"></section>
+                <button id="go-to-instructions" type="button">Go To Instructions</button>
+        </section>
+        <hr>
+        <section id="instructions-container"></section>
+    </form>
+    <script src="job.js"></script>
+</body>
+</html>

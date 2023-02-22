@@ -69,7 +69,7 @@ if(isLoggedIn === null) {
         })
         .then(response => response.json())
         .then(in_progress_jobs => {
-            for(let i = 0; i <= in_progress_jobs.length; i++) {
+            for(let i = 0; i < in_progress_jobs.length; i++) {
                 in_progress_jobs_container.innerHTML += inProgressJobComponent(
                     in_progress_jobs[i].id,
                     in_progress_jobs[i].job_number,
@@ -94,7 +94,7 @@ if(isLoggedIn === null) {
         })
         .then(response => response.json())
         .then(done_jobs => {
-            for(let i = 0; i <= done_jobs.length; i++) {
+            for(let i = 0; i < done_jobs.length; i++) {
                 done_jobs_container.innerHTML += doneJobComponent(
                     done_jobs[i].id,
                     done_jobs[i].job_number,
@@ -111,7 +111,7 @@ if(isLoggedIn === null) {
     fetch('in_progress_jobs.php')
         .then(response => response.json())
         .then(in_progress_jobs => {
-            for(let i = 0; i <= in_progress_jobs.length; i++) {
+            for(let i = 0; i < in_progress_jobs.length; i++) {
                 in_progress_jobs_container.innerHTML += inProgressJobComponent(
                     in_progress_jobs[i].id,
                     in_progress_jobs[i].job_number,
@@ -126,7 +126,7 @@ if(isLoggedIn === null) {
         fetch('done_jobs.php')
         .then(response => response.json())
         .then(done_jobs => {
-            for(let i = 0; i <= done_jobs.length; i++) {
+            for(let i = 0; i < done_jobs.length; i++) {
                 done_jobs_container.innerHTML += doneJobComponent(
                     done_jobs[i].id,
                     done_jobs[i].job_number,
