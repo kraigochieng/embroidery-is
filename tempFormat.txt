@@ -1,0 +1,34 @@
+            // Select DOM
+            let format_id = format_and_name_choice[i].childNodes[0].value;
+            let letters = format_and_name_choice[i].childNodes[1].value;
+ 
+            // // Add to Temp
+            // addTempObj();
+            // Set Object
+
+            // function addTempObj() {
+//     // Select DOM
+//     let format_and_name_choice = document.querySelectorAll('.format-and-name-choice');
+//     // Loop
+//     for(let i = 0; i < format_and_name_choice.length; i++) {
+//         // Get DOM
+//         let format = format_and_name_choice[i].childNodes[0];
+//         let letters = format_and_name_choice[i].childNodes[1];
+//         if(format_and_name_choice[i].classList.contains('selected')) {
+//             // Add Events
+//             format.addEventListener('input', function handler(){
+//                 temporary.format_id = format.value;
+//                 console.log(temporary);
+//             })
+
+//             letters.addEventListener('input', function handler(){
+//                 temporary.letters = letters.value;
+//                 console.log(temporary);
+//             })
+//         } else {
+//              // Remove Events
+//             format.removeEventListener('input', handler);
+//             letters.removeEventListener('input', handler);
+//         }
+//     }
+// }

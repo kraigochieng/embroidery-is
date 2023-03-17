@@ -1,0 +1,45 @@
+function individualInstructionValidation(){
+    let item_select = document.querySelector('#item-select');
+    let position_section = document.querySelector('#position-section');
+    let colour_select = document.querySelector('#colour-select');
+    let quantity = document.querySelector('#instruction-quantity');
+    let add_instruction = document.querySelector('#add-instruction');
+    let add_job = document.querySelector('#add-job')
+    if(item_select.value === '' || colour_select.value === '' || quantity.value === '' || position_section.childNodes.length === 0) {
+        add_instruction.setAttribute('disabled', '');
+        add_job.setAttribute('disabled', '');
+    } else {
+        add_instruction.removeAttribute('disabled');
+    }
+}
+
+async function instructionValidation() {
+    let item_select = document.querySelector('#item-select');
+    let colour_select = document.querySelector('#colour-select');
+    let quantity = document.querySelector('#instruction-quantity');
+
+    item_select.addEventListener('change', function(){
+        individualInstructionValidation();
+    })
+
+    colour_select.addEventListener('change', function(){
+        individualInstructionValidation();
+    })
+
+    quantity.addEventListener('input', function(){
+        individualInstructionValidation();
+    })
+}
+
+// async function jobNumberValidation() {
+//     let job_number = document.querySelector('#job-number');
+//     let add_job = document.querySelector('#add-job');
+
+//     job_number.addEventListener('input', function(){
+//         if(job_number.value === '') {
+//             add_job.setAttribute()
+//         } else {
+
+//         }
+//     })
+// }

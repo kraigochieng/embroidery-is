@@ -1,0 +1,38 @@
+async function fetchPositions() {
+    let position_section = document.querySelector('#position-section');
+
+    let item_select = document.querySelector('#item-select');
+
+    item_select.addEventListener('click', function(){
+        
+        // this.options[this.selectedIndex].textContent;
+    })
+
+    // for(let i = 0; i < item_options.length; i++) {
+    //     item_options[i].addEventListener('click', async function(){
+    //         position_section.innerHTML = "";
+
+    //         const positionData = new FormData();
+                   
+    //         positionData.append('item_id', items_radio[i].value);
+
+    //         const positions_response = await fetch('position.php', {
+    //             method: 'POST',
+    //             body: positionData,
+    //         });
+
+    //         const positions = await positions_response.json();
+                   
+    //         for(let i = 0; i < positions.length; i++) {
+    //             let position = instructionTypeComponent('position', positions[i].id, positions[i].name);
+    //             position_section.appendChild(position.input);
+    //             position_section.appendChild(position.label);
+                
+    //             position.input.addEventListener('click', function(){
+    //                 instruction.position.id = this.id;
+    //                 instruction.position.name = this.value;
+    //             })
+    //         }
+    //     })
+    // }
+}

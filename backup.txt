@@ -1,0 +1,84 @@
+// function selectFormats() {
+//     let selected_formats_container = document.querySelector('#selected-formats-container');
+//     let possible_formats = document.querySelectorAll('.possible-format');
+//     for(let i = 0; i < possible_formats.length; i++) {
+//         possible_formats[i].addEventListener('click', function() {
+//             // Create Selected Format Container
+//             let selected_format_container = document.createElement('section');
+//             selected_format_container.setAttribute('id', this.id);
+//             selected_format_container.setAttribute('class', 'selected-format-container')
+            
+//             // Create Selected Format Name
+//             let selected_format_name = document.createElement('p');
+//             selected_format_name.setAttribute('class', 'selected-format-name');
+//             selected_format_name.textContent = this.textContent;
+            
+//             // Create Letters
+//             let letters = document.createElement('input');
+//             letters.setAttribute('class', 'letters')
+//             letters.setAttribute('type', 'text');
+//             letters.setAttribute('placeholder', 'Enter Name');
+            
+//             //Create Delete button
+//             let delete_format_button = document.createElement('button');
+//             delete_format_button.setAttribute('id', this.id);
+//             delete_format_button.setAttribute('class', 'delete-format-button');
+//             delete_format_button.setAttribute('type', 'button')
+//             delete_format_button.textContent = 'X';
+//             delete_format_button.addEventListener('click', function(){
+//                 this.parentNode.remove();
+//             })
+//             // Append to Selected Format Container
+//             selected_format_container.appendChild(selected_format_name);
+//             selected_format_container.appendChild(letters);
+//             selected_format_container.appendChild(delete_format_button);
+//             //Append whole section to container
+//             selected_formats_container.appendChild(selected_format_container);
+            
+//         });
+//     }
+// }
+
+// function formatComponent() {
+//     let possible_format = document.createElement('select');
+//     possible_format.setAttribute('class', 'possible-format-select');
+
+//     let blank_option = blankOption('Choose A Format');
+
+//     possible_format.appendChild(blank_option);
+
+//     possible_format.setAttribute('name', 'format');
+//     for(let i = 0; i < formats.length; i++) {
+//         let option = document.createElement('option');
+//         option.setAttribute('class', 'possible-format-option');
+//         option.setAttribute('value', formats[i].id);
+//         option.textContent = formats[i].name;
+//         possible_format.appendChild(option);
+//     }
+
+//     return possible_format;
+
+// }
+
+// function formatAndLettersComponent() {
+//     let format_and_name_choices = document.querySelector('#format-and-name-choices');
+//     let section = document.createElement('section');
+//     let format = formatComponent();
+//     let letters =  lettersComponent();
+//     let button = deleteFormatButton();
+
+//     section.setAttribute('class', 'format-and-name-choice');
+    
+//     button.addEventListener('click', function(){
+//         this.parentNode.remove();
+//         if(format_and_name_choices.childElementCount === 0) {
+//             format_and_name_choices.setAttribute('class', 'empty-format-container');
+//         }
+//     })
+
+//     section.appendChild(format);
+//     section.appendChild(letters);
+//     section.appendChild(button);
+
+//     return section;
+// }

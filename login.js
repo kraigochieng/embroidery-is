@@ -1,9 +1,9 @@
 // Getting DOM elemets
-const username= document.querySelector('#username');
+const username = document.querySelector('#username');
 const usernameValidation = document.querySelector('#username-validation')
 const password = document.querySelector('#password');
 const passwordValidation = document.querySelector('#password-validation')
-const loginButton = document.querySelector('#submit');
+const loginButton = document.querySelector('#login-submit');
 
 // Button event listener
 loginButton.addEventListener('click', submitLoginForm);
@@ -41,6 +41,8 @@ function submitLoginForm() {
         if(validateUsername(user) === false) {
             usernameValidation.textContent = "Username does not exist";
             passwordValidation.textContent = "";
+            username.style.borderColor = "firebrick";
+            password.style.borderColor = "black";
         } else {
             // user[0] is used since user is an array of objects
             if(comparePassword(password.value, user[0].password)) {
@@ -51,6 +53,8 @@ function submitLoginForm() {
             } else {
                 usernameValidation.textContent = "";
                 passwordValidation.textContent = "Invalid Password";
+                username.style.borderColor = "black";
+                password.style.borderColor = "firebrick";
             }
         }
     })

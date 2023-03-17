@@ -1,0 +1,44 @@
+#login-form {
+    width: 200px;
+    margin-top: 20px;
+}
+
+.validation {
+    color: firebrick;
+    text-align: center;
+}
+
+.login-input {
+    border-style: none none solid none;
+    border-width: 1px;
+    padding: var(--common-px) var(--common-px) var(--common-px) 0px;
+}
+
+/* When input is in focus and mouse has hovered */ 
+.login-input:focus, .login-input:focus:hover {
+    outline: none;
+    border-color: royalblue;
+}
+
+.login-input:hover {
+    border-color: lightblue;
+}
+
+#login-submit {
+    width: 75px;
+    padding: var(--common-px);
+}
+
+#login-form, .login-input, #login-submit {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#login-submit, .login-input {
+    margin-top: var(--common-px);
+    margin-bottom: var(--common-px);
+}
+
+.login-input::-webkit-input-placeholder {
+    font-size: 16px;
+}

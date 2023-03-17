@@ -1,15 +1,56 @@
+:root {
+    --common-px: 10px;
+}
+
 * {
+    font-family: 'Golos Text', serif;
     box-sizing: border-box;
-    margin: 0;
     padding: 0;
+    margin: 0;
+    /* outline: solid 1px blue; */
 }
 
+@font-face {
+    font-family: 'Golos Text';
+    src: url('fonts/Golos_Text/GolosText-VariableFont_wght.ttf') format('truetype');
+}
 
-.hidden {
+.text-radio {
     display: none;
 }
-/* .jobs-radio {
-    display: none;
-} */
+.text-radio:checked + label {
+    color: red;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+#tabs {
+    display: flex;
+    align-items: center;
+}
+.tab, .job-search, #new-job-button {
+    padding: var(--common-px);
+}
 
+.in-progress-job, .done-progress-job {
+    border: solid 1px black;
+    border-radius: 0px var(--common-px) var(--common-px) var(--common-px);
+    padding: var(--common-px)
+}
+
+body {
+    width: 90%;
+    min-width: 320px;
+}
+
+body {
+    margin-left: auto;
+    margin-right: auto;
+}
+.in-progress-job, .done-progress-job, .job-search {
+    margin-top: var(--common-px);
+    margin-bottom: var(--common-px);
+}

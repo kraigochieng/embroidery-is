@@ -4,27 +4,44 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="index.css" rel="stylesheet">
+    <link href="styles/job.css" rel="stylesheet">
     <title>New Job</title>
 </head>
 <body>
+    <a href="index.html">Back To Home</a>
     <form>
         <section id="job-number-section">
-            <p>Enter Job Number</p>
+            <h1>Enter Job Number</h1>
             <input type="text" name="job-number" id="job-number" placeholder="Enter Job Number">
-            <button type="button">Go To Format</button>
+            <p id="job-number-validation" class="validation"></p>
         </section>
         <hr>
         <section id="format-and-name-section">
-            <p>Choose Format(s)</p>
-                <section id="possible-formats-container"></section>
-            <br>
-            <p>Formats Selected</p>
-                <section id="selected-formats-container"></section>
-                <button id="go-to-instructions" type="button">Go To Instructions</button>
+            <h1>Format And Name</h1>
+            <button type="button" id="add-format-and-name" >+ Add</button>
+            <section id="format-and-name-choices" class="empty-format-container"></section>
+            <p id="format-and-name-choice-validation" class="validation"></p>
         </section>
         <hr>
-        <section id="instructions-container"></section>
+        <h1>Instructions</h1>
+        <section id="instructions-section">
+            <!-- <h3>Item</h3> -->
+            <section id="item-section"></section>
+            <p id="item-validation" class="validation"></p>
+            <h3>Position</h3>
+            <section id="position-section" class="empty-position-container"></section>
+            <!-- <h3>Colour</h3> -->
+            <section id="colour-section"></section>
+            <p id="colour-validation" class="validation"></p>
+            <!-- <h3>Quantity</h3> -->
+            <input type="text" placeholder="Enter Quantity" id="instruction-quantity">
+            <p id="quantity-validation" class="validation"></p>
+            <button type="button" id="add-instruction">+ Add Instruction</button>
+            <section id="selected-instructions-container"></section>
+        </section>
+        <button type="button" id="add-job" >+ Add Job</button>
     </form>
-    <script src="job.js"></script>
+    <script type="module" src="job.js"></script>
 </body>
 </html>

@@ -1,0 +1,7 @@
+// let format = format_and_name_choice[i].childNodes[0];
+// let letters = format_and_name_choice[i].childNodes[1];
+
+// temporary.format_id = format.value;
+// temporary.letters = letters.value;
+
+// console.log(temporary);

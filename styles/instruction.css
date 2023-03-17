@@ -1,0 +1,4 @@
+.instruction-item-section, .instruction-colour-section, .instruction-position-section {
+    display: grid;
+    grid-template-columns: repeat(8, 100px);
+}

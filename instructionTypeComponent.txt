@@ -1,0 +1,19 @@
+function instructionTypeComponent(type, id, name) {
+    let instruction = {
+        input: document.createElement('input'),
+        label: document.createElement('label'),
+    }
+    // Set Attributes
+    instruction.input.setAttribute('type', 'radio');
+    instruction.input.setAttribute('id', `${type}-${id}`);
+    instruction.input.setAttribute('class', `${type}-radio`);
+    instruction.input.setAttribute('name', `${type}-radio`);
+    instruction.input.setAttribute('value', id);
+
+    instruction.label.setAttribute('id', id);
+    instruction.label.setAttribute('for', `${type}-${id}`)
+    instruction.label.setAttribute('class', `${type}-label`);
+    instruction.label.textContent = name;
+
+    return instruction;
+}
