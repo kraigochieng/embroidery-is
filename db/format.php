@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include('./conn.php');
 
 $read_formats = $db->prepare('SELECT * FROM format');
 $read_formats->execute([]);

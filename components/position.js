@@ -1,5 +1,5 @@
-import { positionRadioComponent } from "./positionRadioComponent.js";
-import { positionLabelComponent } from "./positionLabelComponent.js";
+import { positionRadioComponent } from "./positionRadio.js";
+import { positionLabelComponent } from "./positionLabel.js";
 
 export function positionComponent(id, item_name, name) {
     let position = {

@@ -1,4 +1,4 @@
-import { positionImageComponent } from "./positionImageComponent.js";
+import { positionImageComponent } from "./positionImage.js";
 
 export function positionLabelComponent(id, item_name, name) {
     let label =  document.createElement('label');
@@ -7,7 +7,7 @@ export function positionLabelComponent(id, item_name, name) {
     label.setAttribute('for', id);
     label.setAttribute('class', `position-label`);
     // label.textContent = name;
-    label.appendChild(positionImageComponent('images', item_name, name, 'png'));
+    label.appendChild(positionImageComponent('../images', item_name, name, 'png'));
     return label;
 }
 

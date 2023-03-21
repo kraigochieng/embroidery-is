@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="index.css" rel="stylesheet">
-    <link href="styles/job.css" rel="stylesheet">
+    <link href="../styles/index.css" rel="stylesheet">
+    <link href="../styles/job.css" rel="stylesheet">
     <title>New Job</title>
 </head>
 <body>
-    <a href="index.html">Back To Home</a>
+    <a href="../index.html">Back To Home</a>
     <form>
         <section id="job-number-section">
             <h1>Enter Job Number</h1>
@@ -26,22 +26,21 @@
         <hr>
         <h1>Instructions</h1>
         <section id="instructions-section">
-            <!-- <h3>Item</h3> -->
             <section id="item-section"></section>
-            <p id="item-validation" class="validation"></p>
+                <p id="item-validation" class="validation"></p>
             <h3>Position</h3>
             <section id="position-section" class="empty-position-container"></section>
-            <!-- <h3>Colour</h3> -->
+                <p id="position-validation" class="validation"></p>
             <section id="colour-section"></section>
-            <p id="colour-validation" class="validation"></p>
-            <!-- <h3>Quantity</h3> -->
+                <p id="colour-validation" class="validation"></p>
             <input type="text" placeholder="Enter Quantity" id="instruction-quantity">
-            <p id="quantity-validation" class="validation"></p>
+                <p id="quantity-validation" class="validation"></p>
             <button type="button" id="add-instruction">+ Add Instruction</button>
             <section id="selected-instructions-container"></section>
+            <p id="selected-instructions-container-validation" class="validation"></p>
         </section>
         <button type="button" id="add-job" >+ Add Job</button>
     </form>
-    <script type="module" src="job.js"></script>
+    <script type="module" src="../scripts/job.js"></script>
 </body>
 </html>

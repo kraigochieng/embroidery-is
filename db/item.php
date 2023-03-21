@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include('./conn.php');
 
 $read_items = $db->prepare('SELECT * FROM item ORDER BY name ASC');
 $read_items->execute([]);

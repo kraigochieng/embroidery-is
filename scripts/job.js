@@ -20,62 +20,21 @@ let instruction = {
 }
 
 // Components
-import { positionComponent } from "./components/positionComponent.js";
-import { colourComponent } from "./components/colourComponent.js";
-import { instructionTableComponent } from "./components/instructionTableComponent.js";
-import { instructionDescription } from "./components/instructionDescriptionComponent.js";
-import { deleteInstructionButton } from "./components/deleteInstruction.js";
-import { formatAndLettersComponent } from "./components/formatAndLettersComponent.js";
-import { itemComponent } from "./components/itemComponent.js";
+import { positionComponent } from "../components/position.js";
+import { colourComponent } from "../components/colour.js";
 
-function instructionRowComponent(item, position, colour, quantity) {
-    let instruction_row = {
-        row: document.createElement('tr'),
-        item: document.createElement('td'),
-        position: document.createElement('td'),
-        colour: document.createElement('td'),
-        quantity: document.createElement('td'),
-        description: document.createElement('td'),
-        delete: document.createElement('td'),
-    }
+import { formatAndLettersComponent } from "../components/formatAndLetters.js";
+import { itemComponent } from "../components/item.js";
+import { instructionRowComponent } from "../components/instructionRowComponent.js";
+import { instructionTableComponent } from "../components/instructionTable.js";
+import { instructionTableValidationComponent } from "../components/instructionTableValidation.js";
 
-    // Set Attributes
-    instruction_row.item.setAttribute('id', item.id);
-    instruction_row.position.setAttribute('id', position.id);
-    instruction_row.colour.setAttribute('id', colour.id);
-
-    instruction_row.row.setAttribute('class', 'instruction-row');
-    instruction_row.item.setAttribute('class', 'instruction-item');
-    instruction_row.position.setAttribute('class', 'instruction-position');
-    instruction_row.colour.setAttribute('class', 'instruction-colour');
-    instruction_row.quantity.setAttribute('class', 'instruction-quantity');
-
-    // Add text
-    instruction_row.item.textContent = item.name;
-    instruction_row.position.textContent = position.name;
-    instruction_row.colour.textContent = colour.name;
-    instruction_row.quantity.textContent = quantity;
-    instruction_row.description.appendChild(instructionDescription());
-    instruction_row.delete.appendChild(deleteInstructionButton());
-
-    // Add Events
-    instruction_row.delete.addEventListener('click', function(){
-        this.parentNode.remove();
-        let instruction_table_body = document.querySelectorAll('.instruction-table-body');
-        if(instruction_table_body[instruction.index].childNodes.length === 0) {
-            instruction_table_body[instruction.index].setAttribute('class','instruction-table-body empty-table');
-        }
-    })
-    // Add items
-    instruction_row.row.appendChild(instruction_row.item);
-    instruction_row.row.appendChild(instruction_row.position);
-    instruction_row.row.appendChild(instruction_row.colour);
-    instruction_row.row.appendChild(instruction_row.quantity);
-    instruction_row.row.appendChild(instruction_row.description);
-    instruction_row.row.appendChild(instruction_row.delete);
-
-    return instruction_row;
-}
+// Functions
+import { isInputBlank } from "../functions/isInputBlank.js";
+import { isContainerBlank } from "../functions/isContainerBlank.js";
+import { containsNotNumbers } from "../functions/containsNotNumbers.js";
+import { areInputsBlank } from "../functions/areInputsBlank.js";
+import { areContainersBlank } from "../functions/areContainersBlank.js";
 
 function jobNumberValidation(element, validation) {
     let regex = /[^0-9]/;
@@ -88,6 +47,7 @@ function jobNumberValidation(element, validation) {
         validation.textContent = '';
     }
 }
+
 async function jobNumberInputValidation() {
     let job_number = document.querySelector('#job-number');
     let job_number_validation = document.querySelector('#job-number-validation')
@@ -100,11 +60,13 @@ async function jobNumberInputValidation() {
 async function addFormatAndName() {
     let format_and_name_choices = document.querySelector('#format-and-name-choices');
     let add_format_and_name = document.querySelector('#add-format-and-name');
-
+    let format_and_name_choice_validation = document.querySelector('#format-and-name-choice-validation')
+    let selected_instructions_container_validation = document.querySelector('#selected-instructions-container-validation');
     add_format_and_name.addEventListener('click', function(){
         format_and_name_choices.removeAttribute('class');
         let format_and_name = formatAndLettersComponent();
-
+        format_and_name_choice_validation.textContent = '';
+        selected_instructions_container_validation.textContent = '';
         // Add to DOM
         format_and_name_choices.appendChild(format_and_name);
         
@@ -122,20 +84,23 @@ async function addFormatAndName() {
     function addSelectedInstructionContainer() {
         // Select DOM
         let selected_instructions_container = document.querySelector('#selected-instructions-container');
+        let instruction_table_validation = instructionTableValidationComponent();
         // Create Component
         let instruction_table = instructionTableComponent();
         // Append DOM
         selected_instructions_container.appendChild(instruction_table);
+        selected_instructions_container.appendChild(instruction_table_validation);
     }
 
     function removeSelectedInstructionContainer() {
         let delete_format_buttons = document.querySelectorAll('.delete-format-button')
 
         let instruction_tables = document.querySelectorAll('.instruction-table');
-
+        let instruction_table_validation = document.querySelectorAll('.instruction-table-validation');
         for(let i = 0; i < delete_format_buttons.length; i++) {
             delete_format_buttons[i].addEventListener('click', function(){
                 instruction_tables[i].remove();
+                instruction_table_validation[i].remove();
             })
         }
     }
@@ -217,7 +182,7 @@ async function fetchPositions() {
         const positionData = new FormData();
         positionData.append('item_id', item_id);
         // Get Data
-        fetch('position.php', {
+        fetch('../db/position.php', {
         method: 'POST',
         body: positionData,
         })
@@ -226,11 +191,14 @@ async function fetchPositions() {
                 for(let i = 0; i < positions.length; i++) {
                     // Create Element
                     let position = positionComponent(positions[i].id, item_name, positions[i].name);
+
                     position.label.addEventListener('click', function(){
                         // console.log(position.label);
                         // Clear Validation
                         let item_validation = document.querySelector('#item-validation');
+                        let position_validation = document.querySelector('#position-validation');
                         item_validation.textContent = '';
+                        position_validation.textContent = '';
                         // Add To Object
                         instruction.position.id = this.id;
                         instruction.position.name = this.textContent;
@@ -267,6 +235,9 @@ async function addColourToInstruction() {
     })
 }
 
+async function positionValidation() {
+
+}
 async function quantityValidation() {
     let quantity = document.querySelector('#instruction-quantity') 
     let quantity_validation = document.querySelector('#quantity-validation');
@@ -288,20 +259,35 @@ async function quantityValidation() {
 async function addInstruction() {
     // Selet DOM
     let add_instruction = document.querySelector('#add-instruction');
-
     add_instruction.addEventListener('click', function(){
-        // Select DOM
+        //Do Validation
         instructionValidation();
-        let instruction_table_body = document.querySelectorAll('.instruction-table-body');
-        // Create Element
-        let instruction_row = instructionRowComponent(instruction.item, instruction.position, instruction.colour, instruction.quantity);
-        // Clear
-        instruction_table_body[instruction.index].setAttribute('class', 'instruction-table-body');
-        // Append to table
-        instruction_table_body[instruction.index].appendChild(instruction_row.row);
-        // Reset All Fields
+        // Select DOM
+        let item_validation = document.querySelector('#item-validation');
+        let position_validation = document.querySelector('#position-validation');
+        let colour_validation = document.querySelector('#colour-validation');
+        let quantity_validation = document.querySelector('#quantity-validation');
+        if(
+            item_validation.textContent === '' &&
+            position_validation.textContent === '' &&
+            colour_validation.textContent === '' &&
+            quantity_validation.textContent === ''
+        ) {
+            // Clear Validation
+            let instruction_table_body = document.querySelectorAll('.instruction-table-body');
+            let instruction_table_validation = document.querySelectorAll('.instruction-table-validation');
+            instruction_table_validation[instruction.index].textContent = '';
+            // Create Element
+            let instruction_row = instructionRowComponent(instruction.index, instruction.item, instruction.position, instruction.colour, instruction.quantity);
+            // Clear
+            instruction_table_body[instruction.index].setAttribute('class', 'instruction-table-body');
+            // Append to table
+            instruction_table_body[instruction.index].appendChild(instruction_row.row);
+            // Reset All Fields
+            resetInstructionFields();
+        }
         
-        resetInstructionFields();
+        
     })
 }
 
@@ -313,11 +299,13 @@ function instructionValidation() {
     let item_validation = document.querySelector('#item-validation');
 
     let position_section = document.querySelector('#position-section');
+    let position_validation = document.querySelector('#position-validation');
     let colour_select = document.querySelector('#colour-select');
     let colour_validation = document.querySelector('#colour-validation');
 
     let quantity = document.querySelector('#instruction-quantity');
     let quantity_validation = document.querySelector('#quantity-validation');
+    
     if(format_and_name_choice.length === 0) {
         format_and_name_choice_validation.textContent = '* Empty';
     }
@@ -334,6 +322,10 @@ function instructionValidation() {
         quantity_validation.textContent = '* Empty';
     }
 
+    if(instruction.position.id === '') {
+        position_validation.textContent = '* Empty';
+    }
+
 }
 
 function resetInstructionFields() {
@@ -342,64 +334,148 @@ function resetInstructionFields() {
     let colour_select = document.querySelector('#colour-select');
     let quantity = document.querySelector('#instruction-quantity');
 
+    // Clear Elements
     item_select.value = "";
     position_section.setAttribute('class', 'empty-position-container');
     position_section.innerHTML = "";
     colour_select.value = "";
     quantity.value = "";
+
+    // Clear Object
+    instruction.item.id = '';
+    instruction.item.name = '';
+    instruction.colour.id = '';
+    instruction.colour.name = '';
+    instruction.position.id = '';
+    instruction.position.name = '';
+    instruction.quantity = '';
+
+}
+
+// Validation
+function addToJobObject() {
+    let job_number = document.querySelector('#job-number');
+
+    let job = {
+        number: '',
+        // Format, Name and its Instructions
+        instruction_batch: [],
+    };
+    // Add Job Number
+    job.number = job_number.value;
+    let format_and_name_choices = document.querySelectorAll('.format-and-name-choice');
+    // All tables
+    let instruction_table = document.querySelectorAll('.instruction-table-body');
+    
+    // Each different format
+    for(let i = 0; i < format_and_name_choices.length; i++) {
+        let format = format_and_name_choices[i].childNodes[0];
+        let letters = format_and_name_choices[i].childNodes[2];
+        //All Rows for each table, this means for each format
+        let instruction_rows = instruction_table[i].childNodes;
+        let instructions = [];
+        // Each Row, for each format,  to get all instructions for a certain fo
+        for(let j = 0; j < instruction_rows.length; j++) {
+            
+            // Specific Instruction
+            let instruction = {
+                item_id: instruction_rows[j].childNodes[0].textContent,
+                position_id: instruction_rows[j].childNodes[1].textContent,
+                colour_id: instruction_rows[j].childNodes[2].textContent,
+                quantity: instruction_rows[j].childNodes[3].textContent,
+                description: instruction_rows[j].childNodes[4].childNodes[0].value,
+            }
+            // Add all instructions for specific format
+            instructions.push(instruction);
+        }
+        // Add Order
+        job.instruction_batch.push({
+            format: format.value,
+            letters: letters.value,
+            instructions: instructions,
+        })
+    }
+
+    let jobData = new FormData();
+    jobData.append('number', job.number);
+    // jobData.append('instruction_batch', job.instruction_batch)
+    // Post Job
+    fetch('../db/create_job.php', {
+        method: 'POST',
+        body: jobData,
+    })
+        .then(response => response.json())
+        .then(job => console.log(job))
+        .catch(error => console.error(error));
 }
 
 async function addJob(){
     let add_job = document.querySelector('#add-job');
-    let job_number = document.querySelector('#job-number');
-    let job_number_validation = document.querySelector('#job-number-validation')
+    
+    // Validation
+    add_job.addEventListener('click', async function(){
+        // They have to be selected on the event so that they can be refreshed
+        let job_number = document.querySelector('#job-number');
+        let formats = document.querySelectorAll('.format-select');
+        let letters = document.querySelectorAll('.letters');
+        let selected_instructions_container = document.querySelector('#selected-instructions-container');
+        let instruction_table_body = document.querySelectorAll('.instruction-table-body');
+        let format_and_name_choices = document.querySelector('#format-and-name-choices');
 
-    add_job.addEventListener('click', function(){
-        // Job Number Validation
-        let regex = /[^0-9]/;
+        let job_number_validation = document.querySelector('#job-number-validation')
+        let format_and_name_choice_validation = document.querySelector('#format-and-name-choice-validation');    
+        let format_validation = document.querySelectorAll('.format-validation');
+        let letters_validation = document.querySelectorAll('.letters-validation');
+        let selected_instructions_container_validation = document.querySelector('#selected-instructions-container-validation');
+        let instruction_table_validation = document.querySelectorAll('.instruction-table-validation');
+
+        //// Validation
         // Invalid job Number
-        if(regex.test(job_number.value)) {
-            job_number_validation.textContent = '* Only Include Numbers';
-        } else if(job_number.value === ''){
-            job_number_validation.textContent = '* Empty';
-        }
+        containsNotNumbers(job_number, job_number_validation);
+        isInputBlank(job_number, job_number_validation);
+        // Check Whole Format And Name container
+        isContainerBlank(format_and_name_choices, format_and_name_choice_validation, 'Choose A Format and Name');
+        // For formats
+        areInputsBlank(formats, format_validation);
+        // For Letters
+        areInputsBlank(letters, letters_validation);
+        // Check The whole container
+        isContainerBlank(selected_instructions_container, selected_instructions_container_validation);
+        // Check individual tables
+        areContainersBlank(instruction_table_body, instruction_table_validation, '* Add An Instruction');
 
-        // Valid Job Number
-        if(!regex.test(job_number.value)) {
-            job_number_validation.textContent = '';
-            let jobs = [];
-            let format_and_name_choices = document.querySelectorAll('.format-and-name-choice');
-            // All tables
-            let instruction_table = document.querySelectorAll('.instruction-table-body');
-            // Each different format
-            for(let i = 0; i < format_and_name_choices.length; i++) {
-                let format = format_and_name_choices[i].childNodes[0];
-                let letters = format_and_name_choices[i].childNodes[1];
-                //All Rows for each table, this means for each format
-                let instructions = instruction_table[i].childNodes;
-                // Each Row, for each format
-                for(let j = 0; j < instructions.length; j++) {
-                    // One Row
-                    // let item_id = instructions[i].childNodes[0].id;
-                    // let position_id = instructions[i].childNodes[1].id;
-                    // let colour_id = instructions[i].childNodes[2].id;
-                    // let quantity = instructions[i].childNodes[3].textContent;
-                    // let description = instructions[i].childNodes[4].value;
-                    let instruction = {
-                        item_id: instructions[j].childNodes[0].id,
-                        position_id: instructions[j].childNodes[1].id,
-                        colour_id: instructions[j].childNodes[2].id,
-                        quantity: instructions[j].childNodes[3].textContent,
-                        description: instructions[j].childNodes[4].value,
+        //// To send object
+        // Job Number
+        console.log()
+        if(job_number_validation.textContent === '') {
+            console.log('Job Number');
+            // Format And Name Container
+            if(format_and_name_choice_validation.textContent === '') {
+                console.log('Format And Name');
+                // Format And Name Individually
+                for(let i = 0; i < format_and_name_choices.childElementCount; i++) {
+                    console.log('Format And Name Individual');
+                    if(format_validation[i].textContent === '' || letters_validation[i].textContent === '') {
+                        // Table As A Whole
+                        console.log('Table');
+                        if(selected_instructions_container_validation.textContent === '') {
+                            // Individual Tables
+                            for(let j = 0; j < instruction_table_body.length; j++) {
+                                console.log('Individual Table');
+                                if(instruction_table_validation[j].textContent === '') {
+                                    addToJobObject();
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        break;
                     }
-                    console.log(instruction);
                 }
-                // jobs.push({
-                //     format: format.options[format.selectedIndex].value,
-                //     letters: letters.value,
-                //     instruction: [],
-                // });
             }
+            
+            
         }
     })
 }

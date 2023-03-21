@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include('./conn.php');
 
 $in_progress_job_number = "";
 

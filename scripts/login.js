@@ -31,7 +31,7 @@ function submitLoginForm() {
     loginData.append('username', username.value);
 
     // Send to server form data
-    fetch('login.php', {
+    fetch('../db/login.php', {
         method: 'POST',
         body: loginData,
     })
@@ -49,7 +49,7 @@ function submitLoginForm() {
                 // Set session variable
                 sessionStorage.setItem('isLoggedIn', 'true');
                 // Redirect to home page
-                window.location.assign(`index.html?user_id=${user[0].id}`);
+                window.location.assign(`../index.html?user_id=${user[0].id}`);
             } else {
                 usernameValidation.textContent = "";
                 passwordValidation.textContent = "Invalid Password";

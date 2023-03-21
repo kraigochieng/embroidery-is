@@ -12,7 +12,7 @@
 
 @font-face {
     font-family: 'Golos Text';
-    src: url('fonts/Golos_Text/GolosText-VariableFont_wght.ttf') format('truetype');
+    src: url('../fonts/Golos_Text/GolosText-VariableFont_wght.ttf') format('truetype');
 }
 
 .text-radio {

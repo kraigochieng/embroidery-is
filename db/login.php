@@ -1,6 +1,6 @@
 <?php 
     // Connect to database
-    include('conn.php');
+    include('./conn.php');
 
     // Get Username
     $username = $_POST['username'];

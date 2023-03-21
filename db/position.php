@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include('./conn.php');
 
 $item_id = $_POST['item_id'];
 // Read Positions

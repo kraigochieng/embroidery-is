@@ -1,6 +1,6 @@
 <?php
 
-include('conn.php');
+include('./conn.php');
 
 $read_colours = $db->prepare('SELECT * FROM colour ORDER BY name ASC');
 $read_colours->execute([]);
