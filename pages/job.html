@@ -9,12 +9,16 @@
     <title>New Job</title>
 </head>
 <body>
-    <a href="../index.html">Back To Home</a>
+    <a id="back-to-home" href="#"><button type="button"><- Back To Home</button></a>
     <form>
         <section id="job-number-section">
-            <h1>Enter Job Number</h1>
+            <h1>Enter Job Details</h1>
             <input type="text" name="job-number" id="job-number" placeholder="Enter Job Number">
             <p id="job-number-validation" class="validation"></p>
+            <input type="text" name="telephone-number" id="telephone-number" placeholder="Enter Telephone Number">
+            <p id="telephone-validation" class="validation"></p>
+            <input type="text" name="description" id="job-description" placeholder="Enter Description">
+            <p id="description-validation" class="validation"></p>
         </section>
         <hr>
         <section id="format-and-name-section">
@@ -39,8 +43,10 @@
             <section id="selected-instructions-container"></section>
             <p id="selected-instructions-container-validation" class="validation"></p>
         </section>
-        <button type="button" id="add-job" >+ Add Job</button>
+        <button type="button" id="add-job" >-> Send Job</button>
     </form>
     <script type="module" src="../scripts/job.js"></script>
+    <script type="module" src="../scripts/logout_time.js"></script>
+
 </body>
 </html>

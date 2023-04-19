@@ -75,3 +75,12 @@ CREATE TABLE IF NOT EXISTS `format` (
     name VARCHAR(50),
     CONSTRAINT format_pk PRIMARY KEY(id)
 );
+
+CREATE TABLE user_log (
+	id INT AUTO_INCREMENT,
+    user_id INT,
+    login_time DATETIME,
+    logout_time DATETIME,
+    CONSTRAINT user_log_pk PRIMARY KEY(id),
+    CONSTRAINT user_log_fk_user FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE SET NULL
+);

@@ -18,9 +18,11 @@
 .text-radio {
     display: none;
 }
+
 .text-radio:checked + label {
     color: red;
 }
+
 header {
     display: flex;
     justify-content: space-between;
@@ -31,6 +33,7 @@ header {
     display: flex;
     align-items: center;
 }
+
 .tab, .job-search, #new-job-button {
     padding: var(--common-px);
 }
@@ -38,7 +41,7 @@ header {
 .in-progress-job, .done-progress-job {
     border: solid 1px black;
     border-radius: 0px var(--common-px) var(--common-px) var(--common-px);
-    padding: var(--common-px)
+    padding: var(--common-px);
 }
 
 body {
@@ -50,7 +53,17 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+
 .in-progress-job, .done-progress-job, .job-search {
     margin-top: var(--common-px);
     margin-bottom: var(--common-px);
+}
+
+.in-progress-job-link, .done-job-link  {
+    text-decoration: none;
+    color: black;
+}
+
+.in-progress-job-section{
+    display: flex;
 }

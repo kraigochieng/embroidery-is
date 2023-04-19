@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/index.css">
+    <title>Create User</title>
+</head>
+<body>
+    <form>
+        <section id="username-section">
+            <input id="username" type="text" placeholder="Username">
+            <p id="username-validation" class="validation"></p>
+        </section>
+        
+        <section id="email-section">
+            <input id="email" type="text" placeholder="Email">
+            <p id="email-validation" class="validation"></p>
+        </section>
+        
+        <section id="first-name-section">
+            <input id="first-name" type="text" placeholder="First Name">
+            <p id="first-name-validation" class="validation"></p>
+        </section>
+
+        <section id="last-name-section">
+            <input id="last-name" type="text" placeholder="Last Name">
+            <p id="last-name-validation" class="validation"></p>
+        </section>
+
+        <section id="password-section">
+            <input id="password" type="password" placeholder="Password">
+            <button id="password-view" type="button">&#127765;</button>
+            <p id="password-validation" class="validation"></p>
+            <input id="confirm-password" type="password" placeholder="Confirm Password">
+            <button id="confirm-password-view" type="button">&#127765;</button>
+            <p id="confirm-password-validation" class="validation"></p>
+        </section>
+
+        
+        <button id="create-user" type="button">+ Create User</button>
+    </form>
+    <script type="module" src="../scripts/create_user.js"></script>
+</body>
+</html>

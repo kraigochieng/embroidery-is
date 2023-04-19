@@ -10,7 +10,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Get in Progress Jobs
-$read_done_jobs = $db->prepare('SELECT * FROM done_job WHERE job_number LIKE :done_job_number');
+$read_done_jobs = $db->prepare('SELECT * FROM done_job_summary WHERE job_number LIKE :done_job_number');
 $read_done_jobs->execute(['done_job_number' => $done_job_number."%"]);
 $done_jobs = $read_done_jobs->fetchAll(PDO::FETCH_ASSOC);
 

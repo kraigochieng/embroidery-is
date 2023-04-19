@@ -1,0 +1,106 @@
+import { randomNumber } from "../functions/randomNumber.js";
+
+export const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+let padding = (number) => {
+    return number < 10 ? `0${number}` : number
+}
+
+export async function randomDescription() {
+    let word_length = randomNumber(0, 10)
+    let description = ""
+    for(let i = 0; i < word_length; i++) {
+        description += alphabet[randomNumber(0,25)]
+    }
+    return description
+}
+
+async function getTelephoneNumber() {
+    return `07${randomNumber(11111111,99999999)}`
+}
+
+async function getJobNumber() {
+    return randomNumber(1000000,9999999)
+}
+
+async function getDateTimes() {
+    let year = randomNumber(2010,2020)
+    let month = padding(randomNumber(1, 12))
+    let day = padding(randomNumber(1, 28))
+    let created_hour = randomNumber(6, 19)
+    let done_hour = padding(created_hour + 1)
+    created_hour = padding(created_hour)
+    let created_minute = padding(randomNumber(0, 59))
+    let done_minute = padding(randomNumber(0, 59))
+    let second = '00'
+    
+    let time_created = `${year}-${month}-${day} ${created_hour}:${created_minute}:${second}`
+    let time_done = `${year}-${month}-${day} ${done_hour}:${done_minute}:${second}`
+
+    return {
+        created: time_created,
+        done: time_done
+    }
+}
+
+
+
+let job_number = await getJobNumber()
+
+let receiver_teller_id = await getUsers()
+let confirmer_teller_id = await getUsers()
+
+let telephone_number = await getTelephoneNumber()
+
+let description = await randomDescription()
+
+let time = await getDateTimes()
+let time_created = time.created
+let time_done = time.done
+
+let jobData = new FormData();
+jobData.append('telephone_number', telephone_number)
+jobData.append('receiver_teller_id', receiver_teller_id)
+jobData.append('confirmer_teller_id', confirmer_teller_id)
+jobData.append('job_number', job_number)
+jobData.append('time_created', time_created)
+jobData.append('time_done', time_done)
+jobData.append('description', description)
+
+let settings = {
+    method: 'POST',
+    body: jobData
+}
+
+async function createJob() {
+    let response = await fetch('../db/test_create_job.php', settings)
+    let job = await response.json()
+    return job
+}
+
+async function getJobId(job_number) {
+    let body = new FormData()
+    body.set('job_number', job_number)
+    let settings = {
+        method: 'POST',
+        body: body
+    }
+
+    let response = await fetch('../db/read_job_id.php', settings)
+    let job = await response.json()
+    return job.id
+}
+
+let created_job = await createJob()
+console.log('Created Job: ', created_job)
+
+let job_id = await getJobId(job_number)
+console.log('Job ID: ', job_id)
+
+// Get a number of
+
+
+
+
+
+

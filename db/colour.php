@@ -7,4 +7,5 @@ $read_colours->execute([]);
 $colours = $read_colours->fetchAll(PDO::FETCH_ASSOC);
 
 exit(json_encode($colours));
+
 ?>

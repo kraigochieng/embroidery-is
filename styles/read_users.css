@@ -1,0 +1,13 @@
+@import '../styles/update_user.css';
+@import '../styles/delete_user.css';
+
+#update-user-section, #delete-user-section {
+    display: block;
+    background-color: white;
+    border: solid 1px black;
+    width: 320px;
+    height: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(0);
+}

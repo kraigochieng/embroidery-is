@@ -6,6 +6,8 @@ let instruction = {
         name: '',
     },
 
+    description: '',
+
     position: {
         id: '',
         name: '',
@@ -25,7 +27,7 @@ import { colourComponent } from "../components/colour.js";
 
 import { formatAndLettersComponent } from "../components/formatAndLetters.js";
 import { itemComponent } from "../components/item.js";
-import { instructionRowComponent } from "../components/instructionRowComponent.js";
+import { instructionRowComponent } from "../components/instructionRow.js";
 import { instructionTableComponent } from "../components/instructionTable.js";
 import { instructionTableValidationComponent } from "../components/instructionTableValidation.js";
 
@@ -35,6 +37,20 @@ import { isContainerBlank } from "../functions/isContainerBlank.js";
 import { containsNotNumbers } from "../functions/containsNotNumbers.js";
 import { areInputsBlank } from "../functions/areInputsBlank.js";
 import { areContainersBlank } from "../functions/areContainersBlank.js";
+import { createJobStatement } from "../functions/createJobStatement.js";
+import { createInstructionStatement } from "../functions/createInstructionStatement.js";
+import { getUrlParam } from "../functions/getUrlParam.js";
+async function getUserId() {
+    let back_to_home = document.querySelector('#back-to-home');
+
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const user_id = urlParams.get('user_id');
+
+    const user_id = getUrlParam('user_id')
+    back_to_home.addEventListener('click', function(){
+        window.location.assign(`../index.html?user_id=${user_id}`);
+    })
+}
 
 function jobNumberValidation(element, validation) {
     let regex = /[^0-9]/;
@@ -235,9 +251,6 @@ async function addColourToInstruction() {
     })
 }
 
-async function positionValidation() {
-
-}
 async function quantityValidation() {
     let quantity = document.querySelector('#instruction-quantity') 
     let quantity_validation = document.querySelector('#quantity-validation');
@@ -355,14 +368,17 @@ function resetInstructionFields() {
 // Validation
 function addToJobObject() {
     let job_number = document.querySelector('#job-number');
+    let telephone_number = document.querySelector('#telephone-number');
+    let job_description = document.querySelector('#job-description');
 
     let job = {
-        number: '',
+        number: job_number.value,
+        telephone_number: telephone_number.value,
+        description: job_description.value,
         // Format, Name and its Instructions
         instruction_batch: [],
     };
-    // Add Job Number
-    job.number = job_number.value;
+
     let format_and_name_choices = document.querySelectorAll('.format-and-name-choice');
     // All tables
     let instruction_table = document.querySelectorAll('.instruction-table-body');
@@ -379,12 +395,13 @@ function addToJobObject() {
             
             // Specific Instruction
             let instruction = {
-                item_id: instruction_rows[j].childNodes[0].textContent,
-                position_id: instruction_rows[j].childNodes[1].textContent,
-                colour_id: instruction_rows[j].childNodes[2].textContent,
+                item_id: instruction_rows[j].childNodes[0].id,
+                position_id: instruction_rows[j].childNodes[1].id,
+                colour_id: instruction_rows[j].childNodes[2].id,
                 quantity: instruction_rows[j].childNodes[3].textContent,
                 description: instruction_rows[j].childNodes[4].childNodes[0].value,
             }
+            // console.log(instruction.description);
             // Add all instructions for specific format
             instructions.push(instruction);
         }
@@ -395,18 +412,30 @@ function addToJobObject() {
             instructions: instructions,
         })
     }
-
+    // Get User ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const user_id = urlParams.get('user_id');
+    // Create Job Statement
+    let new_job = createJobStatement(user_id, job.number);
+    let new_instructions = createInstructionStatement(job);
+    console.log(new_job);
+    console.log(new_instructions);
     let jobData = new FormData();
-    jobData.append('number', job.number);
-    // jobData.append('instruction_batch', job.instruction_batch)
-    // Post Job
+    jobData.append('job_number', job.number);
+    jobData.append('job_statement', createJobStatement(user_id, job.number, job.telephone_number, job.description));
+    jobData.append('instruction_statement', createInstructionStatement(job));
+
     fetch('../db/create_job.php', {
         method: 'POST',
         body: jobData,
     })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(job => console.log(job))
-        .catch(error => console.error(error));
+        .catch(error => console.log(error));
+
+    // Go Back To Index Page 
+    window.location.assign(`../index.html?user_id=${user_id}`);
+
 }
 
 async function addJob(){
@@ -446,41 +475,43 @@ async function addJob(){
 
         //// To send object
         // Job Number
-        console.log()
+
+        let isJobValid = false;
         if(job_number_validation.textContent === '') {
-            console.log('Job Number');
+            // console.log('Job Number');
             // Format And Name Container
             if(format_and_name_choice_validation.textContent === '') {
-                console.log('Format And Name');
+                // console.log('Format And Name');
                 // Format And Name Individually
                 for(let i = 0; i < format_and_name_choices.childElementCount; i++) {
-                    console.log('Format And Name Individual');
+                    // console.log('Format And Name Individual');
                     if(format_validation[i].textContent === '' || letters_validation[i].textContent === '') {
                         // Table As A Whole
-                        console.log('Table');
+                        // console.log('Table');
                         if(selected_instructions_container_validation.textContent === '') {
                             // Individual Tables
                             for(let j = 0; j < instruction_table_body.length; j++) {
-                                console.log('Individual Table');
+                                // console.log('Individual Table');
                                 if(instruction_table_validation[j].textContent === '') {
-                                    addToJobObject();
-                                } else {
-                                    break;
-                                }
+                                    // So that it does not repeat posting again and again
+                                        // addToJobObject();
+                                    isJobValid = true;
+                                } else { break; }
                             }
                         }
-                    } else {
-                        break;
-                    }
+                    } else { break; }
                 }
             }
-            
-            
+        }
+
+        if(isJobValid){
+            addToJobObject();
         }
     })
 }
 
 async function job() {
+    await getUserId();
     await jobNumberInputValidation();
     await addFormatAndName();
 

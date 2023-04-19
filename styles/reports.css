@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Golos Text', serif;
+}
+
+@font-face {
+    font-family: 'Golos Text';
+    src: url('../fonts/Golos_Text/GolosText-VariableFont_wght.ttf') format('truetype');
+}
+
+svg {
+    display: block;
+    margin: auto;
+}
+
+#total-jobs {
+    position: absolute;
+    background-color: yellow;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.graph-heading {
+    font-size: 30px;
+}
+
+.graph-label {
+    font-weight: bold;
+}
+
+.grid {
+    color: aliceblue;
+}

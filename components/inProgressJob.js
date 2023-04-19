@@ -1,69 +1,54 @@
-export function inProgressJobComponent(id,job_number, receiver_teller_username, hand_count, time_created) {
+import { timeParser } from "../functions/timeParser.js";
+import { sectionWithParagraph } from "./sectionWithParagraph.js";
+import { dateAndTimeComponent } from "./dateAndTimeComponent.js";
+
+export function inProgressJobComponent(id, job_number, telephone_number, description, receiver_teller_username, time_created, total_quantity) {
+    // Parse Dates
+    let start = timeParser(time_created);
+
     // Create elements
-    const in_progress_job = {
-        container: document.createElement('section'),
-        job_number: {
-            container: document.createElement('section'),
-            label: document.createElement('p'),
-            element: document.createElement('p'),
-        },
-        receiver_teller_username: {
-            container: document.createElement('section'),
-            label: document.createElement('p'),
-            element: document.createElement('p'),
-        },
-        hand_count: {
-            container: document.createElement('section'),
-            label: document.createElement('p'),
-            element: document.createElement('p'),
-        },
-        time_created: {
-            container: document.createElement('section'),
-            label: document.createElement('p'),
-            element: document.createElement('p'),
-        }
-    }
+    let section = document.createElement('section');
+    let input = document.createElement('input');
+    let link = document.createElement('a');
+
+    let job_number_element = sectionWithParagraph('job-number', 'Job Number', job_number);
+    // let telephone_number_element =  sectionWithParagraph('telephone-number', 'Telephone Number', telephone_number);
+    let telephone_number_element = document.createElement('section');
+    let phone_icon = document.createElement('img');
+    phone_icon.src = '../icons/call.png';
+    phone_icon.style.width = '10px';
+    phone_icon.style.width = '10px';
+    telephone_number_element.appendChild(phone_icon);
+
+    let phone = document.createElement('span');
+    phone.textContent = telephone_number;
+    telephone_number_element.appendChild(phone);
+    // let description_element = sectionWithParagraph('description', 'Description', description);
+    // let total_quantity_element = sectionWithParagraph('quantity', 'Quantity', total_quantity);
+    // let receiver_teller_username_element =  sectionWithParagraph('receiver-teller-username','Received By', receiver_teller_username);
+    // let time_created_element = dateAndTimeComponent('Start', start);
+
+    section.setAttribute('id', id);
+    section.setAttribute('class', 'in-progress-job-section');
+
+    input.setAttribute('type', 'checkbox');
+    input.setAttribute('id', id);
+    input.setAttribute('value', id);
+    input.setAttribute('name', 'updateStatus');
+    input.setAttribute('class', 'in-progress-job-input');
+
+    link.setAttribute('class', 'in-progress-job-link');
+    link.setAttribute('href', `../pages/in_progress_job_details.html?job_id=${id}`);
+
+    link.appendChild(job_number_element);
+    link.appendChild(telephone_number_element);
+    // link.appendChild(description_element);
+    // link.appendChild(total_quantity_element);
+    // link.appendChild(receiver_teller_username_element);
+    // link.appendChild(time_created_element);
+
+    section.appendChild(input);
+    section.appendChild(link);
     
-    // Set attributes
-    in_progress_job.container.setAttribute('id', id);
-    in_progress_job.container.setAttribute('class', 'in-progress-job');
-    in_progress_job.job_number.container.setAttribute('class', 'job-number-container');
-    in_progress_job.job_number.label.setAttribute('class', 'job-number-label');
-    in_progress_job.job_number.element.setAttribute('class', 'job-number');
-    in_progress_job.receiver_teller_username.container.setAttribute('class', 'receiver-teller-username-number-container');
-    in_progress_job.receiver_teller_username.label.setAttribute('class', 'receiver-teller-username-number-label');
-    in_progress_job.receiver_teller_username.element.setAttribute('class', 'receiver-teller-username-number');
-    in_progress_job.hand_count.container.setAttribute('class', 'hand-count-number-container');
-    in_progress_job.hand_count.label.setAttribute('class', 'hand-count-number-label');
-    in_progress_job.hand_count.element.setAttribute('class', 'hand-count-number');
-    in_progress_job.time_created.container.setAttribute('class', 'time-created-number-container');
-    in_progress_job.time_created.label.setAttribute('class', 'time-created-number-label');
-    in_progress_job.time_created.element.setAttribute('class', 'time-created-number');
-    
-    // Add text
-    in_progress_job.job_number.label.textContent = "Job Number";
-    in_progress_job.job_number.element.textContent = job_number;
-    in_progress_job.receiver_teller_username.label.textContent = "Receiver";
-    in_progress_job.receiver_teller_username.element.textContent = receiver_teller_username;
-    in_progress_job.hand_count.label.textContent = "Hand Count";
-    in_progress_job.hand_count.element.textContent = hand_count;
-    in_progress_job.time_created.label.textContent = "Time Created";
-    in_progress_job.time_created.element.textContent = time_created;
-
-    // Append 
-    in_progress_job.job_number.container.appendChild(in_progress_job.job_number.label);
-    in_progress_job.job_number.container.appendChild(in_progress_job.job_number.element);
-    in_progress_job.receiver_teller_username.container.appendChild(in_progress_job.receiver_teller_username.label);
-    in_progress_job.receiver_teller_username.container.appendChild(in_progress_job.receiver_teller_username.element);
-    in_progress_job.hand_count.container.appendChild(in_progress_job.hand_count.label);
-    in_progress_job.hand_count.container.appendChild(in_progress_job.hand_count.element);
-    in_progress_job.time_created.container.appendChild(in_progress_job.time_created.label);
-    in_progress_job.time_created.container.appendChild(in_progress_job.time_created.element);
-
-    in_progress_job.container.appendChild(in_progress_job.job_number.container);
-    in_progress_job.container.appendChild(in_progress_job.receiver_teller_username.container);
-    in_progress_job.container.appendChild(in_progress_job.hand_count.container);
-    in_progress_job.container.appendChild(in_progress_job.time_created.container);
-
-    return in_progress_job.container;
+    return section;
 }

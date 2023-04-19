@@ -1,0 +1,102 @@
+import { randomNumber } from "../functions/randomNumber.js";
+
+export const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+let padding = (number) => {
+    return number < 10 ? `0${number}` : number
+}
+
+export async function randomDescription() {
+    let word_length = randomNumber(0, 10)
+    let description = ""
+    for(let i = 0; i < word_length; i++) {
+        description += alphabet[randomNumber(0,25)]
+    }
+    return description
+}
+
+async function getTelephoneNumber() {
+    return `07${randomNumber(11111111,99999999)}`
+}
+
+async function getJobNumber() {
+    return randomNumber(1000000,9999999)
+}
+
+async function getDateTimes() {
+    let year = randomNumber(2010,2020)
+    let month = padding(randomNumber(1, 12))
+    let day = padding(randomNumber(1, 28))
+    let created_hour = randomNumber(6, 19)
+    let done_hour = padding(created_hour + 1)
+    created_hour = padding(created_hour)
+    let created_minute = padding(randomNumber(0, 59))
+    let done_minute = padding(randomNumber(0, 59))
+    let second = '00'
+    
+    let time_created = `${year}-${month}-${day} ${created_hour}:${created_minute}:${second}`
+    let time_done = `${year}-${month}-${day} ${done_hour}:${done_minute}:${second}`
+
+    return {
+        created: time_created,
+        done: time_done
+    }
+}
+
+async function getUsers() {
+    let response = await fetch('../dn/read_users.php')
+    let users = response.json()
+    return users
+}
+
+let job_number = await getJobNumber()
+let users = await getUsers()
+let receiver_teller_id = users[randomNumber(0, users.length - 1)].id
+let confirmer_teller_id = users[randomNumber(0, users.length - 1)].id
+let telephone_number = await getTelephoneNumber()
+let description = await randomDescription()
+let time = await getDateTimes()
+let time_created = time.created
+let time_done = time.done
+
+fetch('../db/read_users.php')
+    .then(response => response.json())
+    .then(users =>  {
+        // Get Random Values
+        let telephone_number = getTelephoneNumber()
+        let receiver_teller_id = users[randomNumber(0, users.length - 1)].id
+        let confirmer_teller_id = users[randomNumber(0, users.length - 1)].id
+        let job_number = getJobNumber()
+        let time = getDateTimes()
+        let time_created = time.created
+        let time_done = time.done
+        let description = randomDescription()
+
+        // Create Post Body
+        let jobData = new FormData();
+        jobData.append('telephone_number', telephone_number)
+        jobData.append('receiver_teller_id', receiver_teller_id)
+        jobData.append('confirmer_teller_id', confirmer_teller_id)
+        jobData.append('job_number', job_number)
+        jobData.append('time_created', time_created)
+        jobData.append('time_done', time_done)
+        jobData.append('description', description)
+
+        // Create Job
+        fetch('../db/test_create_job.php', {
+            method: 'POST',
+            body: jobData
+        })
+            .then(response => response.json())
+            .then(user => console.log(user))
+            .catch(error => console.error(error))
+        
+    })
+    .catch(error => console.error(error))
+
+// getInstructionData()
+
+
+
+
+

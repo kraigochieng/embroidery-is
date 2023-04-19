@@ -1,0 +1,270 @@
+import { randomNumber } from "../functions/randomNumber.js";
+import { names } from "../functions/names.js";
+import { randomDescription } from "./job.js";
+import { initials } from "../functions/initials.js";
+
+function randomLetters() {
+    let variation = randomNumber(1,12)
+
+    let nameOne = names[0, randomNumber(0, names.length - 1)]
+    let nameTwo = names[0, randomNumber(0, names.length - 1)]
+    let initial = initials[0, randomNumber(0, initials.length - 1)]
+    let admission_number = randomNumber(1000,9999)
+
+    switch(variation) {
+        case 1:
+            return admission_number
+        case 2:
+            return admission_number + " " +  nameOne
+        case 3:
+            return admission_number + " " +  nameOne + " " + initial
+        case 4:
+            return admission_number + " " +  nameOne + " " + nameTwo
+        case 5:
+            return admission_number + " " +  initial + " " + nameOne
+        case 6:
+            return nameOne
+        case 7:
+            return nameOne + " " + nameTwo
+        case 8:
+            return nameOne + " " + nameTwo + " " + admission_number
+        case 9:
+            return nameOne + " " + admission_number
+        case 10:
+            return nameOne + " " + initial
+        case 11:
+            return nameOne + " " + initial + " " + nameTwo
+        case 12:
+            return nameOne + " " + initial + " " + admission_number
+        case 13:
+            return initial + " " + nameOne
+        case 14:
+            return initial + " " + nameOne + " " + admission_number
+        }
+}
+
+let job = {
+    id: '',
+    telephone_number: '',
+    receiver_teller_id: '',
+    confirmer_teller_id: '',
+    job_number: '',
+    time_created: '',
+    time_done: '',
+    description: '',
+    format_id: '',
+    letters: '',
+    instruction: {
+        item_id: '',
+        colour_id: '',
+        position_id: '',
+        quantity: '',
+        description: ''
+    }
+    
+}
+async function sendInstruction(instruction) {
+    let number_of_items = randomNumber(1, 20)
+
+    for(let i = 0; i < number_of_items; i++) {
+        let instructionData = new FormData()
+        instructionData.set('item_id', instruction.item_id)
+        instructionData.set('colour_id', colour_id)
+        instructionData.set('position_id', position_id)
+        instructionData.set('quantity', quantity)
+        instructionData.set('description', description)
+
+        fetch('../db/test_create_instruction.php', {
+            method: 'POST',
+            body: instructionData
+        })
+            .then(response => response.json())
+            .then(instruction => console.log(instruction))
+            .catch(error => console.error(error))
+        }
+}
+
+async function sendJob(job) {
+    let instructionData = new FormData()
+    instructionData.append('format_id', format_id)
+    instructionData.append('letters', letters)
+    instructionData.append('item_id', item_id)
+    instructionData.append('colour_id', colour_id)
+    instructionData.append('position_id', position_id)
+    instructionData.append('quantity', quantity)
+    instructionData.append('description', description)
+
+    fetch('../db/test_create_instruction.php', {
+        method: 'POST',
+        body: instructionData
+    })
+        .then(response => response.json())
+        .then(instruction => console.log(instruction))
+        .catch(error => console.error(error))
+}
+
+async function getFormat() {
+    // Format
+    // fetch('../db/format.php')
+    //     .then(response => response.json())
+    //     .then(formats => {
+    //         let format_id = formats[randomNumber(0, formats.length - 1)].id
+    //         job.format_id = format_id
+    //         console.log('Format ID: ', format_id)
+    //         })
+    //     .catch(error => console.error(error))
+        let response = await fetch('../db/format.php')
+        let formats = await response.json()
+        return formats[randomNumber(0, formats.length - 1)].id
+}
+
+async function getLetters() {
+    // Letters
+    let letters = randomLetters()
+    job.letters = letters
+    console.log('Letters: ', letters)
+}
+
+async function getItem() {
+    fetch('../db/item.php')
+        .then(response => response.json())
+        .then(items => {
+            let item_id = items[randomNumber(0, items.length - 1)].id
+            job.instruction.item_id = item_id
+            console.log('Item ID: ', item_id)
+            
+            getPosition(item_id)
+        })
+        .catch(error => console.error(error))
+}
+
+async function getPosition(item_id) {
+    // Position
+    let positionData = new FormData()
+    positionData.append('item_id', item_id)
+
+    fetch('../db/position.php', {
+        method: 'POST',
+        body: positionData
+    })
+        .then(response => response.json())
+        .then(positions => {
+            let position_id = positions[0, randomNumber(0, positions.length - 1)].id
+            job.instruction.position_id = position_id
+            console.log('Position ID: ', position_id)
+        })
+        .catch(error => console.error(error))
+}
+
+async function getColour() {
+    fetch('../db/colour.php')
+        .then(response => response.json())
+        .then(colours => {
+            let colour_id = colours[randomNumber(0, colours.length - 1)].id
+            job.instruction.colour_id = colour_id
+            console.log('Colour ID: ', colour_id)
+        })
+        .catch(error => console.error(error))
+}
+
+async function getQuantity() {
+    // Quantity
+    let quantity = randomNumber(0, 30)
+    job.instruction.quantity = quantity
+    console.log('Quantity: ', quantity)
+}
+
+async function getDescription() {
+    // Description
+    let description = randomDescription()
+    job.instruction.description = description
+    console.log('Description: ', description)
+}
+// export async function getInstructionData() {
+//     // Format
+//     fetch('../db/format.php')
+//         .then(response => response.json())
+//         .then(formats => {
+//             let format_id = formats[randomNumber(0, formats.length - 1)].id
+//             job.format_id = format_id
+//             // Letters
+//             let letters = getLetters()
+//             job.letters = letters
+
+//             console.log('Format ID: ',format_id)
+//             console.log('Letters: ', letters)
+//             // Item
+//             fetch('../db/item.php')
+//                 .then(response => response.json())
+//                 .then(items => {
+//                     let item_id = items[randomNumber(0, items.length - 1)].id
+//                     job.instruction.item_id = item_id
+//                     console.log('Item ID: ',item_id)
+
+//                     // Position
+//                     let positionData = new FormData()
+//                     positionData.append('item_id', item_id)
+
+//                     fetch('../db/position.php', {
+//                         method: 'POST',
+//                         body: positionData
+//                     })
+//                         .then(response => response.json())
+//                         .then(positions => {
+//                             let position_id = positions[0, randomNumber(0, positions.length - 1)].id
+//                             job.instruction.position_id = position_id
+//                             console.log('Position ID: ', position_id)
+//                         })
+//                 })
+//                 // Colour
+//                 fetch('../db/colour.php')
+//                     .then(response => response.json())
+//                     .then(colours => {
+//                         let colour_id = colours[randomNumber(0, colours.length - 1)].id
+//                         job.instruction.colour_id = colour_id
+//                         console.log('Colour ID: ', colour_id)
+//                     })
+
+//                 // Quantity
+//                 let quantity = randomNumber(0, 30)
+//                 job.instruction.quantity = quantity
+//                 console.log('Quantity: ', quantity)
+
+//                 // Description
+//                 let description = getDescription()
+//                 job.instruction.description = description
+//                 console.log('Description: ', description)
+        
+//         })
+//         .catch(error => console.error(error))
+// }
+
+async function displayInstructionData() {
+    console.log(job);
+}
+
+async function instruction() {
+    let format_id = await getFormat()
+    console.log('Format ID: ', format_id)
+    // .then(format_id => console.log('Format ID: ', format_id))
+    await getLetters()
+    await getItem()
+    await getColour()
+    await getQuantity()
+    await getDescription()
+    await displayInstructionData()
+}
+// await getInstructionData()
+
+// await sendInstructionData(
+//     instruction.job_id,
+//     instruction.format_id,
+//     instruction.letters,
+//     instruction.item_id,
+//     instruction.colour_id,
+//     instruction.position_id,
+//     instruction.quantity,
+//     instruction.description
+// )
+
+instruction()
