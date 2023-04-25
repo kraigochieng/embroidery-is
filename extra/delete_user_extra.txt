@@ -1,0 +1,28 @@
+        //     let delete_user = document.querySelector('#delete-user-yes');
+
+        //     function deleteUserHandler() {
+        //         fetch('../db/delete_user.php', {
+        //             method: 'POST',
+        //             body: userBody
+        //         })
+        //             .then(response => response.text())
+        //             .then(res => {
+        //                 let delete_user_section = document.querySelector('#delete-user-section');
+        //                 delete_user_section.style.transform = 'scale(0)';
+
+        //                 readUsers();
+        //                 delete_user.removeEventListener('click', deleteUserHandler);
+        //             })
+        //             .catch(error => console.error(error));
+        //     }
+        //     delete_user.addEventListener('click', deleteUserHandler)
+
+            
+
+        //     let cancel_delete = document.querySelector('#delete-user-no');
+
+        //     cancel_delete.addEventListener('click', function() {
+        //         let delete_user_section = document.querySelector('#delete-user-section');
+        //         delete_user_section.style.transform = 'scale(0)';
+        //     })
+        // })

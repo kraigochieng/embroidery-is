@@ -1,53 +1,110 @@
-import { getMonth } from "../functions/getMonth.js"
-async function getJobsPerMonth(year) {
+import { yearComponent } from "../components/yearComponent.js"
+import { monthComponent } from "../components/monthComponent.js"
+import { dayComponent } from "../components/dayComponent.js"
+
+async function getJobsPerHour(year, month, day) {
     let body = new FormData()
     body.append('year', year)
+    body.append('month', month)
+    body.append('day', day)
+
     let settings = { method: 'POST', body: body }
-    let response = await fetch('../db/read_jobs_per_month.php',  settings)
+
+    let response = await fetch('../db/read_jobs_per_hour.php', settings)
     return response.json()
 }
 
 async function getYears() {
     let response = await fetch('../db/read_years.php')
-    let data = response.json()
-    return data
+    return response.json()
 }
 
-// Year
+async function getMonths(year) {
+    let body = new FormData()
+    body.append('year', year)
+
+    let settings = { method: 'POST', body: body}
+    let response = await fetch('../db/read_months.php', settings)
+    return response.json()
+
+}
+
+async function getDays(year, month) {
+    let body = new FormData()
+    body.append('year', year)
+    body.append('month', month)
+
+    let settings = { method: 'POST', body: body}
+    let response = await fetch('../db/read_days.php', settings)
+    return response.json()
+}
+
+async function clearElement(selector) {
+    let element = document.querySelector(selector)
+    element.innerHTML = ''
+}
+
 let years = await getYears()
 
-// Add to Year Radio
+// Add Year Radio Elements
 let year_radio_section = document.querySelector('#year-radio-section')
 for(let i = 0; i < years.length; i++) {
-    let year_radio = document.createElement('input')
-    year_radio.type = 'radio'
-    year_radio.name = 'year-radio'
-    year_radio.value = years[i].year
-    year_radio.id = years[i].year
-    year_radio.className = 'year-radio'
-    year_radio.textContent = years[i].year
-
-    let year_radio_label = document.createElement('label')
-    year_radio_label.htmlFor = years[i].year
-    year_radio_label.textContent = years[i].year
-    year_radio_label.className = 'year-radio-label'
-    year_radio.addEventListener('input', async() => {
-        console.log(years[i].year)
-        let jobs_per_month = await getJobsPerMonth(years[i].year)
-        document.querySelector('svg').innerHTML = ''
-        year_radio_label.textContent = years[i].year
-        drawGraph(jobs_per_month)
-    })
-
-    year_radio_section.appendChild(year_radio)
-    year_radio_section.appendChild(year_radio_label)
+    let year = yearComponent(years[i].year)
+    year_radio_section.appendChild(year.radio)
+    year_radio_section.appendChild(year.label)
 }
 
-// Draw First Graph
-let jobs_per_month = await getJobsPerMonth(years[years.length - 1].year)
 let year_radio = document.querySelectorAll('.year-radio')
-year_radio[year_radio.length - 1].checked = true
-drawGraph(jobs_per_month)
+for(let i = 0; i < year_radio.length; i++) {
+    year_radio[i].addEventListener('input', async() => {
+        await addMonths(i)
+    })
+}
+
+async function addMonths(year_index) {
+    let year_radio = document.querySelectorAll('.year-radio')
+    let year = year_radio[year_index].value
+    let months = await getMonths(year)
+    // Select Month Radio Section
+    let month_radio_section = document.querySelector('#month-radio-section')
+    // Clear DOM
+    month_radio_section.innerHTML = ''
+    // Add Month Radio 
+    for(let i = 0; i < months.length; i++) {
+        let month = monthComponent(months[i].month)
+        month.radio.addEventListener('input', async() => {
+            await addDays(year, i)
+        })
+        month_radio_section.appendChild(month.radio)
+        month_radio_section.appendChild(month.label)
+    }
+}
+
+
+async function addDays(year, month_index) {
+    await clearElement('#day-radio-section')
+    let month_radio = document.querySelectorAll('.month-radio')
+    let month = month_radio[month_index].value
+    let days = await getDays(year, month)
+
+    let day_radio_section = document.querySelector('#day-radio-section')
+
+    for(let i = 0; i < days.length; i++) {
+        let day = dayComponent(days[i].day)
+        day.radio.addEventListener('input', async()=> {
+            await addGraph(year, month, day.radio.value)
+        })
+        day_radio_section.appendChild(day.radio)
+        day_radio_section.appendChild(day.label)
+    }
+}
+
+async function addGraph(year, month, day) {
+    await clearElement('svg')
+    let jobs_per_hour = await getJobsPerHour(year, month, day)
+    console.log(jobs_per_hour)
+    drawGraph(jobs_per_hour)
+}
 
 function drawGraph(dataset) {
     // Graph Dimensions
@@ -57,19 +114,19 @@ function drawGraph(dataset) {
 
     // Min
     let min = {
-        x: d3.min(dataset, d => d.month),
-        y: d3.min(dataset, d => d.total_jobs)
+        x: d3.min(dataset, d => d.hour),
+        y: d3.min(dataset, d => d.jobs)
     }
 
     // Max
     let max = {
-        x: d3.max(dataset, d => d.month),
-        y: d3.max(dataset, d => d.total_jobs)
+        x: d3.max(dataset, d => d.hour),
+        y: d3.max(dataset, d => d.jobs)
     }
 
     // Domain
     let domain = {
-        x: [1, max.x],
+        x: [0, 23],
         y: [0, max.y]
     }
 
@@ -88,10 +145,11 @@ function drawGraph(dataset) {
     // Axes
     let axis = {
         x: d3.axisBottom(scale.x)
-            .tickFormat(d => getMonth(d))
+            .ticks(24)
             .tickSize(5),
 
         y: d3.axisLeft(scale.y)
+            .ticks(max.y)
             .tickSize(5),
 
     }
@@ -135,8 +193,9 @@ function drawGraph(dataset) {
 
     // Line Bar
     let line = d3.line()
-        .x(d => scale.x(d.month))
-        .y(d => scale.y(d.total_jobs))
+        .x(d => scale.x(d.hour))
+        .y(d => scale.y(d.jobs))
+        .curve(d3.curveMonotoneX)
 
         svg.append('path')
         .datum(dataset)
@@ -151,8 +210,8 @@ function drawGraph(dataset) {
         .enter()
         .append('circle')
         .attr('class', 'circle')
-        .attr("cx", d => scale.x(d.month))
-        .attr("cy", d => scale.y(d.total_jobs))
+        .attr("cx", d => scale.x(d.hour))
+        .attr("cy", d => scale.y(d.jobs))
         .attr("r", 7)
 
     // Add Circle Labels 
@@ -163,7 +222,7 @@ function drawGraph(dataset) {
             total_jobs.style.top = `${e.clientY - 60}px`
             total_jobs.style.left = `${e.clientX - 30}px`
             total_jobs.style.opacity = 1
-            total_jobs.innerHTML = `Month: ${getMonth(dataset[i].month)}<br>Jobs: ${dataset[i].total_jobs}`
+            total_jobs.innerHTML = `Hour: ${dataset[i].day}<br>Jobs: ${dataset[i].jobs}`
         })
 
         circle[i].addEventListener('mouseout',function() {
@@ -178,7 +237,7 @@ function drawGraph(dataset) {
         .attr('y', padding/2)
         .attr('text-anchor', 'middle')
         .attr('class', 'graph-heading')
-        .text('TOTAL JOBS PER YEAR PER MONTH')
+        .text('TOTAL JOBS PER DAY')
 
     // X label
     svg.append('text')
@@ -186,7 +245,7 @@ function drawGraph(dataset) {
         .attr('y', height - (padding/2))
         .attr('text-anchor', 'middle')
         .attr('class', 'graph-label')
-        .text('Month')
+        .text('Hour')
 
     // Y label
     svg.append('text')

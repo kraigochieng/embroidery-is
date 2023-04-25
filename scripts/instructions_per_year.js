@@ -1,11 +1,18 @@
-async function readJobsPerYear() {
-    let response = await fetch('../db/read_jobs_per_year.php')
-    let jobs_per_year = await response.json()
-    return jobs_per_year
+async function getInstructionsPerYear() {
+    let response = await fetch('../db/read_instructions_per_year.php')
+    return response.json()
 }
 
 // Get Data
-let jobs_per_year = await readJobsPerYear()
+let instructions_per_year = await getInstructionsPerYear()
+
+// Get Total Money Made
+let total_money_made = document.querySelector('#total-money-made')
+let x = 0
+for(let i = 0; i < instructions_per_year.length; i++) {
+    x += parseInt(instructions_per_year[i].total_quantity)
+}
+total_money_made.textContent = (x * 100).toLocaleString('en-US')
 
 // Graph Dimensions
 let width = 640
@@ -14,13 +21,13 @@ let padding = 80
 
 // Calculate Mins and Max 
 let min = {
-    x: d3.min(jobs_per_year, d => d.year),
-    y: d3.min(jobs_per_year, d => d.total_jobs)
+    x: d3.min(instructions_per_year, d => d.year),
+    y: d3.min(instructions_per_year, d => d.total_quantity)
 }
 
 let max = {
-    x: d3.max(jobs_per_year, d => d.year),
-    y: d3.max(jobs_per_year, d => d.total_jobs)
+    x: d3.max(instructions_per_year, d => d.year),
+    y: d3.max(instructions_per_year, d => d.total_quantity)
 }
 
 // Set Domains
@@ -47,7 +54,9 @@ let axis = {
             .tickFormat(d => d.toString())
             .tickSize(5),
     y: d3.axisLeft(scale.y)
+        .ticks(max.y/1000)
         .tickSize(5)
+        .tickFormat(d => d/1000)
 }
 
 // For Gridlines
@@ -89,10 +98,10 @@ svg.append("g")
 // Line Bar
 let line = d3.line()
             .x(d => scale.x(d.year))
-            .y(d => scale.y(d.total_jobs))
+            .y(d => scale.y(d.total_quantity))
 
 svg.append('path')
-    .datum(jobs_per_year)
+    .datum(instructions_per_year)
     .attr("d", line)
     .attr("class", "line")
     .style("fill", "none")
@@ -101,28 +110,38 @@ svg.append('path')
 
 // Scatter Plot
 svg.selectAll('circle')
-    .data(jobs_per_year)
+    .data(instructions_per_year)
     .enter()
     .append('circle')
     .attr('class', 'circle')
     .attr("cx", d => scale.x(d.year))
-    .attr("cy", d => scale.y(d.total_jobs))
+    .attr("cy", d => scale.y(d.total_quantity))
     .attr("r", 7)
 
 // Add Circle Labels 
 let circle = document.querySelectorAll('.circle')
 for(let i = 0; i < circle.length; i++) {
-    let total_jobs = document.querySelector('#total-jobs')
+    let total_jobs = document.querySelector('#total-quantity')
     circle[i].addEventListener('mouseover', function(e) {
         total_jobs.style.top = `${e.clientY - 60}px`
         total_jobs.style.left = `${e.clientX - 30}px`
         total_jobs.style.opacity = 1
-        total_jobs.innerHTML = `Year: ${jobs_per_year[i].year}<br>Jobs: ${jobs_per_year[i].total_jobs}`
+        total_jobs.innerHTML = `Year: ${instructions_per_year[i].year}<br>Instructions: ${(instructions_per_year[i].total_quantity * 1).toLocaleString('en-US')}`
+        total_jobs.style.backgroundColor = 'yellow'
+        let money_made_per_year = document.querySelector('#money-made-per-year')
+        money_made_per_year.textContent = (instructions_per_year[i].total_quantity * 100).toLocaleString('en-US')
+        let money_made_per_year_header = document.querySelector('#money-made-per-year-header')
+        money_made_per_year_header.textContent = 'Money Made'
     })
 
     circle[i].addEventListener('mouseout',function() {
         total_jobs.textContent = ""
-        total_jobs.style.opacity = 0 
+        total_jobs.style.opacity = 0
+        let money_made_per_year = document.querySelector('#money-made-per-year')
+        money_made_per_year.textContent = ''
+        let money_made_per_year_header = document.querySelector('#money-made-per-year-header')
+        money_made_per_year_header.textContent = ''
+        
     })
 }
 
@@ -132,7 +151,7 @@ svg.append('text')
     .attr('y', padding/2)
     .attr('text-anchor', 'middle')
     .attr('class', 'graph-heading')
-    .text('TOTAL JOBS PER YEAR')
+    .text('TOTAL INSTRUCTIONS PER YEAR')
 
 // X label
 svg.append('text')
@@ -149,15 +168,15 @@ svg.append('text')
     .attr('text-anchor', 'middle')
     .attr('transform', `rotate(270)`)
     .attr('class', 'graph-label')
-    .text('Total Jobs')
+    .text('Total Quantity (In Thousands)')
 
-    svg.selectAll('line')
-        .data(jobs_per_year)
-        .enter()
-        .append('line')
-        .attr('x1', 10)
-        .attr('y1', 20)
-        .attr('x2', 10)
-        .attr('y2', 500)
-        .attr('stroke', 'orange')
-        .attr('stroke-width', 3)
+svg.selectAll('line')
+    .data(instructions_per_year)
+    .enter()
+    .append('line')
+    .attr('x1', 10)
+    .attr('y1', 20)
+    .attr('x2', 10)
+    .attr('y2', 500)
+    .attr('stroke', 'orange')
+    .attr('stroke-width', 3)

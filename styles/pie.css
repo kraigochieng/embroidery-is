@@ -1,0 +1,14 @@
+.pie:hover {
+    stroke: firebrick;
+    stroke-width: 5px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 10;
+    position: relative;
+    z-index: 2;
+}
+
+.pie {
+    position: relative;
+    z-index: -1;
+}

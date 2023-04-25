@@ -141,21 +141,21 @@ GROUP BY year;
     
 CREATE VIEW jobs_per_month AS
 SELECT
+	YEAR(time_created) AS year,
 	MONTH(time_created) AS month,
-    YEAR(time_created) AS year,
     COUNT(*) AS total_jobs
 FROM job
-GROUP BY month, year;
+GROUP BY year, month;
 
 CREATE VIEW instructions_per_month AS
 SELECT
+	YEAR(job.time_created) AS year,
 	MONTH(job.time_created) AS month,
-    YEAR(job.time_created) AS year,
-    COUNT(*) AS total_jobs
+    COUNT(*) AS total_instructions
 FROM instruction
 LEFT JOIN job
 	ON instruction.job_id = job.id
-GROUP BY month, year;
+GROUP BY year, month;
 
 CREATE VIEW items_per_year AS
 SELECT 
@@ -181,21 +181,6 @@ LEFT JOIN item
 LEFT JOIN job
 	ON instruction.job_id = job.id
 GROUP BY year, month, item_id;
-
-CREATE VIEW common_position_per_item AS
-SELECT
-	instruction.item_id,
-    item.name AS item_name,
-    instruction.position_id,
-    position.name as position_name,
-    COUNT(*) AS count
-FROM instruction
-LEFT JOIN position
-	ON instruction.position_id = position.id
-LEFT JOIN item
-	ON instruction.item_id = item.id
-GROUP BY item_id, position_id
-ORDER BY item_name ASC, count DESC;
 
 CREATE VIEW formats_per_instruction AS
 SELECT
@@ -239,4 +224,101 @@ LEFT JOIN position
 GROUP BY format_id, item_id, position_id
 ORDER BY format_name ASC, item_name ASC, count DESC;
 
+CREATE VIEW years AS
+SELECT DISTINCT
+	year(time_created) AS year
+FROM job;
 
+CREATE VIEW months AS
+SELECT DISTINCT
+	YEAR(time_created) AS year,
+	MONTH(time_created) AS month
+FROM job
+ORDER BY year ASC, month ASC;
+
+CREATE VIEW days AS
+SELECT DISTINCT
+	YEAR(time_created) AS year,
+	MONTH(time_created) AS month,
+    DAY(time_created) AS day
+FROM job
+ORDER BY year ASC, month ASC, day ASC;
+
+CREATE VIEW jobs_per_day AS
+SELECT
+	YEAR(time_created) AS year,
+	MONTH(time_created) AS month,
+	DAY(time_created) AS day,
+    COUNT(*) AS jobs
+    FROM job
+    GROUP BY year, month, day;
+    
+CREATE VIEW jobs_per_hour AS
+SELECT
+	YEAR(time_created) AS year,
+	MONTH(time_created) AS month,
+	DAY(time_created) AS day,
+    HOUR(time_created) AS hour,
+    COUNT(*) AS jobs
+    FROM job
+    GROUP BY year, month, day, hour;
+    
+CREATE VIEW position_per_item AS
+SELECT
+	instruction.item_id,
+	item.name AS item_name,
+    instruction.position_id,
+    position.name AS position_name,
+    COUNT(*) as count
+FROM instruction
+LEFT JOIN item
+	ON instruction.item_id = item.id
+LEFT JOIN position
+	ON instruction.position_id = position.id
+GROUP BY instruction.item_id, instruction.position_id
+
+CREATE  VIEW instructions_per_year AS
+SELECT
+	YEAR(job.time_created) as year,
+	SUM(quantity) as total_quantity
+FROM instruction
+LEFT JOIN job
+	ON instruction.job_id = job.id
+GROUP BY year
+ORDER BY year ASC;
+
+CREATE  VIEW instructions_per_month AS
+SELECT
+	YEAR(job.time_created) AS year,
+    MONTH(job.time_created) AS month,
+	SUM(quantity) as total_quantity
+FROM instruction
+LEFT JOIN job
+	ON instruction.job_id = job.id
+GROUP BY year, month
+ORDER BY year ASC, month ASC;
+
+CREATE VIEW instructions_per_day AS
+SELECT
+	YEAR(job.time_created) AS year,
+    MONTH(job.time_created) AS month,
+    DAY(job.time_created) AS day,
+	SUM(quantity) as total_quantity
+FROM instruction
+LEFT JOIN job
+	ON instruction.job_id = job.id
+GROUP BY year, month, day
+ORDER BY year ASC, month ASC, day ASC;
+
+CREATE VIEW instructions_per_hour AS
+SELECT
+	YEAR(job.time_created) AS year,
+    MONTH(job.time_created) AS month,
+    DAY(job.time_created) AS day,
+    HOUR(job.time_created) AS hour,
+	SUM(quantity) as total_quantity
+FROM instruction
+LEFT JOIN job
+	ON instruction.job_id = job.id
+GROUP BY year, month, day, hour
+ORDER BY year ASC, month ASC, day ASC, hour ASC;

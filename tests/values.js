@@ -22,7 +22,7 @@ let padding = (number) => {
 
 export async function getDateTimes() {
     let year = randomNumber(2010,2022)
-    let month = padding(randomNumber(1, 12))
+    let month = padding(randomNumber(1, 4))
     let day = padding(randomNumber(1, 28))
     let created_hour = randomNumber(6, 19)
     let done_hour = padding(created_hour + 1)

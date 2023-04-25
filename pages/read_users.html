@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="background" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,54 +9,49 @@
     <link rel="stylesheet" href="../styles/read_users.css">
 </head>
 <body>
+    <h1>User Management</h1>
     <section id="users">
     </section>
     <section id="view-user-section">
-        <section id="date-and-time-updated">
-            <p id="close-update-user-popup">&times;</p>
-        <section id="username-section">
-            <p id="username" type="text" placeholder="Username">
-            <p id="username-validation" class="validation"></p>
-        </section>
+        <p id="close-view-user-popup">&times;</p>
+        <h4>Username</h4>
+        <p id="username-view"></p>
+        <h4>Email</h4>
+        <p id="email-view"></p>
+        <h4>First Name</h4>
+        <p id="first-name-view"></p>
+        <h4>Last Name</h4>
+        <p id="last-name-view"></p>
+        <h4>Date Created</h4>
+        <p id="date-created-view"></p>
+        <h4>Time Created</h4>
+        <p id="time-created-view"></p>
+        <h4>Date Updated</h4>
+        <p id="date-updated-view"></p>
+        <h4>Time Updated</h4>
+        <p id="time-updated-view"></p>
         
-        <section id="email-section">
-            <input id="email" type="text" placeholder="Email">
-            <p id="email-validation" class="validation"></p>
-        </section>
-        
-        <section id="first-name-section">
-            <input id="first-name" type="text" placeholder="First Name">
-            <p id="first-name-validation" class="validation"></p>
-        </section>
-    
-        <section id="last-name-section">
-            <input id="last-name" type="text" placeholder="Last Name">
-            <p id="last-name-validation" class="validation"></p>
-        </section>
-        <button id="update-user" type="button">Update User</button>
-        </section>
-        <section id="date-and-time-created">
     </section>
     <section id="update-user-section">
         <p id="close-update-user-popup">&times;</p>
         <section id="username-section">
-            <input id="username" type="text" placeholder="Username">
-            <p id="username-validation" class="validation"></p>
+            <input id="username-update" type="text" placeholder="Username">
+            <p id="username-update-validation" class="validation"></p>
         </section>
         
         <section id="email-section">
-            <input id="email" type="text" placeholder="Email">
-            <p id="email-validation" class="validation"></p>
+            <input id="email-update" type="text" placeholder="Email">
+            <p id="email-update-validation" class="validation"></p>
         </section>
         
         <section id="first-name-section">
-            <input id="first-name" type="text" placeholder="First Name">
-            <p id="first-name-validation" class="validation"></p>
+            <input id="first-name-update" type="text" placeholder="First Name">
+            <p id="first-name-update-validation" class="validation"></p>
         </section>
     
         <section id="last-name-section">
-            <input id="last-name" type="text" placeholder="Last Name">
-            <p id="last-name-validation" class="validation"></p>
+            <input id="last-name-update" type="text" placeholder="Last Name">
+            <p id="last-name-update-validation" class="validation"></p>
         </section>
         <button id="update-user" type="button">Update User</button>
     </section>

@@ -1,127 +1,123 @@
+import { yearComponent } from "../components/yearComponent.js"
 import { getMonth } from "../functions/getMonth.js"
-async function getJobsPerMonth(year) {
+async function getInstructionsPerMonth(year) {
     let body = new FormData()
     body.append('year', year)
+    
     let settings = { method: 'POST', body: body }
-    let response = await fetch('../db/read_jobs_per_month.php',  settings)
+    let response = await fetch('../db/read_instructions_per_month.php', settings)
     return response.json()
 }
 
 async function getYears() {
     let response = await fetch('../db/read_years.php')
-    let data = response.json()
-    return data
+    return response.json()
 }
 
-// Year
+
 let years = await getYears()
 
-// Add to Year Radio
+// Add Year Radio Elements
 let year_radio_section = document.querySelector('#year-radio-section')
 for(let i = 0; i < years.length; i++) {
-    let year_radio = document.createElement('input')
-    year_radio.type = 'radio'
-    year_radio.name = 'year-radio'
-    year_radio.value = years[i].year
-    year_radio.id = years[i].year
-    year_radio.className = 'year-radio'
-    year_radio.textContent = years[i].year
-
-    let year_radio_label = document.createElement('label')
-    year_radio_label.htmlFor = years[i].year
-    year_radio_label.textContent = years[i].year
-    year_radio_label.className = 'year-radio-label'
-    year_radio.addEventListener('input', async() => {
-        console.log(years[i].year)
-        let jobs_per_month = await getJobsPerMonth(years[i].year)
-        document.querySelector('svg').innerHTML = ''
-        year_radio_label.textContent = years[i].year
-        drawGraph(jobs_per_month)
+    let year = yearComponent(years[i].year)
+    year.radio.addEventListener('input', async()=> {
+        let instructions_per_month = await getInstructionsPerMonth(years[i].year)
+        console.log(instructions_per_month)
+        let svg = document.querySelector('svg')
+        svg.innerHTML = ''
+        drawGraph(instructions_per_month)
     })
-
-    year_radio_section.appendChild(year_radio)
-    year_radio_section.appendChild(year_radio_label)
+    year_radio_section.appendChild(year.radio)
+    year_radio_section.appendChild(year.label)
 }
 
 // Draw First Graph
-let jobs_per_month = await getJobsPerMonth(years[years.length - 1].year)
+let instructions_per_month = await getInstructionsPerMonth(years[years.length - 1].year)
 let year_radio = document.querySelectorAll('.year-radio')
 year_radio[year_radio.length - 1].checked = true
-drawGraph(jobs_per_month)
+drawGraph(instructions_per_month)
+
+// Get Total Money Made
+let total_money_made = document.querySelector('#total-money-made')
+let x = 0
+for(let i = 0; i < instructions_per_month.length; i++) {
+    x += parseInt(instructions_per_month[i].total_quantity)
+}
+total_money_made.textContent = (x * 100).toLocaleString('en-US')
 
 function drawGraph(dataset) {
     // Graph Dimensions
-    let width = 640
-    let height = 640
+    let width = 600
+    let height = 600
     let padding = 80
 
-    // Min
+    // Calculate Mins and Max 
     let min = {
         x: d3.min(dataset, d => d.month),
-        y: d3.min(dataset, d => d.total_jobs)
+        y: d3.min(dataset, d => d.total_quantity)
     }
 
-    // Max
     let max = {
         x: d3.max(dataset, d => d.month),
-        y: d3.max(dataset, d => d.total_jobs)
+        y: d3.max(dataset, d => parseInt(d.total_quantity))
     }
 
-    // Domain
+    console.log(max.y)
+    // Set Domains
     let domain = {
-        x: [1, max.x],
+        x: [min.x, max.x],
         y: [0, max.y]
     }
 
-    // Ranges
+    // Set Ranges
     let range = {
         x: [padding, width - padding],
         y: [height - padding, padding]
     }
 
-    // Scale
+    // Set Scales
     let scale = {
         x: d3.scaleLinear().domain(domain.x).range(range.x),
         y: d3.scaleLinear().domain(domain.y).range(range.y)
     }
 
-    // Axes
+    // Set Axes
     let axis = {
         x: d3.axisBottom(scale.x)
-            .tickFormat(d => getMonth(d))
-            .tickSize(5),
-
+                .ticks(12)
+                .tickFormat(d => getMonth(d))
+                .tickSize(5),
         y: d3.axisLeft(scale.y)
-            .tickSize(5),
-
+            .tickSize(5)
+            .tickFormat(d => d)
     }
 
-    // Grid
+    // For Gridlines
     let grid = {
         x: d3.axisBottom(scale.x)
-            .tickFormat("")
-            .tickSize(-height + (padding * 2)),
-
+                .tickFormat("")
+                .tickSize(-height + (padding * 2)),
         y: d3.axisLeft(scale.y)
-            .tickFormat("")
-            .tickSize(-width + (padding * 2))
+                .tickFormat("")
+                .tickSize(-width  + (padding * 2))
     }
+
     // SVG
     let svg = d3.select('svg')
                 .attr('width', width)
                 .attr('height', height)
-    
-    // Grid X
-    svg.append('g')
-        .attr('class', 'grid')
-        .attr('transform', `translate(0,${height - padding})`)
-        .call(grid.x)
 
-    // Grid Y
-    svg.append('g')
-        .attr('class', 'grid')
-        .attr('transform', `translate(${padding},0)`)
-        .call(grid.y)
+    // GridLines - set them before axes
+    svg.append("g")
+    .attr('class', 'grid')
+    .attr("transform", `translate(0,${height - padding})`)
+    .call(grid.x)
+
+    svg.append("g")
+    .attr('class', 'grid')
+    .attr("transform", `translate(${padding},0)`)
+    .call(grid.y)
 
     // X Axis 
     svg.append("g")
@@ -135,16 +131,17 @@ function drawGraph(dataset) {
 
     // Line Bar
     let line = d3.line()
-        .x(d => scale.x(d.month))
-        .y(d => scale.y(d.total_jobs))
+                .x(d => scale.x(d.month))
+                .y(d => scale.y(d.total_quantity))
 
-        svg.append('path')
+    svg.append('path')
         .datum(dataset)
         .attr("d", line)
         .attr("class", "line")
         .style("fill", "none")
         .style("stroke", "green")
         .style("stroke-width", 2)
+
     // Scatter Plot
     svg.selectAll('circle')
         .data(dataset)
@@ -152,33 +149,43 @@ function drawGraph(dataset) {
         .append('circle')
         .attr('class', 'circle')
         .attr("cx", d => scale.x(d.month))
-        .attr("cy", d => scale.y(d.total_jobs))
+        .attr("cy", d => scale.y(d.total_quantity))
         .attr("r", 7)
 
     // Add Circle Labels 
     let circle = document.querySelectorAll('.circle')
     for(let i = 0; i < circle.length; i++) {
-        let total_jobs = document.querySelector('#total-jobs')
+        let total_jobs = document.querySelector('#total-quantity')
         circle[i].addEventListener('mouseover', function(e) {
             total_jobs.style.top = `${e.clientY - 60}px`
             total_jobs.style.left = `${e.clientX - 30}px`
             total_jobs.style.opacity = 1
-            total_jobs.innerHTML = `Month: ${getMonth(dataset[i].month)}<br>Jobs: ${dataset[i].total_jobs}`
+            total_jobs.innerHTML = `Year: ${dataset[i].month}<br>Instructions: ${(dataset[i].total_quantity * 1).toLocaleString('en-US')}`
+            total_jobs.style.backgroundColor = 'yellow'
+            let money_made_per_year = document.querySelector('#money-made-per-year')
+            money_made_per_year.textContent = (dataset[i].total_quantity * 100).toLocaleString('en-US')
+            let money_made_per_year_header = document.querySelector('#money-made-per-year-header')
+            money_made_per_year_header.textContent = 'Money Made'
         })
 
         circle[i].addEventListener('mouseout',function() {
             total_jobs.textContent = ""
-            total_jobs.style.opacity = 0 
+            total_jobs.style.opacity = 0
+            let money_made_per_year = document.querySelector('#money-made-per-year')
+            money_made_per_year.textContent = ''
+            let money_made_per_year_header = document.querySelector('#money-made-per-year-header')
+            money_made_per_year_header.textContent = ''
+            
         })
     }
-    
+
     // Title
     svg.append('text')
         .attr('x', width/2)
         .attr('y', padding/2)
         .attr('text-anchor', 'middle')
         .attr('class', 'graph-heading')
-        .text('TOTAL JOBS PER YEAR PER MONTH')
+        .text('TOTAL INSTRUCTIONS PER MONTH')
 
     // X label
     svg.append('text')
@@ -195,7 +202,7 @@ function drawGraph(dataset) {
         .attr('text-anchor', 'middle')
         .attr('transform', `rotate(270)`)
         .attr('class', 'graph-label')
-        .text('Total Jobs')
+        .text('Total Quantity (In Thousands)')
 
     svg.selectAll('line')
         .data(dataset)
@@ -208,3 +215,4 @@ function drawGraph(dataset) {
         .attr('stroke', 'orange')
         .attr('stroke-width', 3)
 }
+

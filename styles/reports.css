@@ -15,9 +15,8 @@ svg {
     margin: auto;
 }
 
-#total-jobs {
+#total-jobs, #total-quantity {
     position: absolute;
-    background-color: yellow;
     padding: 5px;
     border-radius: 5px;
 }
@@ -31,5 +30,38 @@ svg {
 }
 
 .grid {
-    color: aliceblue;
+    color: lightgreen;
+}
+
+.circle {
+    opacity: 0.5;
+}
+
+#year-scale {
+    display: flex;
+    width: 90%;
+    border: solid 1px black;
+    justify-content: space-between;
+    list-style: none;
+}
+
+#year-range::-webkit-slider-runnable-track {
+    background-color: #000;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    color: green;
+}
+
+.year-radio-label, .month-radio-label, .day-radio-label {
+    padding: 5px;
+}
+
+#year-radio-section, #month-radio-section, #day-radio-section {
+    border: solid 1px black;
+    padding: 5px;
 }
