@@ -26,14 +26,13 @@ function setAdminButton() {
             if(user.role_id === 3) {
                 let go_to_admin = document.querySelector('#go-to-admin');
                 go_to_admin.setAttribute('href', `../pages/admin.html?user_id=${user.id}`);
-                
-                let button = document.createElement('button');
-                button.textContent = 'Go To Admin';
+                go_to_admin.textContent = 'Go To Admin'
 
                 go_to_admin.appendChild(button);
             }
         })
 }
+
 function fetchDoneJobs(container, body) {
     fetch('../db/done_jobs.php', {
         method: 'POST',
@@ -158,6 +157,7 @@ if(isLoggedIn === null) {
     const job_search_container = document.querySelector("#job-search-container");
         // Tabs
     const in_progress_job_tab = document.querySelector('#in-progress-job-tab');
+    in_progress_job_tab.className = 'tab tab-selected'
     const done_job_tab = document.querySelector("#done-job-tab");
         // Search
     const in_progress_job_search = document.querySelector('#in-progress-job-search');
@@ -185,6 +185,8 @@ if(isLoggedIn === null) {
         const inProgressJobData = new FormData();
         inProgressJobData.append('in_progress_job_number', in_progress_job_search.value);
         
+        in_progress_job_tab.className = 'tab tab-selected'
+        done_job_tab.className = 'tab'
         jobs_container.innerHTML = "";
         job_search_container.innerHTML = "";
         
@@ -201,6 +203,9 @@ if(isLoggedIn === null) {
         // Clear Containers
         jobs_container.innerHTML = "";
         job_search_container.innerHTML = "";
+        // Select Tab
+        in_progress_job_tab.className = 'tab'
+        done_job_tab.className = 'tab tab-selected'
         // Create Done Job Search Bar
         let done_job_search = doneJobSearch();
         // Search Functionality

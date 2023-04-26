@@ -1,5 +1,15 @@
 :root {
     --common-px: 10px;
+    --brightish-red: #AE2012;
+    --palish-yellow: #E9D8A6;
+    --yellow: #ffde24b5;
+    --maroon: #9B2226;
+    --image-dimension: 150px;
+    --dark-blue: #005F73;
+    --blue: #0A9396;
+    --light-blue: #94D2BD;
+    --blackish: #001219;
+    --orange: #CA6702;
 }
 
 * {
@@ -15,6 +25,111 @@
     src: url('../fonts/Golos_Text/GolosText-VariableFont_wght.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('../fonts/Inconsolata/Inconsolata-VariableFont_wdth\,wght.ttf') format('truetype');
+}
+
+body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logo {
+    width: 50px;
+}
+
+#company-name {
+    font-size: 2.5em;
+}
+
+#logo-with-text {
+    display: flex;
+    align-items: flex-end;
+}
+
+#new-job-and-admin {
+    display: flex;
+    padding: var(--common-px);
+}
+
+#go-to-admin {
+    position: absolute;
+    top: -1px;
+    right: 5%;
+    border: solid 1px var(--blackish);
+    border-radius: 0px 0px var(--common-px) var(--common-px);
+}
+
+#new-job-link, #go-to-admin {
+    text-decoration: none;
+    color: #000;
+}
+
+#new-job-link {
+    background-color: var(--palish-yellow);
+    position: absolute;
+    left: -4%;
+    top: 50%;
+    transform: rotate(270deg);
+    border: solid 1px var(--blackish);
+    border-radius: 0px 0px var(--common-px) var(--common-px);
+}
+
+#tabs {
+    display: flex;
+    align-items: center;
+    width: 40%
+}
+
+.tab {
+    color: var(--dark-blue);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--dark-blue);
+}
+
+#in-progress-job-tab {
+    border-radius: var(--common-px) 0px 0px var(--common-px);
+}
+#done-job-tab {
+    border-radius: 0 var(--common-px) var(--common-px) 0px;
+}
+
+#tabs-and-search {
+    display: flex;
+    padding: var(--common-px);
+}
+
+.tab-selected {
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+    border-color: var(--dark-blue);
+    transform: scale(1.1);
+}
+
+.job-number {
+    font-family: 'Inconsolata';
+    font-size: 3em;
+    color: var(--orange);
+    text-align: center;
+}
+
+.telephone-number {
+    font-size: 1.2em;
+}
+
+.phone-icon {
+    width: 15px;
+    height: 15px;
+}
+
+#jobs-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .text-radio {
     display: none;
 }
@@ -24,33 +139,50 @@
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    padding: var(--common-px);
+    position: relative;
 }
 
-#tabs {
-    display: flex;
-    align-items: center;
+main {
+    padding-top: var(--common-px);
 }
 
-.tab, .job-search, #new-job-button {
+.job-number::-webkit-input-placeholder {
+    text-align: center;
+}
+
+.tab, .job-search, #new-job-link, #mark-done, #go-to-admin {
     padding: var(--common-px);
 }
 
-.in-progress-job, .done-progress-job {
-    border: solid 1px black;
-    border-radius: 0px var(--common-px) var(--common-px) var(--common-px);
-    padding: var(--common-px);
+.job-search {
+    border: solid 1px var(--blackish);
+    border-radius: var(--common-px);
 }
+
+#mark-done {
+    position: absolute;
+    bottom: 10px;
+    right: 10%;
+    background-color: white;
+}
+
+#mark-done{
+    border: solid 1px var(--blackish);
+    border-radius: 10px;
+}
+
+.telephone-number-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
 
 body {
     min-width: 320px;
-}
-
-body {
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .in-progress-job, .done-progress-job, .job-search {
@@ -58,7 +190,20 @@ body {
     margin-bottom: var(--common-px);
 }
 
-.in-progress-job-link, .done-job-link  {
+.in-progress-job-section, .done-job-link {
+    display: block;
+    border: solid 1px var(--maroon);
+    border-radius: 10px;
+    padding: var(--common-px);
+    margin: var(--common-px);
+    transition: background-color 200ms ease-in-out;
+}
+
+.in-progress-job-section:hover, .done-job-link:hover {
+background-color: var(--palish-yellow);
+}
+
+.in-progress-job-link, .done-job-link {
     text-decoration: none;
     color: black;
 }
@@ -66,3 +211,7 @@ body {
 .in-progress-job-section{
     display: flex;
 }
+
+/* * {
+    outline: solid 1px green;
+} */

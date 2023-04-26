@@ -9,17 +9,22 @@ export function doneJobComponent(id, job_number, telephone_number, description, 
     // Create elements
     let link = document.createElement('a');
 
-    let job_number_element = sectionWithParagraph('job-number', 'Job Number', job_number);
+    // let job_number_element = sectionWithParagraph('job-number', 'Job Number', job_number);
     // let telephone_number_element =  sectionWithParagraph('telephone-number', 'Telephone Number', telephone_number);
+    let job_number_element = document.createElement('p')
+    job_number_element.className = 'job-number'
+    job_number_element.textContent = job_number
+
     let telephone_number_element = document.createElement('section');
+    telephone_number_element.className = 'telephone-number-section'
     let phone_icon = document.createElement('img');
+    phone_icon.className = 'phone-icon'
     phone_icon.src = '../icons/call.png';
-    phone_icon.style.width = '10px';
-    phone_icon.style.width = '10px';
     telephone_number_element.appendChild(phone_icon);
 
-    let phone = document.createElement('span');
+    let phone = document.createElement('p');
     phone.textContent = telephone_number;
+    phone.className = 'telephone-number'
     telephone_number_element.appendChild(phone);
 
     

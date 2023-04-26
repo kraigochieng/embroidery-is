@@ -1,14 +1,6 @@
 /* * {
     outline: solid 1px red;
 } */
-
-:root {
-    --image-dimension: 150px;
-    --dark-blue: #005F73;
-    --blue: #0A9396;
-    --light-blue: #94D2BD;
-}
-
 body {
     position: relative;
     height: 200px;

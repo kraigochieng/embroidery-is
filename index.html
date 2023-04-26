@@ -8,7 +8,17 @@
         <title>Home Page</title>
     </head>
     <body>
-        <header>
+        <header id="new-job-and-admin">
+            <section id="logo-with-text">
+                <img id="logo" src="images/bellerouze_logo.png">
+                <p id="company-name">ellerouze Outfitters</p>
+            </section>
+            <a id="go-to-admin" href="pages/admin.html"></a>    
+        </header>
+
+        <a id="new-job-link" href="#">+ New job</a>
+
+        <section id="tabs-and-search">
             <article id="tabs">
                 <p class="tab" id="in-progress-job-tab">In Progress</p>
                 <p class="tab" id="done-job-tab">Done</p>
@@ -16,12 +26,11 @@
             <section id="job-search-container">
                 <input  type="text" class="job-search" id="in-progress-job-search" placeholder="In Progress Job Number">
             </section>
-            <a id="go-to-admin" href="pages/admin.html"></a>
-            <a id="new-job-link" href="#"><button id="new-job-button">+ New job</button></a>    
-        </header>
+        </section>
+        <section id="count">
+        </section>
         <button type="button" id="mark-done">Mark Done</button>
-
-        <article id="jobs-container">
+        <article id="jobs-container">    
         </article>
         <script type="module" src="scripts/index.js"></script>
         <script type="module" src="scripts/logout_time.js"></script>
