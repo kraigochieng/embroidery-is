@@ -5,10 +5,9 @@ body {
     position: relative;
     height: 200px;
 }
+
 #logo {
     width: var(--image-dimension);
-    height: var(--image-dimension);
-
 }
 
 #login-form {

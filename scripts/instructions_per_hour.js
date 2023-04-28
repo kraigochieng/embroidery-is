@@ -194,7 +194,7 @@ function drawGraph(dataset) {
     let line = d3.line()
         .x(d => scale.x(d.hour))
         .y(d => scale.y(d.total_quantity))
-        .curve(d3.curveMonotoneX)
+        // .curve(d3.curveMonotoneX)
 
         svg.append('path')
         .datum(dataset)

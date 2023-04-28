@@ -1,0 +1,28 @@
+.admin-choices {
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    padding: 20px;
+    margin: 50px;
+    border: solid 1px black;
+    border-radius: var(--common-px);
+    transition: transform 200ms ease;
+}
+.admin-choices:hover {
+    transform: scale(1.1);
+}
+
+#admin-title {
+    padding: var(--common-px);
+    text-align: center;    
+}
+
+#admin-menu {
+    display: flex;
+    justify-content: center;
+}
+
+.icon {
+    width: var(--image-dimension);
+}
+

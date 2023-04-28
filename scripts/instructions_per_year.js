@@ -5,7 +5,7 @@ async function getInstructionsPerYear() {
 
 // Get Data
 let instructions_per_year = await getInstructionsPerYear()
-
+console.log(instructions_per_year)
 // Get Total Money Made
 let total_money_made = document.querySelector('#total-money-made')
 let x = 0
@@ -15,8 +15,8 @@ for(let i = 0; i < instructions_per_year.length; i++) {
 total_money_made.textContent = (x * 100).toLocaleString('en-US')
 
 // Graph Dimensions
-let width = 640
-let height = 640
+let width = 560
+let height = 560
 let padding = 80
 
 // Calculate Mins and Max 
@@ -99,6 +99,8 @@ svg.append("g")
 let line = d3.line()
             .x(d => scale.x(d.year))
             .y(d => scale.y(d.total_quantity))
+
+console.log(svg)
 
 svg.append('path')
     .datum(instructions_per_year)

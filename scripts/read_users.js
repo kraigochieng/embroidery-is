@@ -1,9 +1,18 @@
 import { userComponent } from "../components/user.js";
 import { updateUser } from "./update_user.js";
 
+function addBackground() {
+    let users_section = document.querySelector('#users')
+    users_section.style.opacity = '0.3'
+    let open_create_user_popup= document.querySelector("#open-create-user-popup")
+    open_create_user_popup.style.opacity = '0.3'
+}
+
 function removeBackground() {
     let users_section = document.querySelector('#users')
     users_section.style.opacity = '1'
+    let open_create_user_popup= document.querySelector("#open-create-user-popup")
+    open_create_user_popup.style.opacity = '1'
 }
 
 export async function fetchUsers() {
@@ -100,3 +109,21 @@ update_user.addEventListener('click', async () => {
 // View Users
 await viewUsers()
 
+// Open Create User Popup
+let open_create_user_popup = document.querySelector('#open-create-user-popup')
+open_create_user_popup.addEventListener('click', openCreateUserPopup)
+
+function openCreateUserPopup() {
+    let create_user_section = document.querySelector('#create-user-section');
+    create_user_section.style.transform = 'scale(1)'
+    addBackground()
+
+}
+// Close Create User Popup
+let close_create_user_popup = document.querySelector('#close-create-user-popup');
+close_create_user_popup.addEventListener('click', closeCreateUserPopup)
+export async function closeCreateUserPopup() {
+    let create_user_section = document.querySelector('#create-user-section');
+    create_user_section.style.transform = 'scale(0)';
+    removeBackground()
+}

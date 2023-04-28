@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <p class="hello">Hello</p>
+    <p class="hi">Hi</p> -->
+    <!-- <div id="line-container">
+    </div>
+    <div id="rectangle-container">
+    </div>
+    <div id="circle-container"></div> -->
+    <div id="line-graph-container"></div>
+    <script src="../visualization/package/dist/d3.min.js"></script>
+    <script src="../scripts/reports.js"></script>
+</body>
+</html>

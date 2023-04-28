@@ -1,0 +1,59 @@
+/* * {
+    outline: solid 1px green;
+} */
+body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#job-details {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: var(--common-px);
+    margin: var(--common-px);
+}
+
+.job-details-section {
+    margin: 2px;
+    border: solid 1px black;
+    border-radius: var(--common-px);
+}
+
+.title, .job-details-value {
+    text-align: center;
+}
+
+.title, .job-details-value {
+    padding: 5px;
+}
+
+.instruction-details {
+    border: solid 1px black;
+    padding: var(--common-px);
+    margin: var(--common-px);
+
+}
+
+.instruction-details-format-and-letters {
+    border: solid 1px black;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table, tr, th, td {
+    border: solid 1px black;
+    border-collapse: collapse;
+}
+
+tr, th, td {
+    padding: 7px;
+    text-align: center;
+}
+
+.instruction-details-format-section, .instruction-details-letters-section {
+    text-align: center;
+}

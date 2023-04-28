@@ -249,6 +249,7 @@ SELECT
 	YEAR(time_created) AS year,
 	MONTH(time_created) AS month,
 	DAY(time_created) AS day,
+    job.status,
     COUNT(*) AS jobs
     FROM job
     GROUP BY year, month, day;
@@ -259,6 +260,7 @@ SELECT
 	MONTH(time_created) AS month,
 	DAY(time_created) AS day,
     HOUR(time_created) AS hour,
+    job.status,
     COUNT(*) AS jobs
     FROM job
     GROUP BY year, month, day, hour;
@@ -275,7 +277,7 @@ LEFT JOIN item
 	ON instruction.item_id = item.id
 LEFT JOIN position
 	ON instruction.position_id = position.id
-GROUP BY instruction.item_id, instruction.position_id
+GROUP BY instruction.item_id, instruction.position_id;
 
 CREATE  VIEW instructions_per_year AS
 SELECT
@@ -303,6 +305,7 @@ SELECT
 	YEAR(job.time_created) AS year,
     MONTH(job.time_created) AS month,
     DAY(job.time_created) AS day,
+    status,
 	SUM(quantity) as total_quantity
 FROM instruction
 LEFT JOIN job
@@ -316,9 +319,24 @@ SELECT
     MONTH(job.time_created) AS month,
     DAY(job.time_created) AS day,
     HOUR(job.time_created) AS hour,
+    job.status,
 	SUM(quantity) as total_quantity
 FROM instruction
 LEFT JOIN job
 	ON instruction.job_id = job.id
 GROUP BY year, month, day, hour
 ORDER BY year ASC, month ASC, day ASC, hour ASC;
+
+CREATE VIEW in_progress_jobs_count AS
+SELECT
+	COUNT(*) AS count
+	FROM job
+	WHERE status = 1;
+    
+CREATE VIEW in_progress_items_count AS
+SELECT
+	SUM(instruction.quantity) AS quantity
+FROM instruction
+LEFT JOIN 
+	job ON instruction.job_id = job.id
+WHERE job.status = 1;

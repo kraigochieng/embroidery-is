@@ -5,12 +5,16 @@ export function instructionDetailsComponent(formatName, lettersName, instruction
     let section = document.createElement('section');
     section.setAttribute('class', 'instruction-details');
 
+    let format_and_letters_section = document.createElement('section');
+    format_and_letters_section.className = 'instruction-details-format-and-letters'
+
     let format = sectionWithParagraph('instruction-details-format', 'Format', formatName);
-    section.appendChild(format);
+    format_and_letters_section.appendChild(format)
 
     let letters = sectionWithParagraph('instruction-details-letters', 'Name', lettersName);
-    section.appendChild(letters);
+    format_and_letters_section.appendChild(letters)
 
+    section.appendChild(format_and_letters_section)
     let table = instructionTableDetailsComponent(instructions);
     section.appendChild(table);
 

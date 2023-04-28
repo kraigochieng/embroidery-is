@@ -47,7 +47,7 @@ export async function getFormat() {
 }
 
 export async function getLetters() {
-    let variation = randomNumber(1,12)
+    let variation = randomNumber(1,14)
 
     let nameOne = names[0, randomNumber(0, names.length - 1)]
     let nameTwo = names[0, randomNumber(0, names.length - 1)]

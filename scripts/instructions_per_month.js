@@ -48,8 +48,8 @@ total_money_made.textContent = (x * 100).toLocaleString('en-US')
 
 function drawGraph(dataset) {
     // Graph Dimensions
-    let width = 600
-    let height = 600
+    let width = 560
+    let height = 560
     let padding = 80
 
     // Calculate Mins and Max 

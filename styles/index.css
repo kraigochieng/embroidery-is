@@ -13,11 +13,11 @@
 }
 
 * {
-    font-family: 'Golos Text', serif;
+    font-family: 'Roboto Slab', serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    /* outline: solid 1px blue; */
+    /* outline: solid 1px black; */
 }
 
 @font-face {
@@ -30,188 +30,28 @@
     src: url('../fonts/Inconsolata/Inconsolata-VariableFont_wdth\,wght.ttf') format('truetype');
 }
 
-body {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+@font-face {
+    font-family: 'Prata';
+    src: url('../fonts/Prata/Prata-Regular.ttf');
 }
 
-#logo {
-    width: 50px;
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('../fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf');
 }
 
-#company-name {
-    font-size: 2.5em;
-}
-
-#logo-with-text {
-    display: flex;
-    align-items: flex-end;
-}
-
-#new-job-and-admin {
-    display: flex;
-    padding: var(--common-px);
-}
-
-#go-to-admin {
+.back-button {
     position: absolute;
-    top: -1px;
-    right: 5%;
-    border: solid 1px var(--blackish);
-    border-radius: 0px 0px var(--common-px) var(--common-px);
-}
-
-#new-job-link, #go-to-admin {
-    text-decoration: none;
-    color: #000;
-}
-
-#new-job-link {
-    background-color: var(--palish-yellow);
-    position: absolute;
-    left: -4%;
-    top: 50%;
-    transform: rotate(270deg);
-    border: solid 1px var(--blackish);
-    border-radius: 0px 0px var(--common-px) var(--common-px);
-}
-
-#tabs {
-    display: flex;
-    align-items: center;
-    width: 40%
-}
-
-.tab {
-    color: var(--dark-blue);
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--dark-blue);
-}
-
-#in-progress-job-tab {
-    border-radius: var(--common-px) 0px 0px var(--common-px);
-}
-#done-job-tab {
-    border-radius: 0 var(--common-px) var(--common-px) 0px;
-}
-
-#tabs-and-search {
-    display: flex;
+    left: -1px;
+    top: 5px;
+    border: solid 1px black;
+    border-radius: 0px var(--common-px) var(--common-px) 0px;
     padding: var(--common-px);
-}
-
-.tab-selected {
-    background-color: var(--light-blue);
-    color: var(--dark-blue);
-    border-color: var(--dark-blue);
-    transform: scale(1.1);
-}
-
-.job-number {
-    font-family: 'Inconsolata';
-    font-size: 3em;
-    color: var(--orange);
-    text-align: center;
-}
-
-.telephone-number {
-    font-size: 1.2em;
-}
-
-.phone-icon {
-    width: 15px;
-    height: 15px;
-}
-
-#jobs-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.text-radio {
-    display: none;
-}
-
-.text-radio:checked + label {
-    color: red;
-}
-
-header {
-    align-items: center;
-    padding: var(--common-px);
-    position: relative;
-}
-
-main {
-    padding-top: var(--common-px);
-}
-
-.job-number::-webkit-input-placeholder {
-    text-align: center;
-}
-
-.tab, .job-search, #new-job-link, #mark-done, #go-to-admin {
-    padding: var(--common-px);
-}
-
-.job-search {
-    border: solid 1px var(--blackish);
-    border-radius: var(--common-px);
-}
-
-#mark-done {
-    position: absolute;
-    bottom: 10px;
-    right: 10%;
-    background-color: white;
-}
-
-#mark-done{
-    border: solid 1px var(--blackish);
-    border-radius: 10px;
-}
-
-.telephone-number-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-
-body {
-    min-width: 320px;
-}
-
-.in-progress-job, .done-progress-job, .job-search {
-    margin-top: var(--common-px);
-    margin-bottom: var(--common-px);
-}
-
-.in-progress-job-section, .done-job-link {
-    display: block;
-    border: solid 1px var(--maroon);
-    border-radius: 10px;
-    padding: var(--common-px);
-    margin: var(--common-px);
-    transition: background-color 200ms ease-in-out;
-}
-
-.in-progress-job-section:hover, .done-job-link:hover {
-background-color: var(--palish-yellow);
-}
-
-.in-progress-job-link, .done-job-link {
     text-decoration: none;
     color: black;
+    transition: padding-left 200ms ease ;
 }
 
-.in-progress-job-section{
-    display: flex;
+.back-button:hover {
+    padding-left: 20px;
 }
-
-/* * {
-    outline: solid 1px green;
-} */

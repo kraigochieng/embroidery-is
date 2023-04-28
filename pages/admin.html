@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/admin.css">
+    <title>Admin</title>
 </head>
 <body>
-    <fieldset>
-        <legend>Manage Users</legend>
-    </fieldset>
-    <a id="manage-users" href="../pages/read_users.html"><button>Manage Users</button></a>
-    <a id=""></a>
+    <a class="back-button" id="back-to-jobs">Back To Jobs</a>
+    <h1 id="admin-title">Admin Menu</h1>  
+    <section id="admin-menu">
+        <a class="admin-choices" href="../pages/read_users.html">
+            <img class="icon" src='../images/group.png'>
+            <p>User Management</p>
+        </a>
+        <a class="admin-choices" href="../pages/reports.html">
+            <img class="icon" src="../images/report.png">
+            <p>Reports</p>
+        </a>
+    </section>
+    <script src="../scripts/admin.js"></script>
 </body>
 </html>

@@ -1,30 +1,30 @@
 import { emailRegex } from "../functions/emailRegex.js";
 import { isEmpty } from "../functions/isEmpty.js";
 
-let username = document.querySelector('#username');
-let username_validation = document.querySelector('#username-validation');
+let username = document.querySelector('#username-create');
+let username_validation = document.querySelector('#username-create-validation');
 let isUsernameValid = false;
 
-let email = document.querySelector('#email');
-let email_validation = document.querySelector('#email-validation');
+let email = document.querySelector('#email-create');
+let email_validation = document.querySelector('#email-create-validation');
 let isEmailValid = false;
 
-let first_name = document.querySelector('#first-name');
-let first_name_validation = document.querySelector('#first-name-validation');
+let first_name = document.querySelector('#first-name-create');
+let first_name_validation = document.querySelector('#first-name-create-validation');
 let isFirstNameValid = false;
 
-let last_name = document.querySelector('#last-name');
-let last_name_validation = document.querySelector('#last-name-validation');
+let last_name = document.querySelector('#last-name-create');
+let last_name_validation = document.querySelector('#last-name-create-validation');
 let isLastNameValid = false;
 
-let password = document.querySelector('#password');
-let password_view = document.querySelector('#password-view');
-let password_validation = document.querySelector('#password-validation');
+let password = document.querySelector('#password-create');
+let password_view = document.querySelector('#password-create-view');
+let password_validation = document.querySelector('#password-create-validation');
 let isPasswordValid = false;
 
-let confirm_password = document.querySelector('#confirm-password');
-let confirm_password_view = document.querySelector('#confirm-password-view');
-let confirm_password_validation = document.querySelector('#confirm-password-validation');
+let confirm_password = document.querySelector('#confirm-password-create');
+let confirm_password_view = document.querySelector('#confirm-password-create-view');
+let confirm_password_validation = document.querySelector('#confirm-password-create-validation');
 let isConfirmPasswordValid = false;
 
 let create_user = document.querySelector('#create-user');
@@ -32,8 +32,8 @@ let create_user = document.querySelector('#create-user');
 username.addEventListener('input', usernameValidation);
 function usernameValidation() {
     let usernameBody = new FormData();
-    let username = document.querySelector('#username');
-    let username_validation = document.querySelector('#username-validation');
+    let username = document.querySelector('#username-create');
+    let username_validation = document.querySelector('#username-create-validation');
     usernameBody.append('username', username.value);
     // Get usernames
     fetch('../db/read_username.php', {
@@ -61,8 +61,8 @@ function usernameValidation() {
 email.addEventListener('input', emailValidation);
 function emailValidation() {
     let emailBody = new FormData();
-    let email = document.querySelector('#email');
-    let email_validation = document.querySelector('#email-validation');
+    let email = document.querySelector('#email-create');
+    let email_validation = document.querySelector('#email-create-validation');
     emailBody.append('email', email.value);
     // Get usernames
     fetch('../db/read_email.php', {
@@ -194,6 +194,7 @@ function createUser() {
         })
             .then(response => response.json())
             .then(user => console.log(user))
+            .then(window.location.reload())
             .catch(error => console.error(error));
     }
     

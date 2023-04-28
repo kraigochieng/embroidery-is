@@ -4,75 +4,168 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Manage Users</title>
     <link rel="stylesheet" href="../styles/index.css">
     <link rel="stylesheet" href="../styles/read_users.css">
 </head>
 <body>
-    <h1>User Management</h1>
+    <a class="back-button" id="back-to-admin" href="../pages/admin.html">< Back To Admin Dashboard</a>
+    <h1 id="manage-users-title">Manage Users</h1>
     <section id="users">
     </section>
+    <a id="open-create-user-popup">Create User</a>
+    <section id="create-user-section">
+        <section class="popup-header">
+            <h1>Create User</h1>
+            <p id="close-create-user-popup">&times;</p>
+        </section>
+        <section class="popup-body">
+            <section id="username-create-section">
+                <input class='create-input' id="username-create" type="text" placeholder="Username">
+                <p id="username-create-validation" class="validation"></p>
+            </section>
+            <section id="email-create-section">
+                <input id="email-create" type="text" placeholder="Email">
+                <p id="email-create-validation" class="validation"></p>
+            </section>
+            <section id="first-name-create-section">
+                <input id="first-name-create" type="text" placeholder="First Name">
+                <p id="first-name-create-validation" class="validation"></p>
+            </section>
+            <section id="last-name-create-section">
+                <input id="last-name-create" type="text" placeholder="Last Name">
+                <p id="last-name-create-validation" class="validation"></p>
+            </section>
+            <section id="password-create-section">
+                <input id="password-create" type="password" placeholder="Password">
+                <button id="password-create-view" type="button">&#127765;</button>
+                <p id="password-create-validation" class="validation"></p>
+                <input id="confirm-password-create" type="password" placeholder="Confirm Password">
+                <button id="confirm-password-create-view" type="button">&#127765;</button>
+                <p id="confirm-password-create-validation" class="validation"></p>
+            </section>
+        </section>
+
+        <button id="create-user" type="button">+ Create User</button>
+    </section>
     <section id="view-user-section">
-        <p id="close-view-user-popup">&times;</p>
-        <h4>Username</h4>
-        <p id="username-view"></p>
-        <h4>Email</h4>
-        <p id="email-view"></p>
-        <h4>First Name</h4>
-        <p id="first-name-view"></p>
-        <h4>Last Name</h4>
-        <p id="last-name-view"></p>
-        <h4>Date Created</h4>
-        <p id="date-created-view"></p>
-        <h4>Time Created</h4>
-        <p id="time-created-view"></p>
-        <h4>Date Updated</h4>
-        <p id="date-updated-view"></p>
-        <h4>Time Updated</h4>
-        <p id="time-updated-view"></p>
-        
+        <section class="popup-header">
+            <h1>User Details</h1>
+            <p id="close-view-user-popup">&times;</p>
+        </section>
+        <section class="popup-body popup-with-details">
+            <section class="bio">
+                <h2 class="bio-heading">Bio</h2>
+                <section id="username-view-section">
+                    <h4>Username</h4>
+                    <p id="username-view"></p>
+                </section>
+                <section id="email-view-section">
+                    <h4>Email</h4>
+                    <p id="email-view"></p>
+                </section>
+                <section id="first-name-view-section">
+                    <h4>First Name</h4>
+                    <p id="first-name-view"></p>
+                </section>
+                <section id="last-name-view-section">
+                    <h4>Last Name</h4>
+                    <p id="last-name-view"></p>
+                </section>
+            </section>
+            <section class="system-info">
+                <h2 class="system-info-heading">System Info</h2>
+                <section id="date-created-view-section">
+                    <h4>Date Created</h4>
+                    <p id="date-created-view"></p>
+                </section>
+                <section id="time-created-view-section"> 
+                    <h4>Time Created</h4>
+                    <p id="time-created-view"></p>
+                </section>
+                <section id="date-updated-view-section">
+                    <h4>Date Updated</h4>
+                    <p id="date-updated-view"></p>
+                </section>
+                <section id="time-updated-view-section">
+                    <h4>Time Updated</h4>
+                    <p id="time-updated-view"></p>
+                </section>
+            </section>
+        </section>
     </section>
     <section id="update-user-section">
-        <p id="close-update-user-popup">&times;</p>
-        <section id="username-section">
-            <input id="username-update" type="text" placeholder="Username">
-            <p id="username-update-validation" class="validation"></p>
+        <section class="popup-header">
+            <h1>Update User</h1>
+            <p id="close-update-user-popup">&times;</p>
         </section>
-        
-        <section id="email-section">
-            <input id="email-update" type="text" placeholder="Email">
-            <p id="email-update-validation" class="validation"></p>
-        </section>
-        
-        <section id="first-name-section">
-            <input id="first-name-update" type="text" placeholder="First Name">
-            <p id="first-name-update-validation" class="validation"></p>
-        </section>
-    
-        <section id="last-name-section">
-            <input id="last-name-update" type="text" placeholder="Last Name">
-            <p id="last-name-update-validation" class="validation"></p>
+        <section class="popup-body">
+            <section id="username-update-section">
+                <p class="update-title">Username</p>
+                <input class='update-input' id="username-update" type="text" placeholder="Username">
+                <p id="username-update-validation" class="validation"></p>
+            </section>
+            <section id="email-update-section">
+                <p class="update-title">Email</p>
+                <input class='update-input' id="email-update" type="text" placeholder="Email">
+                <p id="email-update-validation" class="validation"></p>
+            </section>
+            <section id="first-name-update-section">
+                <p class="update-title">First Name</p>
+                <input class='update-input' id="first-name-update" type="text" placeholder="First Name">
+                <p id="first-name-update-validation" class="validation"></p>
+            </section>
+            <section id="last-name-update-section">
+                <p class="update-title">Last Name</p>
+                <input class='update-input' id="last-name-update" type="text" placeholder="Last Name">
+                <p id="last-name-update-validation" class="validation"></p>
+            </section>
         </section>
         <button id="update-user" type="button">Update User</button>
     </section>
     <section id="delete-user-section">
-        <h3>Delete User</h3>
-        <p id="close-delete-user-popup">&times;</p>
-        <h4>Username</h4>
-        <p id="username-delete"></p>
-        <h4>Email</h4>
-        <p id="email-delete"></p>
-        <h4>First Name</h4>
-        <p id="first-name-delete"></p>
-        <h4>Last Name</h4>
-        <p id="last-name-delete"></p>
-        <h4>Time Created</h4>
-        <p id="time-created-delete"></p>
-        <h4>Date Created</h4>
-        <p id="date-created-delete"></p>
-        <button id="delete-user-yes" type="button">Yes</button>
-        <button id="delete-user-no" type="button">No</button>
+        <section class="popup-header">
+            <h3>Delete User</h3>
+            <p id="close-delete-user-popup">&times;</p>    
+        </section>
+        <section class="popup-body popup-with-details">
+            <section class="bio">
+                <h2 class="bio-heading">Bio</h2>
+                <section id="username-delete-section">
+                    <h4>Username</h4>
+                    <p id="username-delete"></p>
+                </section>
+                <section id="email-delete-section">
+                    <h4>Email</h4>
+                    <p id="email-delete"></p>
+                </section>
+                <section id="first-name-delete-section">
+                    <h4>First Name</h4>
+                    <p id="first-name-delete"></p>
+                </section>
+                <section id="last-name-delete-section">
+                    <h4>Last Name</h4>
+                <p id="last-name-delete"></p>
+                </section>
+            </section>
+            <section class="system-info">
+                <h2 class="system-info-heading">System Information</h2>
+                <section id="time-created-delete-section">
+                    <h4>Time Created</h4>
+                    <p id="time-created-delete"></p>
+                </section>
+                <section id="date-created-delete-section">
+                    <h4>Date Created</h4>
+                    <p id="date-created-delete"></p>
+                </section>
+            </section>
+        </section>
+        <section id="delete-user-options">
+            <button class='delete-user-option' id="delete-user-yes" type="button">Yes</button>
+            <button class='delete-user-option' id="delete-user-no" type="button">No</button>
+        </section>
     </section>
     <script type="module" src="../scripts/read_users.js"></script>
+    <script type="module" src="../scripts/create_user.js"></script>
 </body>
 </html>

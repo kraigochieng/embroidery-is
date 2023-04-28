@@ -1,5 +1,11 @@
-@import '../styles/update_user.css';
-@import '../styles/delete_user.css';
+/* @import '../styles/update_user.css';
+@import '../styles/delete_user.css'; */
+
+body {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 :root {
     --popup-width: 60%;
@@ -7,16 +13,120 @@
     --common-padding: 10px;
 }
 
+#back-to-admin {
+    text-decoration: none;
+    color: black;
+    border: solid 1px black;
+}
+
+#manage-users-title {
+    text-align: center;
+}
 .user-section {
+    z-index: 0;
     padding: 10px;
     border: solid 1px black;
     border-radius: 5px;
+    margin: 10px;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px black;
+}
+
+.popup-body {
+    justify-content: space-around;
+}
+
+.popup-with-details {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Create */
+#open-create-user-popup {
+    background-color: var(--palish-yellow);
+    border-color: var(--orange);
+    color: var(--maroon);
+    width: 40px;
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+    border: solid 1px var(--blackish);
+    border-radius: var(--common-px) 0px 0px var(--common-px);
+    transition: width 200ms ease;
+    padding: var(--common-px);
+}
+
+#open-create-user-popup:hover {
+    width: 50px;
+}
+/* Delete */
+#delete-user-options {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-user-option {
+    padding: var(--common-px);
+    margin: 5px;
+}
+.delete-and-edit-section {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+
+/* Update */
+.update-input {
+    padding: var(--common-px);
+    margin-bottom: var(--common-px);
+}
+
+.update-title {
+    margin-bottom: var(--common-px)
+}
+.update-title, .update-input, .validation{
+    max-width: 240px;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#update-user {
+    padding: var(--common-padding);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.bio-heading, .system-info-heading {
+    border-bottom: solid 1px black;
+}
+
+.popup-body, .popup-header {
+    padding: var(--common-px);
 }
 
 #users {
     display: flex;
+    flex-wrap: wrap;
 }
-#update-user-section, #delete-user-section, #view-user-section {
+
+.username {
+    text-align: center;
+}
+
+.user-delete, .user-edit {
+    padding: 5px;
+    margin: 5px;
+}
+
+#create-user-section, #update-user-section, #delete-user-section, #view-user-section {
     position: absolute;
     background-color: white;
     border: solid 1px black;
@@ -25,7 +135,11 @@
     top: calc(50% - var(--popup-height)/2);
     left: calc(50% - var(--popup-width)/2);
     transform: scale(0);
-    padding: var(--common-padding);
+    /* padding: var(--common-padding); */
     border: solid 1px black;
     border-radius: var(--common-padding);
 }
+
+/* * {
+    outline: solid 1px green;
+} */

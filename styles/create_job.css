@@ -39,6 +39,7 @@ input[type="radio"]:checked + label {
 #position-section {
     display: flex;
 }
+
 .position-image {
     width: 100px;
     height: auto;
