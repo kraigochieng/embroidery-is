@@ -1,6 +1,6 @@
 export function lettersComponent() {
     let input = document.createElement('input');
-    input.setAttribute('class', 'letters');
+    input.setAttribute('class', 'format-and-name-input letters');
     input.setAttribute('type', 'text');
     input.setAttribute('placeholder', 'Enter Name');
 

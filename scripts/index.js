@@ -26,9 +26,7 @@ function setAdminButton() {
             if(user.role_id === 3) {
                 let go_to_admin = document.querySelector('#go-to-admin');
                 go_to_admin.setAttribute('href', `../pages/admin.html?user_id=${user.id}`);
-                go_to_admin.textContent = 'Go To Admin'
-
-                go_to_admin.appendChild(button);
+                go_to_admin.style.display = 'inline'
             }
         })
 }

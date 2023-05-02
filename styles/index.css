@@ -13,7 +13,7 @@
 }
 
 * {
-    font-family: 'Roboto Slab', serif;
+    font-family: 'IBM Plex Sans Medium', serif;
     box-sizing: border-box;
     padding: 0;
     margin: 0;
@@ -40,6 +40,26 @@
     src: url('../fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf');
 }
 
+@font-face {
+    font-family: 'IBM Plex Sans Regular';
+    src: url('../fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'IBM Plex Sans Medium';
+    src: url('../fonts/IBM_Plex_Sans/IBMPlexSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Fredericka The Great';
+    src: url('../fonts/Fredericka_the_Great/FrederickatheGreat-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Special Elite';
+    src: url('../fonts/Special_Elite/SpecialElite-Regular.ttf');
+}
+
 .back-button {
     position: absolute;
     left: -1px;
@@ -54,4 +74,14 @@
 
 .back-button:hover {
     padding-left: 20px;
+}
+
+#background-image-section {
+    opacity: 0.1;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: grayscale(100%);
 }

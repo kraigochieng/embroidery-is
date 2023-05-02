@@ -17,7 +17,7 @@ import { getQuantity } from "./values.js"
 import { createInstruction } from "./values.js"
 
 // Number of jobs
-for(let i = 0; i < 130000; i++) {
+for(let i = 0; i < 1000000; i++) {
     let job_number = await getJobNumber()
     let receiver_teller_id = await getUser()
     let confirmer_teller_id = await getUser()

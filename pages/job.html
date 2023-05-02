@@ -10,40 +10,53 @@
 </head>
 <body>
     <a class="back-button" id="back-to-home" href="#"><button type="button"><- Back To Home</button></a>
+    <h1>Create A Job</h1>
     <form>
-        <section id="job-number-section">
-            <h1>Enter Job Details</h1>
-            <input type="text" name="job-number" id="job-number" placeholder="Enter Job Number">
-            <p id="job-number-validation" class="validation"></p>
-            <input type="text" name="telephone-number" id="telephone-number" placeholder="Enter Telephone Number">
-            <p id="telephone-validation" class="validation"></p>
-            <input type="text" name="description" id="job-description" placeholder="Enter Description">
-            <p id="description-validation" class="validation"></p>
+        <section id="job-details-and-format-and-name-section">
+            <section id="job-details-section">
+                <section class="job-details" id="job-number-section">
+                    <input class="job-details-input" type="text"  name="job-number" id="job-number" placeholder="Job Number">
+                    <p class="validation job-details-validation" id="job-number-validation" class="validation"></p>
+                </section>
+                <section class="job-details" id="telephone-number-section">
+                    <input class="job-details-input" type="text" name="telephone-number" id="telephone-number" placeholder="Telephone Number">
+                    <p class="validation job-details-validation" id="telephone-validation" class="validation"></p>
+                </section>
+                <section class="job-details" id="description-section">
+                    <input class="job-details-input" type="text" name="description" id="job-description" placeholder="Description">
+                    <p class="validation job-details-validation" id="description-validation" class="validation"></p>
+                </section>
+            </section>
+            <hr>
+            <section id="format-and-name-section">
+                <!-- <h1>Format And Name</h1> -->
+                <button type="button" id="add-format-and-name" >+ Add</button>
+                <section id="format-and-name-choices" class="empty-format-container"></section>
+                <p id="format-and-name-choice-validation" class="validation"></p>
+            </section>
         </section>
+
         <hr>
-        <section id="format-and-name-section">
-            <h1>Format And Name</h1>
-            <button type="button" id="add-format-and-name" >+ Add</button>
-            <section id="format-and-name-choices" class="empty-format-container"></section>
-            <p id="format-and-name-choice-validation" class="validation"></p>
+        <!-- <h1>Instructions</h1> -->
+        <section id="instruction-form-and-tables">
+            <section id="instructions-section">
+                <section id="item-section"></section>
+                    <p id="item-validation" class="validation"></p>
+                <section id="position-section" class="empty-position-container"></section>
+                    <p id="position-validation" class="validation"></p>
+                <section id="colour-section"></section>
+                    <p id="colour-validation" class="validation"></p>
+                <input type="text" placeholder="Enter Quantity" id="instruction-quantity">
+                    <p id="quantity-validation" class="validation"></p>
+                <button type="button" id="add-instruction">+ Add Instruction</button>
+            </section>
+            <hr>
+            <section id="selected-instructions-section">
+                <section id="selected-instructions-container"></section>
+                <p id="selected-instructions-container-validation" class="validation"></p>
+            </section>
         </section>
-        <hr>
-        <h1>Instructions</h1>
-        <section id="instructions-section">
-            <section id="item-section"></section>
-                <p id="item-validation" class="validation"></p>
-            <h3>Position</h3>
-            <section id="position-section" class="empty-position-container"></section>
-                <p id="position-validation" class="validation"></p>
-            <section id="colour-section"></section>
-                <p id="colour-validation" class="validation"></p>
-            <input type="text" placeholder="Enter Quantity" id="instruction-quantity">
-                <p id="quantity-validation" class="validation"></p>
-            <button type="button" id="add-instruction">+ Add Instruction</button>
-            <section id="selected-instructions-container"></section>
-            <p id="selected-instructions-container-validation" class="validation"></p>
-        </section>
-        <button type="button" id="add-job" >-> Send Job</button>
+        <button type="button" id="send-job" >-> Send Job</button>
     </form>
     <script type="module" src="../scripts/job.js"></script>
     <script type="module" src="../scripts/logout_time.js"></script>

@@ -23,6 +23,7 @@ body {
 }
 
 #go-to-admin {
+    display: none;
     position: absolute;
     top: -1px;
     right: 5%;
@@ -91,7 +92,6 @@ body {
 }
 
 .job-number {
-    font-family: 'Inconsolata';
     font-size: 3em;
     color: var(--orange);
     text-align: center;

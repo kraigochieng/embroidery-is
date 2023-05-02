@@ -4,7 +4,7 @@ export function deleteFormatButton(){
     button.setAttribute('type', 'button');
     button.setAttribute('class', 'delete-format-button');
     // Add text
-    button.textContent = "X";
+    button.innerHTML = "&times;";
 
     return button;
 }

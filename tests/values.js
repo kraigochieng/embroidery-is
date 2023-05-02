@@ -13,7 +13,7 @@ export async function getUser() {
 }
 
 export async function getJobNumber() {
-    return randomNumber(1000000,9999999)
+    return randomNumber(1000,9999999)
 }
 
 let padding = (number) => {

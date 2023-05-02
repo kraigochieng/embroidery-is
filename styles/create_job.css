@@ -1,32 +1,204 @@
-.validation {
-    color: firebrick;
-    font-size: smaller;
-}
-/*  */
-/* For the dropdown  */
-select::-webkit-scrollbar {
-    display: none;
+/* * {
+    outline: solid 1px green;
+} */
+
+:root {
+    --input-padding: 10px;
 }
 
-option:hover {
-    background-color: aqua;
+html {
+    display: inline-block;
+    min-width: 800px;
+    overflow: auto;
 }
-/* For the dropdown  */
-/*  */
-#format-and-name-choices {
+
+body {
+    margin-top: 50px;
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input, select {
+    outline: none;
+    border: none;
+    border-bottom: solid 1px black;
+}
+
+@keyframes dropdown {
+    0% {
+        transform: scale(1)
+    }
+
+    50% {
+        transform: scale(1.05)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+select:hover {
+    animation-name: dropdown;
+    animation-duration: 400ms;
+    animation-timing-function: ease-in-out;
+}
+
+input::placeholder {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Job Details and Format and Name*/
+#job-details-and-format-and-name-section {
     display: flex;
     flex-wrap: wrap;
 }
+/* Job Details */
+#job-details-section {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Format and Name */
+#format-and-name-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    /* align-items: center; */
+}
+
+.invalid-input {
+    border-bottom: solid 2px var(--maroon);
+}
+
+.format-and-name-input {
+    height: 30px;
+    margin: 5px;
+}
+#format-and-name-choices {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
 
 .format-and-name-choice {
-    padding: 10px;
+    display: flex;
+    margin: 10px;
+    padding: 20px;
     border: solid 1px black;
-    border-radius: 5px;
+    border-radius: 2px;
+    align-items: center;
+}
+
+.delete-format-button {
+    width: 20px;
+    height: 20px;
+    border: solid 1px black;
 }
 
 .letters {
     display: block;
 }
+
+#send-job, #add-instruction, #add-format-and-name {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--input-padding);
+    border: solid 1px black;
+    border-radius: 3px;
+}
+
+.format-select {
+
+}
+
+.format-select:hover {
+    
+}
+
+.format-and-name-choice {
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+}
+
+
+.format-and-name-input, .possible-format-option {
+    width: 200px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#delete-format-button {
+    width: 100px;
+    height: 100px;
+}
+
+.validation {
+    font-size: 10px;
+    text-align: center;
+}
+
+.job-details-input {
+    /* padding: 5px; */
+    margin-bottom: 10px;
+}
+
+.job-details-validation {
+    padding-bottom: 5px;
+}
+.validation {
+    color: firebrick;
+    font-size: smaller;
+}
+
+/*  Instructions */
+#instruction-form-and-tables {
+    display: grid;
+    grid-template-areas: "instruction tables";
+}
+
+#instructions-section {
+    grid-area: instruction;
+}
+
+#selected-instructions-section {
+    grid-area: tables;
+}
+
+table, tr, th, td {
+    padding: 10px;
+}
+
+/* Position */
+#position-section {
+    display: flex;
+    flex-wrap: wrap;
+}
+/* For the dropdown  */
+select::-webkit-scrollbar {
+    display: none;
+}
+
+#item-select {
+    width: 20%;
+}
+option:hover {
+    background-color: var(--light-blue);
+}
+/* For the dropdown  */
+/*  */
+
 
 input[type="radio"] {
     display: none;
@@ -62,7 +234,8 @@ input[type="radio"]:checked + label {
 }
 
 .selected {
-    background-color: green;
+    /* background-color: green; */
+    outline: solid 2px var(--blue);
 }
 
 .instruction-table {

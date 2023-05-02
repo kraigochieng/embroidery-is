@@ -40,6 +40,7 @@ import { areContainersBlank } from "../functions/areContainersBlank.js";
 import { createJobStatement } from "../functions/createJobStatement.js";
 import { createInstructionStatement } from "../functions/createInstructionStatement.js";
 import { getUrlParam } from "../functions/getUrlParam.js";
+
 async function getUserId() {
     let back_to_home = document.querySelector('#back-to-home');
 
@@ -56,10 +57,13 @@ function jobNumberValidation(element, validation) {
     let regex = /[^0-9]/;
     
     if(regex.test(element.value)) {
+        element.classList.add('invalid-input')
         validation.textContent = '* Only Include Numbers';
     } else if(element.value === ''){
+        element.classList.add('invalid-input')
         validation.textContent = '* Empty';
     } else {
+        element.classList.remove('invalid-input')
         validation.textContent = '';
     }
 }
