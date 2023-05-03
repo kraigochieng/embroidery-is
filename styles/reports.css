@@ -5,10 +5,10 @@
     font-family: 'Golos Text', serif;
 }
 
-@font-face {
+/* @font-face {
     font-family: 'Golos Text';
     src: url('../fonts/Golos_Text/GolosText-VariableFont_wght.ttf') format('truetype');
-}
+} */
 
 svg {
     display: block;

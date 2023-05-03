@@ -1,6 +1,12 @@
 import { userComponent } from "../components/user.js";
 import { updateUser } from "./update_user.js";
 
+const urlParams = new URLSearchParams(window.location.search);
+const user_id = urlParams.get('user_id');
+
+let back_to_admin = document.querySelector('#back-to-admin')
+back_to_admin.setAttribute('href', `../pages/admin.html?user_id=${user_id}`)
+
 function addBackground() {
     let users_section = document.querySelector('#users')
     users_section.style.opacity = '0.3'
@@ -40,6 +46,9 @@ async function viewUsers() {
     let users_section = document.querySelector('#users')
     users_section.innerHTML = ''
     let users = await fetchUsers()
+    // Fetch Users Number
+    let users_number = document.querySelector('#users-number')
+    users_number.textContent = users.length 
     for(let i = 0; i < users.length; i++) {
         let user = userComponent(users[i].id, users[i].username);
         users_section.appendChild(user);

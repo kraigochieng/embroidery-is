@@ -9,12 +9,19 @@
     <link rel="stylesheet" href="../styles/read_users.css">
 </head>
 <body>
+    <section id="background-image-section">
+        <img id="background-image" src='../images/bellerouze_logo.png'>
+    </section>
     <a class="back-button" id="back-to-admin" href="../pages/admin.html">< Back To Admin Dashboard</a>
     <h1 id="manage-users-title">Manage Users</h1>
+    <section id="users-number-section">
+        <p id="users-number-header">Number of Users</p>
+        <p id="users-number"></p>
+    </section>
     <section id="users">
     </section>
     <a id="open-create-user-popup">Create User</a>
-    <section id="create-user-section">
+    <section class="popup" id="create-user-section">
         <section class="popup-header">
             <h1>Create User</h1>
             <p id="close-create-user-popup">&times;</p>
@@ -28,27 +35,39 @@
                 <input id="email-create" type="text" placeholder="Email">
                 <p id="email-create-validation" class="validation"></p>
             </section>
-            <section id="first-name-create-section">
-                <input id="first-name-create" type="text" placeholder="First Name">
-                <p id="first-name-create-validation" class="validation"></p>
+            <section id="name-create-section">
+                <section id="first-name-create-section">
+                    <input id="first-name-create" type="text" placeholder="First Name">
+                    <p id="first-name-create-validation" class="validation"></p>
+                </section>
+                <section id="last-name-create-section">
+                    <input id="last-name-create" type="text" placeholder="Last Name">
+                    <p id="last-name-create-validation" class="validation"></p>
+                </section>
             </section>
-            <section id="last-name-create-section">
-                <input id="last-name-create" type="text" placeholder="Last Name">
-                <p id="last-name-create-validation" class="validation"></p>
-            </section>
+
             <section id="password-create-section">
-                <input id="password-create" type="password" placeholder="Password">
-                <button id="password-create-view" type="button">&#127765;</button>
-                <p id="password-create-validation" class="validation"></p>
-                <input id="confirm-password-create" type="password" placeholder="Confirm Password">
-                <button id="confirm-password-create-view" type="button">&#127765;</button>
-                <p id="confirm-password-create-validation" class="validation"></p>
+                <section class="password-and-icon-and-validation">
+                    <section class="password-and-icon">
+                        <input id="password-create" type="password" placeholder="Password">
+                        <img class="password-icon" id="password-create-view" src="../images/show_password.png">    
+                    </section>
+                    <p id="password-create-validation" class="validation"></p>    
+                </section>
+                <section class="password-and-icon-and-validation">
+                    <section class="password-and-icon">
+                        <input id="confirm-password-create" type="password" placeholder="Confirm Password">    
+                        <img class="password-icon" id="confirm-password-create-view" src="../images/show_password.png">
+                    </section>
+                    <p id="confirm-password-create-validation" class="validation"></p>    
+                </section>
             </section>
+            <button id="create-user" type="button">+ Create User</button>
         </section>
 
-        <button id="create-user" type="button">+ Create User</button>
+       
     </section>
-    <section id="view-user-section">
+    <section class="popup" id="view-user-section">
         <section class="popup-header">
             <h1>User Details</h1>
             <p id="close-view-user-popup">&times;</p>
@@ -94,7 +113,7 @@
             </section>
         </section>
     </section>
-    <section id="update-user-section">
+    <section class="popup" id="update-user-section">
         <section class="popup-header">
             <h1>Update User</h1>
             <p id="close-update-user-popup">&times;</p>
@@ -123,7 +142,7 @@
         </section>
         <button id="update-user" type="button">Update User</button>
     </section>
-    <section id="delete-user-section">
+    <section class="popup" id="delete-user-section">
         <section class="popup-header">
             <h3>Delete User</h3>
             <p id="close-delete-user-popup">&times;</p>    
@@ -159,10 +178,10 @@
                     <p id="date-created-delete"></p>
                 </section>
             </section>
-        </section>
-        <section id="delete-user-options">
-            <button class='delete-user-option' id="delete-user-yes" type="button">Yes</button>
-            <button class='delete-user-option' id="delete-user-no" type="button">No</button>
+            <section id="delete-user-options">
+                <button class='delete-user-option' id="delete-user-yes" type="button">Yes</button>
+                <button class='delete-user-option' id="delete-user-no" type="button">No</button>
+            </section>
         </section>
     </section>
     <script type="module" src="../scripts/read_users.js"></script>

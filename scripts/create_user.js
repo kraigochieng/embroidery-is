@@ -144,10 +144,10 @@ function togglePasswordView() {
     if(password.value.length > 0) {
         if(password.type === 'password') {
             password.type = 'text';
-            password_view.innerHTML = '&#127761;';
+            password_view.src = '../images/hide_password.png';
         } else {
             password.type = 'password';
-            password_view.innerHTML = '&#127765;';
+            password_view.src = '../images/show_password.png';
         }
     }
 }
@@ -157,10 +157,10 @@ function toggleConfirmPasswordView() {
     if(confirm_password.value.length > 0) {
         if(confirm_password.type === 'password') {
             confirm_password.type = 'text';
-            confirm_password_view.innerHTML = '&#127761;';
+            confirm_password_view.src = '../images/hide_password.png';
         } else {
             confirm_password.type = 'password';
-            confirm_password_view.innerHTML = '&#127765;';
+            confirm_password_view.src = '../images/show_password.png';
         }
     }
 }

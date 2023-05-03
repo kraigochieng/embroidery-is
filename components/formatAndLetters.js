@@ -25,6 +25,20 @@ export function formatAndLettersComponent() {
     section.setAttribute('class', 'format-and-name-choice');
     
     button.addEventListener('click', function(){
+        let siblingCount = this.parentNode.parentNode.childElementCount
+        if(siblingCount == 1) {
+            let format_and_name_choices = document.querySelector('#format-and-name-choices');
+            format_and_name_choices.className = 'empty-format-container'
+            // Hide Instruction Form
+            let instructions_section = document.querySelector('#instructions-section')
+            instructions_section.style.display = 'none'
+            // Hide Add Job
+            let add_job = document.querySelector('#add-job')
+            add_job.style.display = 'none'
+            // Hide Selected Instructions Section
+            let selected_instructions_section = document.querySelector('#selected-instructions-section')
+            selected_instructions_section.style.display = 'none'    
+        }
         this.parentNode.remove();
     })
 

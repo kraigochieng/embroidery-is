@@ -26,6 +26,9 @@ input, select {
     border-bottom: solid 1px black;
 }
 
+select {
+    padding: 5px;
+}
 @keyframes dropdown {
     0% {
         transform: scale(1)
@@ -59,12 +62,23 @@ h1 {
     display: flex;
     flex-wrap: wrap;
 }
+
 /* Job Details */
 #job-details-section {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
+}
+
+.job-details-input {
+    margin-top: 20px;
+}
+
+.job-details-input, .job-details-validation {
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* Format and Name */
@@ -84,7 +98,9 @@ h1 {
     height: 30px;
     margin: 5px;
 }
+
 #format-and-name-choices {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -107,9 +123,10 @@ h1 {
 
 .letters {
     display: block;
+    text-transform: uppercase;
 }
 
-#send-job, #add-instruction, #add-format-and-name {
+#add-job, #add-instruction, #add-format-and-name {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -118,20 +135,11 @@ h1 {
     border-radius: 3px;
 }
 
-.format-select {
-
-}
-
-.format-select:hover {
-    
-}
-
 .format-and-name-choice {
-display: flex;
-flex-wrap: wrap;
-flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
-
 
 .format-and-name-input, .possible-format-option {
     width: 200px;
@@ -149,23 +157,27 @@ flex-direction: row;
     text-align: center;
 }
 
-.job-details-input {
-    /* padding: 5px; */
-    margin-bottom: 10px;
-}
-
-.job-details-validation {
-    padding-bottom: 5px;
-}
 .validation {
     color: firebrick;
     font-size: smaller;
 }
 
 /*  Instructions */
+#instructions-section {
+    display: none;
+}
+
+#item-select, #colour-select, #instruction-quantity{
+    display: block;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
 #instruction-form-and-tables {
     display: grid;
-    grid-template-areas: "instruction tables";
+    grid-template-areas: "instruction instruction instruction tables tables";
 }
 
 #instructions-section {
@@ -184,15 +196,13 @@ table, tr, th, td {
 #position-section {
     display: flex;
     flex-wrap: wrap;
+    padding: 10px;
 }
 /* For the dropdown  */
 select::-webkit-scrollbar {
     display: none;
 }
 
-#item-select {
-    width: 20%;
-}
 option:hover {
     background-color: var(--light-blue);
 }
@@ -218,14 +228,27 @@ input[type="radio"]:checked + label {
 }
 
 /* Conditional Classes */
+.empty-format-container {
+    position: relative;
+}
+
 .empty-format-container:before {
+    position: absolute;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 560px;
     content: 'Add Format and Name';
-    font-style: italic;
+    font-size: 3em;
+    font-family: 'IBM Plex Sans Light Italic';
 }
 
 .empty-position-container:before {
-    content: 'Add Position';
-    font-style: italic;
+    text-align: center;
+    font-family: 'IBM Plex Sans Light Italic';
+    content: 'Choose Item For Positions to Appear';
 }
 
 .empty-table:before{
@@ -233,11 +256,26 @@ input[type="radio"]:checked + label {
     font-style: italic;
 }
 
-.selected {
-    /* background-color: green; */
-    outline: solid 2px var(--blue);
+@keyframes selected {
+    0% {
+        background-color: white;
+    }
+
+    100% {
+        background-color: var(--light-blue);
+    }
 }
 
+.selected {
+    animation-name: selected;
+    animation-duration: 200ms;
+    animation-timing-function: ease-in-out;
+    border: solid 2px var(--blue);
+    background-color: var(--light-blue);
+}
+#selected-instructions-section {
+    display: none;
+}
 .instruction-table {
     min-width: 400px;
 }
@@ -251,5 +289,40 @@ input[type="radio"]:checked + label {
     border-spacing: 0;
 }
 
+#add-job {
+    display: none;
+}
 
+/* Before elements */
+.section-tooltip {
+    position: relative;
+    padding: 50px;
+}
 
+.section-tooltip::before {
+    position: absolute;
+    width: min-content;
+    top: 10px;
+    left: 10px;
+    border-radius: 20px;
+    padding: 5px;
+    border: solid 1px var(--brightish-red);
+    color: var(--orange);
+    background-color: var(--palish-yellow);
+}
+
+#job-details-section::before {
+    content: '1';
+}
+
+#format-and-name-section::before {
+    content: '2';
+}
+
+#instructions-section::before {
+    content: '3';
+}
+
+#selected-instructions-section::before {
+    content: '4';
+}

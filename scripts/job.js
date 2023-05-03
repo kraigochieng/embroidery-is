@@ -77,6 +77,29 @@ async function jobNumberInputValidation() {
     })
 }
 
+function telephoneNumberValidation(element, validation) {
+    const phoneNumberRegex = /^(?:\+254|0)[17]\d{8}$/;
+
+    if (phoneNumberRegex.test(element.value)) {
+        element.classList.remove('invalid-input')
+        validation.textContent = ''
+    //   console.log('Valid phone number');
+    } else {
+        element.classList.add('invalid-input')
+        validation.textContent = 'Invalid Phone Number'
+    //   console.log('Invalid phone number');
+    }
+    
+}
+
+async function telephoneNumberInputValidation() {
+    let telephone_number = document.querySelector('#telephone-number');
+    let telephone_number_validation = document.querySelector('#telephone-number-validation')
+    
+    telephone_number.addEventListener('input', function(){
+        telephoneNumberValidation(telephone_number, telephone_number_validation);
+    })
+}
 async function addFormatAndName() {
     let format_and_name_choices = document.querySelector('#format-and-name-choices');
     let add_format_and_name = document.querySelector('#add-format-and-name');
@@ -107,18 +130,35 @@ async function addFormatAndName() {
         let instruction_table_validation = instructionTableValidationComponent();
         // Create Component
         let instruction_table = instructionTableComponent();
+        // Show Instructions Section
+        let instructions_section = document.querySelector('#instructions-section')
+        instructions_section.style.display = 'block'
+        // Show Selected Instructions Section
+        let selected_instructions_section = document.querySelector('#selected-instructions-section')
+        selected_instructions_section.style.display = 'block'
+        // Show Add Job
+        let add_job = document.querySelector('#add-job')
+        add_job.style.display = 'block'
         // Append DOM
         selected_instructions_container.appendChild(instruction_table);
         selected_instructions_container.appendChild(instruction_table_validation);
     }
 
     function removeSelectedInstructionContainer() {
+        let format_and_name_choices = document.querySelector('#format-and-name-choices');
+        
         let delete_format_buttons = document.querySelectorAll('.delete-format-button')
 
         let instruction_tables = document.querySelectorAll('.instruction-table');
         let instruction_table_validation = document.querySelectorAll('.instruction-table-validation');
         for(let i = 0; i < delete_format_buttons.length; i++) {
             delete_format_buttons[i].addEventListener('click', function(){
+                // if(delete_format_buttons.length == 1) {
+                //     format_and_name_choices.className = 'empty-format-container'
+                //     // Hide Instruction Form
+                //     let instructions_section = document.querySelector('#instructions-section')
+                //     instructions_section.style.display = 'none'            
+                // }
                 instruction_tables[i].remove();
                 instruction_table_validation[i].remove();
             })
@@ -412,7 +452,7 @@ function addToJobObject() {
         // Add Order
         job.instruction_batch.push({
             format: format.value,
-            letters: letters.value,
+            letters: letters.value.toUpperCase(),
             instructions: instructions,
         })
     }
@@ -517,6 +557,7 @@ async function addJob(){
 async function job() {
     await getUserId();
     await jobNumberInputValidation();
+    await telephoneNumberInputValidation();
     await addFormatAndName();
 
     await fetchItems();

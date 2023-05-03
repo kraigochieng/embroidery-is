@@ -52,10 +52,11 @@ let scale = {
 let axis = {
     x: d3.axisBottom(scale.x)
             .tickFormat(d => d.toString())
+            
             .tickSize(5),
     y: d3.axisLeft(scale.y)
-        .ticks(max.y/1000)
-        .tickSize(5)
+        .ticks(5)
+        .ticks(max.y/10000)
         .tickFormat(d => d/1000)
 }
 
@@ -109,6 +110,17 @@ svg.append('path')
     .style("fill", "none")
     .style("stroke", "green")
     .style("stroke-width", 2)
+
+// Bar Graph
+// let bar = svg.append('g')
+//     .attr('transform', `translate(${padding}, ${padding})`)
+
+svg.selectAll('rect')
+    .data(instructions_per_year)
+    .enter()
+    .append('rect')
+    .attr('x', d => scale.x(d.year))
+    .attr('y', d => scale.y(d.total_quantity))
 
 // Scatter Plot
 svg.selectAll('circle')

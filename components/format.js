@@ -14,7 +14,6 @@ export function formatComponent() {
             for(let i = 0; i < formats.length; i++) {
                 // Create Element 
                 let option = formatOptionComponent(formats[i].id, formats[i].name);
-            
                 // Append Data
                 select.appendChild(option);
             }
