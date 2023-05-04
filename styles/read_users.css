@@ -122,6 +122,7 @@ input {
 #password-create-section input{
     width: 80%;
 }
+
 /* Delete */
 #delete-user-options {
     display: flex;
@@ -132,6 +133,7 @@ input {
     padding: var(--common-px);
     margin: 5px;
 }
+
 .delete-and-edit-section {
     display: flex;
     justify-content: space-evenly;
@@ -209,10 +211,12 @@ input {
     text-align: center;
     text-transform: uppercase;
 }
+
 #users-number-header {
     color: var(--orange);
     border-bottom: solid 1px var(--maroon);
 }
+
 #users-number {
     font-size: 2em;
     color: var(--brightish-red);

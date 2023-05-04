@@ -95,7 +95,7 @@ h1 {
 }
 
 .format-and-name-input {
-    height: 30px;
+    /* height: 30px; */
     margin: 5px;
 }
 
@@ -177,9 +177,13 @@ h1 {
 
 #instruction-form-and-tables {
     display: grid;
-    grid-template-areas: "instruction instruction instruction tables tables";
+    grid-template-areas: "instruction instruction instruction hr tables tables";
 }
 
+#instruction-hr {
+    width: 1px;
+    grid-area: hr;
+}
 #instructions-section {
     grid-area: instruction;
 }
@@ -300,6 +304,7 @@ input[type="radio"]:checked + label {
 }
 
 .section-tooltip::before {
+    font-family: 'IBM Plex Sans Medium';
     position: absolute;
     width: min-content;
     top: 10px;

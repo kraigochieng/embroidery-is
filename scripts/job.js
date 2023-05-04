@@ -452,7 +452,7 @@ function addToJobObject() {
         // Add Order
         job.instruction_batch.push({
             format: format.value,
-            letters: letters.value.toUpperCase(),
+            letters: letters.value,
             instructions: instructions,
         })
     }
@@ -478,7 +478,8 @@ function addToJobObject() {
         .catch(error => console.log(error));
 
     // Go Back To Index Page 
-    window.location.assign(`../index.html?user_id=${user_id}`);
+    // window.location.assign(`../index.html?user_id=${user_id}`);
+    console.log(jobData)
 
 }
 
