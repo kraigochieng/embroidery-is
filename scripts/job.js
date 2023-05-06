@@ -100,6 +100,7 @@ async function telephoneNumberInputValidation() {
         telephoneNumberValidation(telephone_number, telephone_number_validation);
     })
 }
+
 async function addFormatAndName() {
     let format_and_name_choices = document.querySelector('#format-and-name-choices');
     let add_format_and_name = document.querySelector('#add-format-and-name');
@@ -429,8 +430,9 @@ function addToJobObject() {
     
     // Each different format
     for(let i = 0; i < format_and_name_choices.length; i++) {
-        let format = format_and_name_choices[i].childNodes[0];
-        let letters = format_and_name_choices[i].childNodes[2];
+        let format = format_and_name_choices[i].childNodes[0].childNodes[0];
+        let letters = format_and_name_choices[i].childNodes[1].childNodes[0]
+
         //All Rows for each table, this means for each format
         let instruction_rows = instruction_table[i].childNodes;
         let instructions = [];
@@ -445,6 +447,8 @@ function addToJobObject() {
                 quantity: instruction_rows[j].childNodes[3].textContent,
                 description: instruction_rows[j].childNodes[4].childNodes[0].value,
             }
+
+            console.log(instruction)
             // console.log(instruction.description);
             // Add all instructions for specific format
             instructions.push(instruction);
@@ -478,9 +482,7 @@ function addToJobObject() {
         .catch(error => console.log(error));
 
     // Go Back To Index Page 
-    // window.location.assign(`../index.html?user_id=${user_id}`);
-    console.log(jobData)
-
+    window.location.assign(`../index.html?user_id=${user_id}`);
 }
 
 async function addJob(){

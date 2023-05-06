@@ -1,5 +1,6 @@
 <?php
 try {
+    
     $host = "localhost";
     $dbname = "embroidery";
     $dsn = "mysql:host=$host;dbname=$dbname";
@@ -8,7 +9,9 @@ try {
     $password = "";
     
     $db = new PDO($dsn, $username, $password);
+
 } catch (Exception $e) {
+
     echo $e->getMessage();
 }
 ?>
