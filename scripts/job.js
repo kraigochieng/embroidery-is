@@ -492,6 +492,7 @@ async function addJob(){
     add_job.addEventListener('click', async function(){
         // They have to be selected on the event so that they can be refreshed
         let job_number = document.querySelector('#job-number');
+        let telephone_number = document.querySelector('#telephone-number')
         let formats = document.querySelectorAll('.format-select');
         let letters = document.querySelectorAll('.letters');
         let selected_instructions_container = document.querySelector('#selected-instructions-container');
@@ -499,6 +500,7 @@ async function addJob(){
         let format_and_name_choices = document.querySelector('#format-and-name-choices');
 
         let job_number_validation = document.querySelector('#job-number-validation')
+        let telephone_number_validation = document.querySelector('#telephone-number-validation')
         let format_and_name_choice_validation = document.querySelector('#format-and-name-choice-validation');    
         let format_validation = document.querySelectorAll('.format-validation');
         let letters_validation = document.querySelectorAll('.letters-validation');
@@ -509,6 +511,8 @@ async function addJob(){
         // Invalid job Number
         containsNotNumbers(job_number, job_number_validation);
         isInputBlank(job_number, job_number_validation);
+        // Telephone Number
+        isInputBlank(telephone_number, telephone_number_validation)
         // Check Whole Format And Name container
         isContainerBlank(format_and_name_choices, format_and_name_choice_validation, 'Choose A Format and Name');
         // For formats
