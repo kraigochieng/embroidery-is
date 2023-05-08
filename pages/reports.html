@@ -5,23 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/index.css">
-    <link rel="stylesheet" href="../styles/reports_dashboard.css">
-    <title>Reports</title>
+    <link rel="stylesheet" href="../styles/reports.css">
+    <title>Document</title>
 </head>
 <body>
-    <a class="back-button">Back to Admin</a>
-    <main>
-        <h2>Instructions</h2>
-        <a href="../pages/instructions_per_year.html">Instruction Per Year</a>
-        <a href="../pages/instructions_per_month.html">Instruction Per Month</a>
-        <a href="../pages/instructions_per_day.html">Instruction Per Day</a>
-        <a href="../pages/instructions_per_hour.html">Instruction Per Hour</a>
-    
-        <h2>Jobs</h2>
-        <a href="../pages/jobs_per_year.html">Jobs Per Year</a>
-        <a href="../pages/jobs_per_month.html">Jobs Per Month</a>
-        <a href="../pages/jobs_per_day.html">Jobs Per Day</a>
-        <a href="../pages/jobs_per_hour.html">Jobs Per Hour</a>
-    </main>
+    <!-- <h1>Reports</h1> -->
+    <h2>Choose Report</h2>
+    <section id="menu">
+        <section id="report-title">
+            <select class="report-title-content" id="topic" name="topic">
+                <option value="job" selected>Job</option>
+                <option value="instruction">Instruction</option>
+            </select>
+            <p class="report-title-content" id="per">per</p>
+            <select class="report-title-content" id="duration" name="duration">
+                <option value="year" selected>year</option>
+                <option value="month">month</option>
+                <option value="day">day</option>
+                <option value="hour">hour</option>
+            </select>    
+        </section>
+        <section id="period">
+        </section>
+    </section>
+    <svg width="600" height="600"></svg>
+    <script src="../visualization/package/dist/d3.min.js"></script>
+    <script type="module" src="../scripts/reports.js"></script>
 </body>
 </html>

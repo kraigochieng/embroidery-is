@@ -1,82 +1,243 @@
-d3.select('.hello').style('color', 'red');
+import { getMonth } from "../functions/getMonth.js"
 
-let line_container = d3.select('#line-container');
+import { jobsPerHour } from "./jobs_per_hour.js"
+import { jobsPerDay } from "./jobs_per_day.js"
+import { jobsPerMonth } from "./jobs_per_month.js"
+import { jobsPerYear } from "./jobs_per_year.js"
 
-let line_svg = line_container.append('svg');
+function sectionComponent(name) {
+    let section = document.createElement('section')
+    section.className = `period-section ${name}-section`
+    return section
+}
 
-line_svg.attr('width', 300);
-line_svg.attr('height', 300);
+function labelComponent(name, text) {
+    let label = document.createElement('label')
+    label.htmlFor = name
+    label.textContent = text
+    return label
+}
 
-let line = line_svg.append('line');
+function selectComponent(name) {
+    let select = document.createElement('select')
+    select.name = name
+    select.id = name
+    return select
+}
 
-line.attr('x1', 50);
-line.attr('y1', 50);
+function optionComponent(name, text) {
+    let option = document.createElement('option')
+    option.value = name
+    option.textContent = text
+    return option
+}
 
-line.attr('x2', 250);
-line.attr('y2', 250);
+function clearGraph() {
+    let svg = document.querySelector('svg')
+    svg.innerHTML = ''
+}
 
-line.style('stroke', 'aqua');
-line.style('stroke-width', 2);
+function clearPeriod() {
+    let period = document.querySelector('#period')
+    period.innerHTML = ''
+}
+async function getYears() {
+    let response = await fetch('../db/read_years.php')
+    let data = response.json()
+    return data
+}
 
-let rectangle_container = d3.select('#rectangle-container');
+async function getMonths(year) {
+    let body = new FormData()
+    body.append('year', year)
 
-let rectange_svg = rectangle_container.append('svg');
+    let settings = { method: 'POST', body: body}
+    let response = await fetch('../db/read_months.php', settings)
+    let data = response.json()
+    return data
+}
 
-rectange_svg.attr('width', 200);
-rectange_svg.attr('height', 200);
+async function getDays(year, month) {
+    let body = new FormData()
+    body.append('year', year)
+    body.append('month', month)
 
-let rectangle = rectange_svg.append('rect');
+    let settings = { method: 'POST', body: body}
+    let response = await fetch('../db/read_days.php', settings)
+    return response.json()
+}
 
-rectangle.attr('x', 25);
-rectangle.attr('y', 25);
+let topic = document.querySelector('#topic')
+let duration = document.querySelector('#duration')
+let period = document.querySelector('#period')
 
-rectangle.attr('width', 150);
-rectangle.attr('height', 150);
-rectangle.attr('fill', 'green');
+// Draw First Graph
+jobsPerYear()
 
-let circle_container = d3.select('#circle-container');
+topic.addEventListener('change', changeGraph)
+duration.addEventListener('change', changeGraph)
 
-let circle_svg = circle_container.append('svg');
+async function changeGraph() {
+    clearGraph()
+    clearPeriod()
+    if(topic.value == 'job') {
+        if (duration.value == 'year') {
+            await jobsPerYear()
+        } else if (duration.value == 'month') {
+            let years = await getYears() // Get Years
+            let year_section = sectionComponent('year')
+            let year_label = labelComponent('year', 'Year')
+            let year_select = selectComponent('year') // Year Select
+            for(let i = 0; i < years.length; i++) {
+                let year_option = optionComponent(years[i].year, years[i].year)
+                year_select.appendChild(year_option) // Append Option to select
+            }
+            year_select.value = years[years.length - 1].year // Select Last Year
+            await jobsPerMonth(year_select.value) // Draw First Graph
+            
+            year_section.appendChild(year_label)
+            year_section.appendChild(year_select)
 
-circle_svg.attr('width', 200);
-circle_svg.attr('height', 200);
+            period.appendChild(year_section) // Add Years To Period
+            
+            year_select.addEventListener('change', async ()=> {
+                clearGraph()
+                await jobsPerMonth(year_select.value)
+            })
+        } else if (duration.value == 'day') {
+            let years = await getYears() // Get Years
+            let year_section = sectionComponent('year')
+            let year_select = selectComponent('year') // Year Select
+            let year_label = labelComponent('year','Year')
+            // Year Option
+            for(let i = 0; i < years.length; i++) {
+                let year_option = optionComponent(years[i].year, years[i].year)
+                year_select.appendChild(year_option) // Append Option to select
+            }
+            year_select.value = years[years.length - 1].year // Select Last Year
 
+            year_section.appendChild(year_label)
+            year_section.appendChild(year_select)
 
-fetch('../db/read_jobs_per_month.php')
-    .then(response => response.json())
-    .then(jobs_per_month => {
-        console.log(jobs_per_month);
-        // let line_graph_container = d3.select('#line-graph-container');
+            period.appendChild(year_section)
 
-        // let path = line_graph_container.append('path');
+            let months = await getMonths(year_select.value) // get Months
+            let month_section = sectionComponent('month')
+            let month_label = labelComponent('month','Month')
+            let month_select = selectComponent('month') // Month Select
+            // Year Option
+            for(let i = 0; i < months.length; i++) {
+                let month_option = optionComponent(months[i].month, getMonth(months[i].month))
+                month_select.appendChild(month_option) // Append Option to select
+            }
+             
+            month_select.value = months[months.length - 1].month // Select Last Month
+            
+            month_section.appendChild(month_label)
+            month_section.appendChild(month_select)
 
-        // let line = d3.line()
-        //     .x(d => d.month)
-        //     .y(d => d.total_jobs)
-        
-        // path.data([jobs_per_month])
-        //     .attr("d", line)
-        //     .attr("fill", "none")
-        //     .attr("stroke", "red")
-        let w = 400;
-        let h = 50;
+            period.appendChild(month_section)
+             
+            await jobsPerDay(year_select.value, month_select.value) // Draw First Graph
+             
+            year_select.addEventListener('change', async () => {
+                clearGraph()
+                let months = await getMonths(year_select.value) // get Months
+                month_select.innerHTML = ''
+                for(let i = 0; i < months.length; i++) {
+                    let month_option = optionComponent(months[i].month, getMonth(months[i].month))
+                    month_select.appendChild(month_option) // Append Option to select
+                }
+                
+                month_select.value = months[months.length - 1].month // Select Last Month
+                await jobsPerDay(year_select.value, month_select.value)
+            })
 
-        let line = d3.svg.line()
-                        .x(d => d.month)
-                        .y(d => d.total_jobs)
-                        .interpolate('linear');
+            month_select.addEventListener('change', async () => {
+                clearGraph()
+                await jobsPerDay(year_select.value, month_select.value)
+            })
+        } else if(duration.value == 'hour') {
+            let years = await getYears() // Get Years
+            let year_section = sectionComponent('year')
+            let year_select = selectComponent('year') // Year Select
+            let year_label = labelComponent('year','Year')
+            for(let i = 0; i < years.length; i++) {
+                let year_option = optionComponent(years[i].year, years[i].year)
+                year_select.appendChild(year_option) // Append Option to select
+            }
 
-        let svg = d3.select('#line-graph-container')
-                    .append('svg')
-                    .attr({
-                        width: w,
-                        height: h
-                    })
+            year_select.value = years[years.length - 1].year // Select Last Year
+            
+            year_section.appendChild(year_label)
+            year_section.appendChild(year_select)
 
-        let path = svg.append("path")
-                        .attr({
-                            d:line(jobs_per_month),
-                            'fill': 'none',
-                            'stroke': 'blue'
-                        })
-    })
+            period.appendChild(year_section)
+
+            let months = await getMonths(year_select.value) // get Months
+            let month_section = sectionComponent('month')
+            let month_label = labelComponent('month', 'Month')
+            let month_select = selectComponent('month') // Month Select
+            for(let i = 0; i < months.length; i++) {
+                let month_option = optionComponent(months[i].month, getMonth(months[i].month))
+                month_select.appendChild(month_option) // Append Option to select
+            }
+            month_select.value = months[months.length - 1].month // Select Last Month
+            
+            month_section.appendChild(month_label)
+            month_section.appendChild(month_select)
+
+            period.appendChild(month_section)
+
+            let days = await getDays(year_select.value, month_select.value) // get days
+            let day_section = sectionComponent('day')
+            let day_label = labelComponent('day', 'Day')
+            let day_select = selectComponent('day') // Month Select
+            for(let i = 0; i < days.length; i++) {
+                let day_option = optionComponent(days[i].day, days[i].day)
+                day_select.appendChild(day_option) // Append Option to select
+            }
+            day_select.value = days[days.length - 1].day // Select Last Month
+            
+            day_section.appendChild(day_label)
+            day_section.appendChild(day_select)
+
+            period.appendChild(day_section)
+
+            await jobsPerHour(year_select.value, month_select.value, day_select.value) // Draw First Graph
+             
+            year_select.addEventListener('change', async () => {
+                clearGraph()
+                let months = await getMonths(year_select.value) // get Months
+                month_select.innerHTML = ''
+                for(let i = 0; i < months.length; i++) {
+                    let month_option = optionComponent(months[i].month, getMonth(months[i].month))
+                    month_select.appendChild(month_option) // Append Option to select
+                }
+                
+                month_select.value = months[months.length - 1].month // Select Last Month
+                await jobsPerHour(year_select.value, month_select.value, day_select.value)
+            })
+
+            month_select.addEventListener('change', async () => {
+                clearGraph()
+                let days = await getDays(year_select.value, month_select.value) // get days
+                day_select.innerHTML = ''
+                for(let i = 0; i < days.length; i++) {
+                    let day_option = optionComponent(days[i].day, days[i].day)
+                    day_select.appendChild(day_option) // Append Option to select
+                }
+                day_select.value = days[days.length - 1].day // Select Last Month
+    
+                await jobsPerHour(year_select.value, month_select.value, day_select.value)
+            })
+
+            day_select.addEventListener('change', async () => {
+                clearGraph()
+                await jobsPerHour(year_select.value, month_select.value, day_select.value)
+            })
+        }
+    } else if(topic.value == 'instruction') {
+
+    }
+}

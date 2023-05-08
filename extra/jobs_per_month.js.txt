@@ -1,0 +1,210 @@
+import { getMonth } from "../functions/getMonth.js"
+async function getJobsPerMonth(year) {
+    let body = new FormData()
+    body.append('year', year)
+    let settings = { method: 'POST', body: body }
+    let response = await fetch('../db/read_jobs_per_month.php',  settings)
+    return response.json()
+}
+
+async function getYears() {
+    let response = await fetch('../db/read_years.php')
+    let data = response.json()
+    return data
+}
+
+// Year
+let years = await getYears()
+
+// Add to Year Radio
+let year_radio_section = document.querySelector('#year-radio-section')
+for(let i = 0; i < years.length; i++) {
+    let year_radio = document.createElement('input')
+    year_radio.type = 'radio'
+    year_radio.name = 'year-radio'
+    year_radio.value = years[i].year
+    year_radio.id = years[i].year
+    year_radio.className = 'year-radio'
+    year_radio.textContent = years[i].year
+
+    let year_radio_label = document.createElement('label')
+    year_radio_label.htmlFor = years[i].year
+    year_radio_label.textContent = years[i].year
+    year_radio_label.className = 'year-radio-label'
+    year_radio.addEventListener('input', async() => {
+        console.log(years[i].year)
+        let jobs_per_month = await getJobsPerMonth(years[i].year)
+        document.querySelector('svg').innerHTML = ''
+        year_radio_label.textContent = years[i].year
+        drawGraph(jobs_per_month)
+    })
+
+    year_radio_section.appendChild(year_radio)
+    year_radio_section.appendChild(year_radio_label)
+}
+
+// Draw First Graph
+let jobs_per_month = await getJobsPerMonth(years[years.length - 1].year)
+let year_radio = document.querySelectorAll('.year-radio')
+year_radio[year_radio.length - 1].checked = true
+drawGraph(jobs_per_month)
+
+function drawGraph(dataset) {
+    // Graph Dimensions
+    let width = 640
+    let height = 640
+    let padding = 80
+
+    // Min
+    let min = {
+        x: d3.min(dataset, d => d.month),
+        y: d3.min(dataset, d => d.total_jobs)
+    }
+
+    // Max
+    let max = {
+        x: d3.max(dataset, d => d.month),
+        y: d3.max(dataset, d => d.total_jobs)
+    }
+
+    // Domain
+    let domain = {
+        x: [1, max.x],
+        y: [0, max.y]
+    }
+
+    // Ranges
+    let range = {
+        x: [padding, width - padding],
+        y: [height - padding, padding]
+    }
+
+    // Scale
+    let scale = {
+        x: d3.scaleLinear().domain(domain.x).range(range.x),
+        y: d3.scaleLinear().domain(domain.y).range(range.y)
+    }
+
+    // Axes
+    let axis = {
+        x: d3.axisBottom(scale.x)
+            .tickFormat(d => getMonth(d))
+            .tickSize(5),
+
+        y: d3.axisLeft(scale.y)
+            .tickSize(5),
+
+    }
+
+    // Grid
+    let grid = {
+        x: d3.axisBottom(scale.x)
+            .tickFormat("")
+            .tickSize(-height + (padding * 2)),
+
+        y: d3.axisLeft(scale.y)
+            .tickFormat("")
+            .tickSize(-width + (padding * 2))
+    }
+    // SVG
+    let svg = d3.select('svg')
+                .attr('width', width)
+                .attr('height', height)
+    
+    // Grid X
+    svg.append('g')
+        .attr('class', 'grid')
+        .attr('transform', `translate(0,${height - padding})`)
+        .call(grid.x)
+
+    // Grid Y
+    svg.append('g')
+        .attr('class', 'grid')
+        .attr('transform', `translate(${padding},0)`)
+        .call(grid.y)
+
+    // X Axis 
+    svg.append("g")
+        .attr("transform", `translate(0,${height - padding})`)
+        .call(axis.x)
+
+    // Y axis
+    svg.append("g")
+        .attr("transform", `translate(${padding},0)`)
+        .call(axis.y)
+
+    // Line Bar
+    let line = d3.line()
+        .x(d => scale.x(d.month))
+        .y(d => scale.y(d.total_jobs))
+
+        svg.append('path')
+        .datum(dataset)
+        .attr("d", line)
+        .attr("class", "line")
+        .style("fill", "none")
+        .style("stroke", "green")
+        .style("stroke-width", 2)
+    // Scatter Plot
+    svg.selectAll('circle')
+        .data(dataset)
+        .enter()
+        .append('circle')
+        .attr('class', 'circle')
+        .attr("cx", d => scale.x(d.month))
+        .attr("cy", d => scale.y(d.total_jobs))
+        .attr("r", 7)
+
+    // Add Circle Labels 
+    let circle = document.querySelectorAll('.circle')
+    for(let i = 0; i < circle.length; i++) {
+        let total_jobs = document.querySelector('#total-jobs')
+        circle[i].addEventListener('mouseover', function(e) {
+            total_jobs.style.top = `${e.clientY - 60}px`
+            total_jobs.style.left = `${e.clientX - 30}px`
+            total_jobs.style.opacity = 1
+            total_jobs.innerHTML = `Month: ${getMonth(dataset[i].month)}<br>Jobs: ${dataset[i].total_jobs}`
+        })
+
+        circle[i].addEventListener('mouseout',function() {
+            total_jobs.textContent = ""
+            total_jobs.style.opacity = 0 
+        })
+    }
+    
+    // Title
+    svg.append('text')
+        .attr('x', width/2)
+        .attr('y', padding/2)
+        .attr('text-anchor', 'middle')
+        .attr('class', 'graph-heading')
+        .text('TOTAL JOBS PER YEAR PER MONTH')
+
+    // X label
+    svg.append('text')
+        .attr('x', width/2)
+        .attr('y', height - (padding/2))
+        .attr('text-anchor', 'middle')
+        .attr('class', 'graph-label')
+        .text('Month')
+
+    // Y label
+    svg.append('text')
+        .attr('x', -height/2)
+        .attr('y', (padding)/2)
+        .attr('text-anchor', 'middle')
+        .attr('transform', `rotate(270)`)
+        .attr('class', 'graph-label')
+        .text('Total Jobs')
+
+    svg.selectAll('line')
+        .data(dataset)
+        .enter()
+        .append('line')
+        .attr('x1', 10)
+        .attr('y1', 20)
+        .attr('x2', 10)
+        .attr('y2', 500)
+        .attr('stroke', 'orange')
+        .attr('stroke-width', 3)
+}
