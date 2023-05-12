@@ -41,6 +41,11 @@ export async function jobsPerHour(year, month, day) {
     let axis = {
         x: d3.axisBottom(scale.x),
         y: d3.axisLeft(scale.y)
+        .tickValues(
+            scale.y.ticks()
+                    .filter(tick => Number.isInteger(tick))
+            )
+        .tickFormat(d3.format('d'))
     }
 
     let g = svg.append('g')

@@ -29,6 +29,22 @@ export function userComponent(id, text) {
     trash_and_edit.className = 'delete-and-edit-section'
 
 
+    let edit = document.createElement('button');
+    edit.type = 'button';
+    edit.className = 'user-edit';
+    edit.textContent = 'Update';
+    
+    edit.addEventListener('click', function(event) {
+        event.stopPropagation()
+        let update_user_section = document.querySelector('#update-user-section');
+        update_user_section.style.transform = 'scale(1)';
+        sessionStorage.setItem('edit_user_id', id);
+        addBackground()
+        viewUpdateUser()
+    })
+    
+    trash_and_edit.appendChild(edit)
+    
     let trash = document.createElement('button');
     trash.type = 'button';
     trash.className = 'user-delete';
@@ -45,21 +61,7 @@ export function userComponent(id, text) {
 
     trash_and_edit.appendChild(trash)
 
-    let edit = document.createElement('button');
-    edit.type = 'button';
-    edit.className = 'user-edit';
-    edit.textContent = 'Edit';
     
-    edit.addEventListener('click', function(event) {
-        event.stopPropagation()
-        let update_user_section = document.querySelector('#update-user-section');
-        update_user_section.style.transform = 'scale(1)';
-        sessionStorage.setItem('edit_user_id', id);
-        addBackground()
-        viewUpdateUser()
-    })
-    
-    trash_and_edit.appendChild(edit)
 
     section.appendChild(trash_and_edit);
 

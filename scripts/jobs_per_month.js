@@ -1,14 +1,14 @@
 import { getMonth } from "../functions/getMonth.js"
 
-export async function jobsPerMonth(year) { 
-    async function getJobsPerMonth(year) {
-        let body = new FormData()
-        body.append('year', year)
-        let settings = { method: 'POST', body: body }
-        let response = await fetch('../db/read_jobs_per_month.php',  settings)
-        return response.json()
-    }
+async function getJobsPerMonth(year) {
+    let body = new FormData()
+    body.append('year', year)
+    let settings = { method: 'POST', body: body }
+    let response = await fetch('../db/read_jobs_per_month.php',  settings)
+    return response.json()
+}
 
+export async function jobsPerMonth(year) { 
     // Get Data
     let jobs_per_month = await getJobsPerMonth(year)
 
@@ -40,6 +40,11 @@ export async function jobsPerMonth(year) {
     let axis = {
         x: d3.axisBottom(scale.x).tickFormat(d => getMonth(d)),
         y: d3.axisLeft(scale.y)
+        .tickValues(
+            scale.y.ticks()
+                    .filter(tick => Number.isInteger(tick))
+            )
+        .tickFormat(d3.format('d'))
     }
 
     let g = svg.append('g')

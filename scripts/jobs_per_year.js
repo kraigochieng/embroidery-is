@@ -1,10 +1,10 @@
-export async function jobsPerYear() { 
-    async function readJobsPerYear() {
-        let response = await fetch('../db/read_jobs_per_year.php')
-        let jobs_per_year = await response.json()
-        return jobs_per_year
-    }
+async function readJobsPerYear() {
+    let response = await fetch('../db/read_jobs_per_year.php')
+    let jobs_per_year = await response.json()
+    return jobs_per_year
+}
 
+export async function jobsPerYear() { 
     // Get Data
     let jobs_per_year = await readJobsPerYear()
 
@@ -36,6 +36,11 @@ export async function jobsPerYear() {
     let axis = {
         x: d3.axisBottom(scale.x),
         y: d3.axisLeft(scale.y)
+            .tickValues(
+                scale.y.ticks()
+                        .filter(tick => Number.isInteger(tick))
+                )
+            .tickFormat(d3.format('d'))
     }
 
     let g = svg.append('g')
@@ -61,9 +66,6 @@ export async function jobsPerYear() {
 
     // Y label
     svg.append('text')
-        // .attr('x', -(height - margin))
-        // .attr('y', (width + margin)/2)
-        // .attr('x', -((height + margin)/2))
         .attr('x', -svg.attr('height')/2)
         .attr('y', 25)
         .attr('text-anchor', 'middle')

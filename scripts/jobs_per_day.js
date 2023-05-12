@@ -1,7 +1,3 @@
-import { getMonth } from "../functions/getMonth.js"
-import { yearComponent } from "../components/yearComponent.js"
-import { monthComponent } from "../components/monthComponent.js"
-
 async function getJobsPerDay(year, month) {
     let body = new FormData()
     body.append('year', year)
@@ -9,22 +5,6 @@ async function getJobsPerDay(year, month) {
     let settings = { method: 'POST', body: body }
 
     let response = await fetch('../db/read_jobs_per_day.php',  settings)
-    let data = response.json()
-    return data
-}
-
-async function getYears() {
-    let response = await fetch('../db/read_years.php')
-    let data = response.json()
-    return data
-}
-
-async function getMonths(year) {
-    let body = new FormData()
-    body.append('year', year)
-
-    let settings = { method: 'POST', body: body}
-    let response = await fetch('../db/read_months.php', settings)
     let data = response.json()
     return data
 }
@@ -60,6 +40,11 @@ export async function jobsPerDay(year, month) {
     let axis = {
         x: d3.axisBottom(scale.x),
         y: d3.axisLeft(scale.y)
+            .tickValues(
+                scale.y.ticks()
+                        .filter(tick => Number.isInteger(tick))
+                )
+            .tickFormat(d3.format('d'))
     }
 
     let g = svg.append('g')

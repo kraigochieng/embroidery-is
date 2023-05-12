@@ -1,0 +1,49 @@
+/* #go-to-admin {
+    display: none;
+    position: absolute;
+    top: -1px;
+    right: 5%;
+    border: solid 1px var(--blackish);
+    border-radius: 0px 0px var(--common-px) var(--common-px);
+    transition: padding-top 200ms ease;
+    padding-top: 10px;
+}
+
+#go-to-admin:hover {
+    padding-top: 20px;
+} */
+
+/* #go-to-admin {
+    display: none;
+    font-size: 2em;
+    width: 40px;
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+    border: solid 1px var(--blackish);
+    border-radius: var(--common-px) 0px 0px var(--common-px);
+    transition: width 200ms ease;
+    border: solid 1px var(--blackish);
+}
+
+#go-to-admin:hover {
+    width: 50px;
+} */
+/* #new-job-link {
+    background-color: var(--palish-yellow);
+    width: 40px;
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    transform: rotate(180deg);
+    writing-mode: vertical-lr;
+    border: solid 1px var(--blackish);
+    border-radius: var(--common-px) 0px 0px var(--common-px);
+    transition: width 200ms ease;
+}
+
+#new-job-link:hover {
+    width: 50px;
+} */

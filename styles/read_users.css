@@ -1,6 +1,27 @@
 /* * {
-    outline: solid 1px green;
+    outline: solid 2px green;
 } */
+
+/* .password-and-icon {
+    outline: solid 1px green;
+}
+
+#password-create, #confirm-password-create {
+    outline: solid 1px red;
+    display: block;
+}
+
+.password-icon {
+    outline: solid 1px purple;
+} */
+
+input {
+    width: 100%;
+}
+
+input::-webkit-input-placeholder {
+    text-align: center;
+}
 
 body {
     width: 80%;
@@ -70,18 +91,13 @@ input {
     justify-content: space-between;
     border-bottom: solid 1px black;
 }
-
-.popup-body {
-    justify-content: space-around;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.system-info, .bio {
+    margin: 10px;
 }
-
 .popup-with-details {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* Create */
@@ -109,18 +125,33 @@ input {
     justify-content: space-between;
 }
 
+#first-name-create-section, #last-name-create-section {
+    width: 49%;
+}
+
 .password-icon {
     width: 20px;
     height: 20px;
 }
 
 .password-and-icon {
-    /* display: flex;
-    align-items: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#password-create-section input{
+.validation {
+    text-align: center;
+}
+
+/* #password-create-section input{
     width: 80%;
+} */
+
+.create-input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Delete */
@@ -140,6 +171,17 @@ input {
     margin-top: 10px;
 }
 
+#delete-user-yes {
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
+    border: solid 1px var(--dark-blue);
+}
+
+#delete-user-no {
+    background-color: var(--maroon);
+    color: var(--orange);
+    border: solid 1px var(--orange);
+}
 /* Update */
 .update-input {
     padding: var(--common-px);
@@ -157,18 +199,23 @@ input {
     margin-right: auto;
 }
 
-#update-user {
+#create-user, #update-user {
     padding: var(--common-padding);
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
-.bio-heading, .system-info-heading {
-    border-bottom: solid 1px black;
+.close-popup {
+    font-size: 2.5em;
+}
+.popup-header {
+    padding: var(--common-px);
+    display: flex;
+    align-items: center;
 }
 
-.popup-body, .popup-header {
-    padding: var(--common-px);
+.popup-body {
+    padding: 20px;
 }
 
 #users {
@@ -194,9 +241,37 @@ input {
     top: calc(50% - var(--popup-height)/2);
     left: calc(50% - var(--popup-width)/2);
     transform: scale(0);
-    /* padding: var(--common-padding); */
     border: solid 1px black;
     border-radius: var(--common-padding);
+}
+
+.popup-header-heading {
+    font-size: 2em;
+    color: var(--blackish);
+}
+
+.popup-detail {
+    color: var(--blackish);
+}
+
+.popup-details-heading {
+    color: var(--dark-blue);
+    font-size: 1.5em;
+}
+.popup-detail-header {
+    font-size: 1.2em;
+    color: var(--blue);
+}
+
+.popup-detail-header, .popup-details-heading {
+    text-decoration: underline;
+}
+
+.popup-detail-header, .popup-details-heading, .popup-header-heading {
+    font-family: 'IBM Plex Sans Regular';
+}
+.popup-detail, .popup-detail-header, .popup-details-heading, .popup-header-heading {
+    text-align: center;
 }
 
 /* number of users */

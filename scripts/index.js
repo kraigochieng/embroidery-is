@@ -3,14 +3,14 @@ import { doneJobSearch } from "../components/doneJobSearch.js";
 import { inProgressJobComponent } from "../components/inProgressJob.js";
 import { doneJobComponent } from "../components/doneJob.js";
 
-function setUserIdSession() {
+async function setUserIdSession() {
     const urlParams = new URLSearchParams(window.location.search);
     const user_id = urlParams.get('user_id');
 
     localStorage.setItem('user_id', user_id);
 }
 
-function setAdminButton() {
+async function setAdminButton() {
     const user_id = localStorage.getItem('user_id');
 
     let body = new FormData();
@@ -31,7 +31,7 @@ function setAdminButton() {
         })
 }
 
-function fetchDoneJobs(container, body) {
+async function fetchDoneJobs(container, body) {
     fetch('../db/done_jobs.php', {
         method: 'POST',
         body: body,
@@ -194,7 +194,7 @@ if(isLoggedIn === null) {
         fetchInProgressJobs(jobs_container, inProgressJobData);
     }
 
-    function showDoneJobs() {
+    async function showDoneJobs() {
         // Create Clear Search
         const doneJobData = new FormData();
         doneJobData.append('done_job_number', "");

@@ -1,3 +1,7 @@
+/* * {
+    outline: solid 1px green;
+} */
+
 body {
     width: 80%;
     margin-left: auto;
@@ -8,61 +12,32 @@ body {
     width: 50px;
 }
 
-#company-name {
-    font-size: 2.5em;
-}
-
-#logo-with-text {
-    display: flex;
-    align-items: flex-end;
-}
-
-#new-job-and-admin {
-    display: flex;
-    padding: var(--common-px);
-}
-
-#go-to-admin {
-    display: none;
-    position: absolute;
-    top: -1px;
-    right: 5%;
-    border: solid 1px var(--blackish);
-    border-radius: 0px 0px var(--common-px) var(--common-px);
-    transition: padding-top 200ms ease;
-    padding-top: 10px;
-}
-
-#go-to-admin:hover {
-    padding-top: 20px;
-}
-
 #new-job-link, #go-to-admin {
     text-decoration: none;
-    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#new-job-link {
-    background-color: var(--palish-yellow);
-    width: 40px;
-    position: absolute;
-    left: -1px;
-    top: 50%;
-    transform: rotate(180deg);
-    writing-mode: vertical-lr;
+.job-search {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     border: solid 1px var(--blackish);
-    border-radius: var(--common-px) 0px 0px var(--common-px);
-    transition: width 200ms ease;
+    border-radius: var(--common-px);
 }
 
-#new-job-link:hover {
-    width: 50px;
+.job-search::-webkit-input-placeholder {
+    text-align: center;
 }
 
 #tabs {
     display: flex;
+    justify-content: center;
     align-items: center;
-    width: 40%
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tab {
@@ -70,6 +45,8 @@ body {
     border-style: solid;
     border-width: 1px;
     border-color: var(--dark-blue);
+    font-size: 1.5em;
+    padding: 5px;
 }
 
 #in-progress-job-tab {
@@ -79,8 +56,9 @@ body {
     border-radius: 0 var(--common-px) var(--common-px) 0px;
 }
 
-#tabs-and-search {
+#jobs-header {
     display: flex;
+    justify-content: space-between;
     padding: var(--common-px);
 }
 
@@ -91,10 +69,23 @@ body {
     transform: scale(1.1);
 }
 
+/* Jobs */
+#jobs-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .job-number {
     font-size: 3em;
     color: var(--orange);
     text-align: center;
+}
+
+.telephone-number-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .telephone-number {
@@ -104,11 +95,6 @@ body {
 .phone-icon {
     width: 15px;
     height: 15px;
-}
-
-#jobs-container {
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .text-radio {
@@ -137,30 +123,16 @@ main {
     padding: var(--common-px);
 }
 
-.job-search {
-    border: solid 1px var(--blackish);
-    border-radius: var(--common-px);
-}
-
 #mark-done {
-    position: absolute;
+    font-size: 1.5em;
+    position: fixed;
     bottom: 10px;
-    right: 5%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: white;
-}
-
-#mark-done{
     border: solid 1px var(--blackish);
     border-radius: 10px;
 }
-
-.telephone-number-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
 
 body {
     min-width: 320px;
@@ -189,12 +161,12 @@ background-color: var(--palish-yellow);
     color: black;
 }
 
-.in-progress-job-section{
+.in-progress-job-section {
     display: flex;
 }
 
 /* Color On Hover Link For Buttons*/
-#new-job-link, #mark-done {
+#mark-done {
     background-color: var(--palish-yellow);
     border-color: var(--orange);
     color: var(--maroon);

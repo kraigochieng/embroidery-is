@@ -61,7 +61,7 @@ export async function fetchEmail(email) {
 
     let settings = { method: 'POST', body: body, } 
 
-    let response = fetch('../db/read_email.php', settings)
+    let response = await fetch('../db/read_email.php', settings)
     let data = await response.json()
 
     return data
@@ -76,18 +76,16 @@ export async function usernameValidation() {
         let user = await fetchUsername(username.value)
 
         if(user.length === 0) {
-            if(user.length === 0) {
-                if(isEmpty(username.value)) {
-                    username_validation.textContent = 'Add A Username';
-                    isUsernameValid = false;
-                } else {
-                    username_validation.textContent = '';
-                    isUsernameValid = true;
-                }
-            } else {
-                username_validation.textContent = 'Username exists';
+            if(isEmpty(username.value)) {
+                username_validation.textContent = 'Add A Username';
                 isUsernameValid = false;
+            } else {
+                username_validation.textContent = '';
+                isUsernameValid = true;
             }
+        } else {
+            username_validation.textContent = 'Username exists';
+            isUsernameValid = false;
         }
     }
         
@@ -99,15 +97,12 @@ export async function emailValidation() {
         // do nothing, since values are same
         isEmailValid = true;
     } else {
-        let user = fetchUsername(email.value)
-        // For unique
+        let user = await fetchEmail(email.value)
         if(user.length === 0) {
-            // For Empty
             if(isEmpty(email.value)) {
                 email_validation.textContent = 'Add Email';
                 isEmailValid = false;
             } else {
-            // For Email Validity
                 if(emailRegex(email)) {
                     email_validation.textContent = '';
                     isEmailValid = true; 

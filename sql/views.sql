@@ -56,7 +56,8 @@ SELECT
 		user receiver_teller ON job.receiver_teller_id = receiver_teller.id 
 	LEFT JOIN
 		user confirmer_teller ON job.confirmer_teller_id = confirmer_teller.id
-	WHERE job.status = 2 AND receiver_teller.is_active='Y' AND confirmer_teller.is_active = 'Y';
+	WHERE job.status = 2 AND receiver_teller.is_active='Y' AND confirmer_teller.is_active = 'Y'
+    ORDER BY job.time_done DESC;
     
 CREATE VIEW in_progress_job_summary AS
 SELECT
