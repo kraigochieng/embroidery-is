@@ -1,6 +1,6 @@
 import { emailRegex } from "../functions/emailRegex.js";
 import { isEmpty } from "../functions/isEmpty.js";
-
+import { validationColor } from "../functions/validationColor.js";
 let username = document.querySelector('#username-create');
 let username_validation = document.querySelector('#username-create-validation');
 let isUsernameValid = false;
@@ -45,13 +45,16 @@ function usernameValidation() {
             if(user.length === 0) {
                 if(isEmpty(username.value)) {
                     username_validation.textContent = 'Add A Username';
+                    validationColor(username, username_validation)
                     isUsernameValid = false;
                 } else {
                     username_validation.textContent = '';
+                    validationColor(username, username_validation)
                     isUsernameValid = true;
                 }
             } else {
                 username_validation.textContent = 'Username exists';
+                validationColor(username, username_validation)
                 isUsernameValid = false;
             }
         })
@@ -76,19 +79,23 @@ function emailValidation() {
                 // For Empty
                 if(isEmpty(email.value)) {
                     email_validation.textContent = 'Add Email';
+                    validationColor(email, email_validation)
                     isEmailValid = false;
                 } else {
                 // For Email Validity
                     if(emailRegex(email)) {
                         email_validation.textContent = '';
+                        validationColor(email, email_validation)
                         isEmailValid = true; 
                     } else {
                         email_validation.textContent = 'Invalid Email';
+                        validationColor(email, email_validation)
                         isEmailValid = false; 
                     }
                 }
             } else {
                 email_validation.textContent = 'Email already used';
+                validationColor(email, email_validation)
                 isEmailValid = false;
             }
         })
@@ -99,9 +106,11 @@ first_name.addEventListener('input', firstNameValidation);
 function firstNameValidation() {
     if(isEmpty(first_name.value)) {
         first_name_validation.textContent = 'Add A First Name';
+        validationColor(first_name, first_name_validation)
         isFirstNameValid = false;
     } else {
         first_name_validation.textContent = '';
+        validationColor(first_name, first_name_validation)
         isFirstNameValid = true;
     }
 }
@@ -110,9 +119,11 @@ last_name.addEventListener('input', lastNameValidation);
 function lastNameValidation() {
     if(isEmpty(last_name.value)) {
         last_name_validation.textContent = 'Add A Last Name';
+        validationColor(last_name, last_name_validation)
         isLastNameValid = false;
     } else {
         last_name_validation.textContent = '';
+        validationColor(last_name, last_name_validation)
         isLastNameValid = true;
     }
 }
@@ -121,9 +132,11 @@ password.addEventListener('input', passwordValidation);
 function passwordValidation() {
     if(isEmpty(password.value)) {
         password_validation.textContent = 'Enter a Password';
+        validationColor(password, password_validation)
         isPasswordValid = false;
     } else {
         password_validation.textContent = '';
+        validationColor(password, password_validation)
         isPasswordValid = true;
     }
 }
@@ -132,9 +145,11 @@ confirm_password.addEventListener('input', confirmPasswordValidation);
 function confirmPasswordValidation() {
     if(password.value !== confirm_password.value) {
         confirm_password_validation.textContent = 'Passwords do not match';
+        validationColor(confirm_password, confirm_password_validation)
         isConfirmPasswordValid = false;
     } else {
         confirm_password_validation.textContent = '';
+        validationColor(confirm_password, confirm_password_validation)
         isConfirmPasswordValid = true;
     }
 }

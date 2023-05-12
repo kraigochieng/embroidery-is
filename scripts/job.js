@@ -83,11 +83,9 @@ function telephoneNumberValidation(element, validation) {
     if (phoneNumberRegex.test(element.value)) {
         element.classList.remove('invalid-input')
         validation.textContent = ''
-    //   console.log('Valid phone number');
     } else {
         element.classList.add('invalid-input')
         validation.textContent = 'Invalid Phone Number'
-    //   console.log('Invalid phone number');
     }
     
 }

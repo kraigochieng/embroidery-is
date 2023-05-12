@@ -110,9 +110,6 @@ delete_user_no.addEventListener('click', async() => await closeDeleteUserPopup()
 let update_user = document.querySelector('#update-user')
 update_user.addEventListener('click', async () => {
     updateUser()
-    await closeUpdateUserPopup()
-    window.location.reload();
-    
 })
 
 // View Users

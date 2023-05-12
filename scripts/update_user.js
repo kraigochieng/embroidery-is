@@ -1,6 +1,7 @@
 import { emailRegex } from "../functions/emailRegex.js";
 import { isEmpty } from "../functions/isEmpty.js";
 import { fetchUser } from "./read_users.js";
+import { validationColor } from "../functions/validationColor.js";
 
 let current = {
     username: '',
@@ -72,19 +73,23 @@ export async function usernameValidation() {
     if(current.username === username.value) {
         // do nothing since it being the same is ok
         isUsernameValid = true;
+        validationColor(username, username_validation)
     } else {
         let user = await fetchUsername(username.value)
 
         if(user.length === 0) {
             if(isEmpty(username.value)) {
                 username_validation.textContent = 'Add A Username';
+                validationColor(username, username_validation)
                 isUsernameValid = false;
             } else {
                 username_validation.textContent = '';
+                validationColor(username, username_validation)
                 isUsernameValid = true;
             }
         } else {
             username_validation.textContent = 'Username exists';
+            validationColor(username, username_validation)
             isUsernameValid = false;
         }
     }
@@ -96,23 +101,28 @@ export async function emailValidation() {
     if(current.email === email.value) {
         // do nothing, since values are same
         isEmailValid = true;
+        validationColor(email, email_validation)
     } else {
         let user = await fetchEmail(email.value)
         if(user.length === 0) {
             if(isEmpty(email.value)) {
                 email_validation.textContent = 'Add Email';
+                validationColor(email, email_validation)
                 isEmailValid = false;
             } else {
                 if(emailRegex(email)) {
                     email_validation.textContent = '';
+                    validationColor(email, email_validation)
                     isEmailValid = true; 
                 } else {
                     email_validation.textContent = 'Invalid Email';
+                    validationColor(email, email_validation)
                     isEmailValid = false; 
                 }
             }
         } else {
             email_validation.textContent = 'Email already used';
+            validationColor(email, email_validation)
             isEmailValid = false;
         }
     }
@@ -123,9 +133,11 @@ first_name.addEventListener('input', firstNameValidation);
 export async function firstNameValidation() {
     if(isEmpty(first_name.value)) {
         first_name_validation.textContent = 'Add A First Name';
+        validationColor(first_name, first_name_validation)
         isFirstNameValid = false;
     } else {
         first_name_validation.textContent = '';
+        validationColor(first_name, first_name_validation)
         isFirstNameValid = true;
     }
 }
@@ -134,9 +146,11 @@ last_name.addEventListener('input', lastNameValidation);
 export async function lastNameValidation() {
     if(isEmpty(last_name.value)) {
         last_name_validation.textContent = 'Add A Last Name';
+        validationColor(last_name, last_name_validation)
         isLastNameValid = false;
     } else {
         last_name_validation.textContent = '';
+        validationColor(last_name, last_name_validation)
         isLastNameValid = true;
     }
 }
@@ -152,6 +166,8 @@ export async function postUser(user_id) {
     let settings = { method: 'POST', body: body}
 
     await fetch('../db/update_user.php', settings)
+
+    window.location.reload();
 }
 
 export async function updateUser() {

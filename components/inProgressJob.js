@@ -42,8 +42,11 @@ export function inProgressJobComponent(id, job_number, telephone_number, descrip
     input.setAttribute('name', 'updateStatus');
     input.setAttribute('class', 'in-progress-job-input');
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const user_id = urlParams.get('user_id');
+
     link.setAttribute('class', 'in-progress-job-link');
-    link.setAttribute('href', `../pages/in_progress_job_details.html?job_id=${id}`);
+    link.setAttribute('href', `../pages/in_progress_job_details.html?job_id=${id}&user_id=${user_id}`);
 
     link.appendChild(job_number_element);
     link.appendChild(telephone_number_element);

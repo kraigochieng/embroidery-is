@@ -17,7 +17,7 @@ import { getQuantity } from "./values.js"
 import { createInstruction } from "./values.js"
 
 // Number of jobs
-for(let i = 0; i < 1000000; i++) {
+for(let i = 0; i < 7000; i++) {
     let job_number = await getJobNumber()
     let receiver_teller_id = await getUser()
     let confirmer_teller_id = await getUser()
@@ -34,7 +34,7 @@ for(let i = 0; i < 1000000; i++) {
     console.log('Job ID: ', job_id)
     
     // Number of format and letters wanted
-    for(let j = 0; j < randomNumber(1, 3); j++) {
+    for(let j = 0; j < randomNumber(1, 5); j++) {
         let format_id = await getFormat()
         let letters = await getLetters()
         // Number of instructions

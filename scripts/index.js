@@ -22,11 +22,10 @@ async function setAdminButton() {
     })
         .then(response => response.json())
         .then(user => {
-            console.log(user);
             if(user.role_id === 3) {
                 let go_to_admin = document.querySelector('#go-to-admin');
                 go_to_admin.setAttribute('href', `../pages/admin.html?user_id=${user.id}`);
-                go_to_admin.style.display = 'inline'
+                go_to_admin.style.display = 'flex'
             }
         })
 }

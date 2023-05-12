@@ -3,6 +3,13 @@ import { selectAndFill } from '../functions/selectAndFill.js';
 import { getUrlParam } from '../functions/getUrlParam.js';
 import { instructionDetailsComponent } from '../components/instructionDetails.js';
 
+// Setting Back Button
+const urlParams = new URLSearchParams(window.location.search);
+const user_id = urlParams.get('user_id');
+
+let back_to_jobs = document.querySelector('#back-to-jobs')
+back_to_jobs.setAttribute('href', `../index.html?user_id=${user_id}`)
+
 // Get Job Number from URL
 function updateJobSection(job) {
     selectAndFill('job-number', job.job_number);

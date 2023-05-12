@@ -7,7 +7,7 @@
     --image-dimension: 150px;
     --dark-blue: #005F73;
     --blue: #0A9396;
-    --light-blue: #94D2BD;
+    --light-blue: rgb(148, 210, 189);
     --blackish: #001219;
     --orange: #CA6702;
 }

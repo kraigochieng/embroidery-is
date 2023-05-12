@@ -35,9 +35,12 @@ export function doneJobComponent(id, job_number, telephone_number, description, 
     // let time_created_element = dateAndTimeComponent('Start', start);
     // let time_done_element = dateAndTimeComponent('End', end);
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const user_id = urlParams.get('user_id');
+    
     link.setAttribute('id', id);
     link.setAttribute('class', 'done-job-link');
-    link.setAttribute('href', `../pages/done_job_details.html?job_id=${id}`);
+    link.setAttribute('href', `../pages/done_job_details.html?job_id=${id}&user_id=${user_id}`);
 
     link.appendChild(job_number_element);
     link.appendChild(telephone_number_element);

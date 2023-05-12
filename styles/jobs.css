@@ -8,6 +8,7 @@ body {
     margin-right: auto;
 }
 
+
 #logo {
     width: 50px;
 }
@@ -172,3 +173,6 @@ background-color: var(--palish-yellow);
     color: var(--maroon);
 }
 
+#go-to-admin {
+    display: none;
+}

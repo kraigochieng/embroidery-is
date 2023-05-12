@@ -13,7 +13,7 @@ export async function getUser() {
 }
 
 export async function getJobNumber() {
-    return randomNumber(1000,9999999)
+    return randomNumber(1000,9999)
 }
 
 let padding = (number) => {
@@ -21,8 +21,8 @@ let padding = (number) => {
 }
 
 export async function getDateTimes() {
-    let year = randomNumber(2010,2022)
-    let month = padding(randomNumber(1, 4))
+    let year = randomNumber(2021,2022)
+    let month = padding(randomNumber(1, 12))
     let day = padding(randomNumber(1, 28))
     let created_hour = randomNumber(6, 19)
     let done_hour = padding(created_hour + 1)

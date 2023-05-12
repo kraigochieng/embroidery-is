@@ -74,7 +74,7 @@ export async function instructionsPerDay(year, month) {
         .attr('text-anchor', 'middle')
         .attr('transform', `rotate(270)`)
         .attr('class', 'graph-label')
-        .text('Total Jobs')
+        .text('Total Instructions')
 
     g.selectAll('.bar')
         .data(instructions_per_day)

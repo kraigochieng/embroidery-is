@@ -17,10 +17,12 @@
 
 input {
     width: 100%;
+    font-size: 1.2em;
 }
 
 input::-webkit-input-placeholder {
     text-align: center;
+    font-size: 1.2em;
 }
 
 body {
@@ -45,7 +47,9 @@ input {
 
 #manage-users-title {
     text-align: center;
+    font-size: 3em;
     margin-top: 50px;
+    padding: 10px;
 }
 
 .user-section {
@@ -63,15 +67,18 @@ input {
     transform: scale(1.05);
 }
 
-.user-delete, .user-edit {
-    border: solid 1px var(--dark-blue);
-    background-color: var(--light-blue);
-    color: var(--dark-blue);
+.user-delete, .user-edit  {
     transition: transform 200ms ease-in-out;
     transition: color 200ms ease-in-out;
     transition: border-color 200ms ease-in-out;
     transition: background-color 200ms ease-in-out;
     border-radius: 5px;
+}
+
+.user-delete, .user-edit, #create-user, #update-user{
+    border: solid 1px var(--dark-blue);
+    background-color: var(--light-blue);
+    color: var(--dark-blue);
 }
 
 .user-delete:hover, .user-edit:hover {
@@ -101,7 +108,7 @@ input {
 }
 
 /* Create */
-#open-create-user-popup {
+/* #open-create-user-popup {
     background-color: var(--palish-yellow);
     color: var(--maroon);
     width: 40px;
@@ -118,6 +125,19 @@ input {
 
 #open-create-user-popup:hover {
     width: 50px;
+} */
+
+#open-create-user-popup {
+    /* display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto; */
+    display: block;
+    text-align: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
 }
 
 #name-create-section {
@@ -142,6 +162,7 @@ input {
 
 .validation {
     text-align: center;
+    font-size: 0.9em;
 }
 
 /* #password-create-section input{
@@ -184,13 +205,14 @@ input {
 }
 /* Update */
 .update-input {
-    padding: var(--common-px);
-    margin-bottom: var(--common-px);
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 .update-title {
-    margin-bottom: var(--common-px)
+    margin-bottom: 5px;
 }
+
 .update-title, .update-input, .validation{
     max-width: 240px;
     width: 80%;
@@ -200,11 +222,13 @@ input {
 }
 
 #create-user, #update-user {
+    margin: var(--common-padding);
     padding: var(--common-padding);
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
 .close-popup {
     font-size: 2.5em;
 }
@@ -267,7 +291,7 @@ input {
     text-decoration: underline;
 }
 
-.popup-detail-header, .popup-details-heading, .popup-header-heading {
+#manage-users-title, .popup-detail-header, .popup-details-heading, .popup-header-heading {
     font-family: 'IBM Plex Sans Regular';
 }
 .popup-detail, .popup-detail-header, .popup-details-heading, .popup-header-heading {
