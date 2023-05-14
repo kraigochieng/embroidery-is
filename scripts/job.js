@@ -250,7 +250,8 @@ async function fetchPositions() {
                 for(let i = 0; i < positions.length; i++) {
                     // Create Element
                     let position = positionComponent(positions[i].id, item_name, positions[i].name);
-
+                    let position_div = document.createElement('div')
+                    position_div.className = 'position-div'
                     position.label.addEventListener('click', function(){
                         // console.log(position.label);
                         // Clear Validation
@@ -264,8 +265,12 @@ async function fetchPositions() {
                         // console.log(instruction.position);
                     })
                     // Append
-                    position_section.appendChild(position.input);
-                    position_section.appendChild(position.label);
+                    position_div.appendChild(position.input)
+                    position_div.appendChild(position.label)
+
+                    position_section.appendChild(position_div)
+                    // position_section.appendChild(position.input);
+                    // position_section.appendChild(position.label);
                 }
             })
     })

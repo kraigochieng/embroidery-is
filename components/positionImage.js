@@ -6,6 +6,7 @@ function positionLink(name) {
 
 export function positionImageComponent(path, item, position, extension) {
     let figure = document.createElement('figure');
+    figure.className = 'position-figure'
     let image = document.createElement('img');
     let figcaption = document.createElement('figcaption');
 

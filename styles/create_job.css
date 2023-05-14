@@ -218,16 +218,39 @@ input[type="radio"] {
     display: none;
 }
 
+.position-div {
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.position-div:has(input[type="radio"]:checked) {
+    outline: solid 2.5px var(--blue);
+}
+
 input[type="radio"]:checked + label {
-    color: green;
+    color: var(--blue);
 }
 
 #position-section {
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.position-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.position-figcation {
+    text-align: center;
 }
 
 .position-image {
-    width: 100px;
+    width: 175px;
     height: auto;
 }
 
@@ -277,6 +300,7 @@ input[type="radio"]:checked + label {
     border: solid 2px var(--blue);
     background-color: var(--light-blue);
 }
+
 #selected-instructions-section {
     display: none;
 }
