@@ -210,6 +210,7 @@ function createUser() {
             .then(response => response.json())
             .then(user => console.log(user))
             .then(window.location.reload())
+            .then(alert(`${username.value} has been created`))
             .catch(error => console.error(error));
     }
     

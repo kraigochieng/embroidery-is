@@ -166,8 +166,8 @@ export async function postUser(user_id) {
     let settings = { method: 'POST', body: body}
 
     await fetch('../db/update_user.php', settings)
-
-    window.location.reload();
+    .then(window.location.reload())
+    .then(alert(`${username.value} has been updated`))
 }
 
 export async function updateUser() {

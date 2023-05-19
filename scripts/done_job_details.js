@@ -73,7 +73,7 @@ function fetchJob() {
 }
 
 function backToHome() {
-    let back_to_home = document.querySelector('#back-to-home');
+    let back_to_home = document.querySelector('#back-to-jobs');
 
     let user_id = localStorage.getItem('user_id');
 

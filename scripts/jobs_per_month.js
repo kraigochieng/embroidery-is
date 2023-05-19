@@ -19,7 +19,7 @@ export async function jobsPerMonth(year) {
 
     let max = {
         x: d3.max(jobs_per_month, d => d.month),
-        y: d3.max(jobs_per_month, d => d.total_jobs)
+        y: d3.max(jobs_per_month, d => parseInt(d.total_jobs))
     }
 
     let domain = {

@@ -96,6 +96,7 @@ async function deleteUser(user_id) {
 
     // Delete
     await fetch('../db/delete_user.php', settings)
+        .then(alert('A user has been deleted'))
 
     await closeDeleteUserPopup()
    

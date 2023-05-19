@@ -12,6 +12,12 @@
     --orange: #CA6702;
 }
 
+@media print {
+    .exclude-print {
+        display: none;
+    }
+}
+
 * {
     font-family: 'IBM Plex Sans Medium', serif;
     box-sizing: border-box;

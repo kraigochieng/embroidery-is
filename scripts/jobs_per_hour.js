@@ -20,7 +20,7 @@ export async function jobsPerHour(year, month, day) {
 
     let max = {
         x: d3.max(jobs_per_hour, d => d.hour),
-        y: d3.max(jobs_per_hour, d => d.jobs)
+        y: d3.max(jobs_per_hour, d => parseInt(d.jobs))
     }
 
     let domain = {

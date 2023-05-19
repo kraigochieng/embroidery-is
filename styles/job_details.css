@@ -1,26 +1,43 @@
 /* * {
     outline: solid 1px green;
 } */
+
+#heading {
+    margin-top: 50px;
+}
+
 body {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
 }
 
-#job-details {
+main {
     display: flex;
-    flex-wrap: wrap;
+}
+
+#job-details {
+    flex-shrink: 0.5;
+    display: flex;
+    flex-direction: column;
     border-radius: var(--common-px);
     margin: var(--common-px);
 }
 
-.job-details-section {
-    margin: 2px;
-    border: solid 1px black;
-    border-radius: var(--common-px);
+#instruction-details-section {
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.title, .job-details-value {
+.job-details-section {
+    display: flex;
+}
+
+.job-details-value {
+    border-bottom: solid 1px black
+}
+
+.job-details-value {
     text-align: center;
 }
 

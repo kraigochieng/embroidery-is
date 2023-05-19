@@ -69,13 +69,19 @@ function fetchJob() {
 }
 
 function backToHome() {
-    let back_to_home = document.querySelector('#back-to-home');
+    let back_to_home = document.querySelector('#back-to-jobs');
 
     let user_id = localStorage.getItem('user_id');
 
     back_to_home.setAttribute('href', `../index.html?user_id=${user_id}`);
 }
 
+let print = document.querySelector('#print')
+
+print.addEventListener('click', printPage)
+function printPage() {
+    window.print()
+}
 // Functions
 backToHome();
 fetchJob();
