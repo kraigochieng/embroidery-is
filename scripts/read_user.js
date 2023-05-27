@@ -25,8 +25,8 @@ export async function viewReadUser() {
     console.log(user.time_updated)
     if(user.time_updated) {
         let updated = timeParser(user.time_updated)
-        date_updated.textContent = updated.time;
-        time_updated.textContent = updated.date;
+        date_updated.textContent = updated.date;
+        time_updated.textContent = updated.time;
     } else {
         date_updated.textContent = 'Never Updated';
         time_updated.textContent = 'Never Updated';

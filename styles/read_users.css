@@ -292,7 +292,7 @@ input {
 }
 
 #manage-users-title, .popup-detail-header, .popup-details-heading, .popup-header-heading {
-    font-family: 'IBM Plex Sans Regular';
+    font-family: 'IBM Plex Sans Bold';
 }
 .popup-detail, .popup-detail-header, .popup-details-heading, .popup-header-heading {
     text-align: center;

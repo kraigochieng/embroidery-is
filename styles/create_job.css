@@ -6,6 +6,12 @@
     --input-padding: 10px;
 }
 
+.format-select, .letters, .instruction-description {
+    padding: 5px;
+    border: solid 2px grey;
+    border-radius: 5px;
+}
+
 html {
     display: inline-block;
     min-width: 800px;
@@ -72,6 +78,7 @@ h1 {
 }
 
 .job-details-input {
+    font-size: 1.01em;
     margin-top: 20px;
 }
 
@@ -202,31 +209,27 @@ table, tr, th, td {
     flex-wrap: wrap;
     padding: 10px;
 }
-/* For the dropdown  */
-select::-webkit-scrollbar {
-    display: none;
-}
 
-option:hover {
-    background-color: var(--light-blue);
-}
-/* For the dropdown  */
-/*  */
-
-
-input[type="radio"] {
-    display: none;
+.position-div:hover {
+    outline: dashed 2.5px var(--blue);
+    transform: scale(1.1);
 }
 
 .position-div {
-    margin: 5px;
+    margin: 10px;
     border: none;
     border-radius: 5px;
     padding: 5px;
+    transition: transform 100ms ease-in-out;
+    transition: outline 100ms ease-in-out;
 }
 
 .position-div:has(input[type="radio"]:checked) {
     outline: solid 2.5px var(--blue);
+}
+
+input[type="radio"] {
+    display: none;
 }
 
 input[type="radio"]:checked + label {
@@ -253,6 +256,19 @@ input[type="radio"]:checked + label {
     width: 175px;
     height: auto;
 }
+/* For the dropdown  */
+select::-webkit-scrollbar {
+    display: none;
+}
+
+option:hover {
+    background-color: var(--light-blue);
+}
+/* For the dropdown  */
+/*  */
+
+
+
 
 /* Conditional Classes */
 .empty-format-container {
@@ -304,8 +320,10 @@ input[type="radio"]:checked + label {
 #selected-instructions-section {
     display: none;
 }
+
 .instruction-table {
     min-width: 400px;
+    margin: 10px;
 }
 
 .instruction-table, tr,td, th {

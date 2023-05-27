@@ -122,7 +122,7 @@ SELECT
     FROM instruction
     LEFT JOIN
 		format ON instruction.format_id = format.id
-    GROUP BY format_id, letters;
+    GROUP BY instruction.format_id, instruction.letters;
     
 CREATE VIEW jobs_per_year AS
 SELECT

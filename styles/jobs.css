@@ -13,6 +13,35 @@ body {
     width: 50px;
 }
 
+/*Blank Jobs Container*/
+#blank-container {
+    font-size: 4em;
+    font-family: 'IBM Plex Sans Light Italic';
+    display: block;
+    margin: auto;
+    text-align: center;
+    color: rgb(128, 128, 128);
+    height: max-content;
+}
+
+.blank-job-type {
+    font-family: 'IBM Plex Sans Regular';
+    color: rgb(59, 59, 59);
+}
+
+.blank-job-number {
+    font-family: 'IBM Plex Sans Regular';
+    color: rgb(59, 59, 59);
+}
+/* Hover Effect */
+.in-progress-job-section, .done-job-link, #new-job-link, #go-to-admin {
+    transition: transform 200ms ease-in-out;
+}
+
+.in-progress-job-section:hover, .done-job-link:hover, #new-job-link:hover, #go-to-admin:hover {
+    transform: scale(1.1);
+}
+
 #new-job-link, #go-to-admin {
     text-decoration: none;
     display: flex;
@@ -23,6 +52,7 @@ body {
 #job-search-container {
     position: sticky;
 }
+
 .job-search {
     display: block;
     
@@ -154,11 +184,11 @@ body {
     border-radius: 10px;
     padding: var(--common-px);
     margin: var(--common-px);
-    transition: background-color 200ms ease-in-out;
+    /* transition: background-color 200ms ease-in-out; */
 }
 
 .in-progress-job-section:hover, .done-job-link:hover {
-background-color: var(--palish-yellow);
+    background-color: var(--palish-yellow);
 }
 
 .in-progress-job-link, .done-job-link {

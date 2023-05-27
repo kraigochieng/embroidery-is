@@ -10,6 +10,14 @@ async function setUserIdSession() {
     localStorage.setItem('user_id', user_id);
 }
 
+async function jobsContainerPlaceHolder(message) {
+    let jobs_container = document.querySelector('#jobs-container')
+
+    if(jobs_container.innerHTML == "") {
+        jobs_container.innerHTML = `<p id="blank-container">${message}</p>`
+    }
+}
+
 async function setAdminButton() {
     const user_id = localStorage.getItem('user_id');
 
@@ -37,45 +45,55 @@ async function fetchDoneJobs(container, body) {
     })
         .then(response => response.json())
         .then(done_jobs => {
-            for(let i = 0; i < done_jobs.length; i++) {
-                let done_job = doneJobComponent(
-                    done_jobs[i].id,
-                    done_jobs[i].job_number,
-                    done_jobs[i].telephone_number,
-                    done_jobs[i].description,
-                    done_jobs[i].receiver_teller_username,
-                    done_jobs[i].confirmer_teller_username,
-                    done_jobs[i].time_created,
-                    done_jobs[i].time_done,
-                    done_jobs[i].total_quantity,
-                    );
-
-                container.appendChild(done_job); 
+            if(done_jobs.length == 0) {
+                jobsContainerPlaceHolder(`There are no<br> <span class="blank-job-type">Done Jobs</span><br> with the<br> <span class="blank-job-number">Job Number: ${body.get('done_job_number')}</span>`)
+            } else {
+                for(let i = 0; i < done_jobs.length; i++) {
+                    let done_job = doneJobComponent(
+                        done_jobs[i].id,
+                        done_jobs[i].job_number,
+                        done_jobs[i].telephone_number,
+                        done_jobs[i].description,
+                        done_jobs[i].receiver_teller_username,
+                        done_jobs[i].confirmer_teller_username,
+                        done_jobs[i].time_created,
+                        done_jobs[i].time_done,
+                        done_jobs[i].total_quantity,
+                        );
+    
+                    container.appendChild(done_job); 
+                }
             }
+
         })
         .catch(error => console.error(error))
 }
 
-function fetchInProgressJobs(container, body) {
+async function fetchInProgressJobs(container, body) {
     fetch('../db/in_progress_jobs.php', {
         method: 'POST',
         body: body,
     })
         .then(response => response.json())
         .then(in_progress_jobs => {
-            for(let i = 0; i < in_progress_jobs.length; i++) {
-                let in_progress_job = inProgressJobComponent(
-                    in_progress_jobs[i].id,
-                    in_progress_jobs[i].job_number,
-                    in_progress_jobs[i].telephone_number,
-                    in_progress_jobs[i].description,
-                    in_progress_jobs[i].receiver_teller_username,
-                    in_progress_jobs[i].time_created,
-                    in_progress_jobs[i].total_quantity,
-                    );
-
-                container.appendChild(in_progress_job); 
+            if(in_progress_jobs.length == 0) {
+                jobsContainerPlaceHolder(`There are no<br> <span class="blank-job-type">In Progress Jobs</span><br> with the<br> <span class="blank-job-number">Job Number: ${body.get('in_progress_job_number')}</span>`)
+            } else {
+                for(let i = 0; i < in_progress_jobs.length; i++) {
+                    let in_progress_job = inProgressJobComponent(
+                        in_progress_jobs[i].id,
+                        in_progress_jobs[i].job_number,
+                        in_progress_jobs[i].telephone_number,
+                        in_progress_jobs[i].description,
+                        in_progress_jobs[i].receiver_teller_username,
+                        in_progress_jobs[i].time_created,
+                        in_progress_jobs[i].total_quantity,
+                        );
+    
+                    container.appendChild(in_progress_job); 
+                }
             }
+
         })
         .catch(error => console.error(error))
 }
@@ -124,18 +142,16 @@ function markDone() {
             .then(jobs => console.log(jobs))
             .catch(error => console.log(error))
 
-            
-
             window.location.assign(`../index.html?user_id=${user_id}`);
         
     }
     
     console.log(job_ids);
 }
+
 // Get session variable
 const isLoggedIn = sessionStorage.getItem('isLoggedIn');
 
-// 
 if(isLoggedIn === null) {
     window.location.assign('../pages/login.html'); // Go to login page if session variable is null
 } else {
@@ -161,21 +177,22 @@ if(isLoggedIn === null) {
     
     // Event listeners
         // Tabs
-    in_progress_job_tab.addEventListener('click', showInProgressJobs);
+    in_progress_job_tab.addEventListener('click',showInProgressJobs);
     in_progress_job_tab.addEventListener('click', showMarkDone);
     done_job_tab.addEventListener('click', showDoneJobs);
     done_job_tab.addEventListener('click', hideMarkDone);
         // Search
     in_progress_job_search.addEventListener('input', showInProgressJobSearch);
 
-    function showInProgressJobSearch() {
+    async function showInProgressJobSearch() {
         const inProgressJobData = new FormData();
         inProgressJobData.append('in_progress_job_number', in_progress_job_search.value);
         
         jobs_container.innerHTML = "";
 
         // Add in progress jobs to container
-        fetchInProgressJobs(jobs_container, inProgressJobData);
+        await fetchInProgressJobs(jobs_container, inProgressJobData);
+
     }
 
     function showInProgressJobs() {
@@ -206,14 +223,15 @@ if(isLoggedIn === null) {
         // Create Done Job Search Bar
         let done_job_search = doneJobSearch();
         // Search Functionality
-        done_job_search.addEventListener('input',function(){
+        done_job_search.addEventListener('input',async function(){
             // Get Search
             const doneJobData = new FormData();
             doneJobData.append('done_job_number', this.value);
             // Clear Container
             jobs_container.innerHTML = "";
             //Get Done Jobs
-            fetchDoneJobs(jobs_container, doneJobData);
+            await fetchDoneJobs(jobs_container, doneJobData);
+
         })
         // Append Search Bar
         job_search_container.appendChild(done_job_search);

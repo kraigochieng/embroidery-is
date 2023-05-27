@@ -4,7 +4,7 @@ export function timeParser(timestamp) {
     // console.log(date);
     
     let [year, month, day] = date.split('-');
-
+    day = parseInt(day)
     let [hour, minute, second] = time.split(':');
 
     // Get Month Name
@@ -51,7 +51,7 @@ export function timeParser(timestamp) {
     if(parseInt(day) > 3 && parseInt(day) < 21) {
         day = `${day}th`;
     } else {
-        switch(parseInt(day) % 10) {
+        switch(day % 10) {
             case 1:
                 day = `${day}st`;
             case 2:
@@ -69,7 +69,7 @@ export function timeParser(timestamp) {
     // Get Meridiem And Hour
     let meridiem = '';
 
-    if(parseInt(hour) >= 12) {
+    if(parseInt(hour) > 12) {
         meridiem = 'pm';
         hour = (Math.abs(parseInt(hour) - 12)).toString();
     } else {
