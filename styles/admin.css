@@ -1,13 +1,15 @@
 .admin-choices {
     text-decoration: none;
-    color: black;
+    color: var(--orange);
     text-align: center;
     padding: 20px;
     margin: 50px;
-    border: solid 1px black;
+    border: solid 3px var(--brightish-red);
     border-radius: var(--common-px);
     transition: transform 200ms ease;
+    background-color: var(--palish-yellow);
 }
+
 .admin-choices:hover {
     transform: scale(1.1);
 }

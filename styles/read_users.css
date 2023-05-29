@@ -36,7 +36,13 @@ input {
     outline: none;
     border: none;
     border-bottom: solid 1px black;
+   
+}
+.create-input {
     margin-top: 30px;
+}
+.update-title {
+    margin-top: 20px;
 }
 
 :root {

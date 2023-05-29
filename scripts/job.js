@@ -87,7 +87,6 @@ function telephoneNumberValidation(element, validation) {
         element.classList.add('invalid-input')
         validation.textContent = 'Invalid Phone Number'
     }
-    
 }
 
 async function telephoneNumberInputValidation() {
@@ -482,10 +481,12 @@ function addToJobObject() {
     })
         .then(response => response.text())
         .then(job => console.log(job))
+        .then(window.alert(`A Job with job number ${job.number} has been created`))
         .catch(error => console.log(error));
 
     // Go Back To Index Page 
     window.location.assign(`../index.html?user_id=${user_id}`);
+
 }
 
 async function addJob(){

@@ -1,3 +1,4 @@
+import { numberWithCommas } from "../functions/numbersWithCommas.js"
 import { getMonth } from "../functions/getMonth.js"
 
 async function getInstructionsPerMonth(year) {
@@ -45,7 +46,8 @@ export async function instructionsPerMonth(year) {
                 scale.y.ticks()
                         .filter(tick => Number.isInteger(tick))
                 )
-            .tickFormat(d3.format('d'))
+            // .tickFormat(d3.format('d'))
+            .tickFormat(d => numberWithCommas(d))
     }
 
     let g = svg.append('g')
@@ -89,6 +91,6 @@ export async function instructionsPerMonth(year) {
         .attr('height', d => height - scale.y(d.total_quantity))
         .append("title")
         .attr('class', 'tooltip')
-        .text(d => d.total_quantity)
+        .text(d => `Total Money Made: ${numberWithCommas(d.total_quantity * 100)}`)
 }
 

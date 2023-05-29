@@ -1,3 +1,4 @@
+import { numberWithCommas } from "../functions/numbersWithCommas.js"
 async function getInstructionsPerYear() {
     let response = await fetch('../db/read_instructions_per_year.php')
     return response.json()
@@ -39,7 +40,8 @@ export async function instructionsPerYear() {
                 scale.y.ticks()
                         .filter(tick => Number.isInteger(tick))
                 )
-            .tickFormat(d3.format('d'))
+            // .tickFormat(d3.format('d'))
+            .tickFormat(d => numberWithCommas(d))
     }
 
     let g = svg.append('g')
@@ -83,5 +85,5 @@ export async function instructionsPerYear() {
         .attr('height', d => height - scale.y(d.total_quantity))
         .append("title")
         .attr('class', 'tooltip')
-        .text(d => d.total_quantity)
+        .text(d => `Total Money Made: Kshs. ${numberWithCommas(d.total_quantity * 100)}`)
 }

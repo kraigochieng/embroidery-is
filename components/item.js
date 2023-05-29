@@ -15,19 +15,19 @@ export function itemComponent() {
             }
         })
 
-        // // For options to appear on hover
-        // select.addEventListener('mouseover', function(){
-        //     select.size = select_length;//toString(select_length);
-        // })
+        // For options to appear on hover
+        select.addEventListener('mouseover', function(){
+            select.size = select_length;//toString(select_length);
+        })
 
-        // // For options to disappear after click
-        // select.addEventListener('click', function(){
-        //     select.size = 1;//toString(select_length);
-        // })
+        // For options to disappear after click
+        select.addEventListener('click', function(){
+            select.size = 1;//toString(select_length);
+        })
 
-        // // For options to disapear after hover
-        // select.addEventListener('mouseleave', function(){
-        //     select.size = 1;
-        // })
+        // For options to disapear after hover
+        select.addEventListener('mouseleave', function(){
+            select.size = 1;
+        })
     return select;
 }
